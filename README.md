@@ -1,6 +1,12 @@
 
 ## Introduction
 
+These are the notes I had taken while reading [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) by Apple Inc. 
+If you don't have time to read the book, skimming through these points will save you some time.
+
+It is still a work in progress, there are still some formatting errors. Should you spot any typo or data error, please submit a pull request.
+
+
 ## The Basics
 
 ### Constants & Variables
