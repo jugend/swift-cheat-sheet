@@ -172,8 +172,8 @@ Still a work in progress, there are still some formatting and typo errors, will 
 
       ```swift
       let paddedDouble = 000123.456
-      let oneMillion = 1\_000\_000
-      let justOverOneMillion = 1\_000\_000.000\_000\_1
+      let oneMillion = 1_000_000
+      let justOverOneMillion = 1_000_000.000_000_1
       ```
 
 ### Numeric Type Conversion
@@ -194,7 +194,7 @@ Still a work in progress, there are still some formatting and typo errors, will 
     * To convert:
 
       ```swift
-      * let twoThousand: UInt16 = 2\_000
+      * let twoThousand: UInt16 = 2_000
       * let one: UInt 8 - 1
       * let twoThousandAndOne = twoThousand + UInt16(one)
       ```
@@ -256,7 +256,7 @@ Still a work in progress, there are still some formatting and typo errors, will 
     ```swift
     let http404Error = (404, "Not found")
     let (statusCode, statusMessage) = http404Error
-    let (justStatusCode, \_) = http404Error
+    let (justStatusCode, _) = http404Error
     println("Status code is \(http404Error.0), message: \(http404Error.1)")
     let http200Status = (statusCode: 200, description: "OK")
     println("Status code: \(http200Status.statusCode)")
@@ -575,7 +575,10 @@ Still a work in progress, there are still some formatting and typo errors, will 
 
 ### Overview
 
-  * "hello world"
+  ```swift
+  "hello world"
+  ```
+
   * Represented by String, a collection of values of Character type
   * Unicode compliant
   * Swift's string is bridged seamlessly to Foundation's NSString, the entire NSString API is available to call on any String value you create, in addition to the String features described later on.
@@ -584,14 +587,18 @@ Still a work in progress, there are still some formatting and typo errors, will 
 
 ### String Literals
 
-  * let someString = "Some string literal value"
+  ```swift
+  let someString = "Some string literal value"
+  ```
 
 ### Initializing an Empty String
 
-  * var emptyString = ""
-  * var anotherEmptyString = String()
-  * emptyString == anotherEmptyString
-  * if emptyString.isEmpty
+  ```swift
+  var emptyString = ""
+  var anotherEmptyString = String()
+  emptyString == anotherEmptyString
+  if emptyString.isEmpty
+  ```
 
 ### String Mutability
   
@@ -714,9 +721,13 @@ Still a work in progress, there are still some formatting and typo errors, will 
     * == and !=
     * Two String values (or two Character values) are considered equal if their extended grapheme clusters are canonically equivalent
       * If they have the same linguistic metalling or appearance, even if they are composed from different Unicode scalars behind the scene
-    * "\u{E9}" == "\u{65}\u{301}" //  é - true  
-    * "\u{41}" == "\u{0410}" // false - latinCapitalLetterA & cyrillicCapitalLetterA different linguistic meaning  
-    * Note
+    
+    ```swift    
+    "\u{E9}" == "\u{65}\u{301}" //  é - true  
+    "\u{41}" == "\u{0410}" // false - latinCapitalLetterA & cyrillicCapitalLetterA different linguistic meaning  
+    ```
+
+    * Notes
       * String and character comparisons in Swift are not locale sensitive
   * Prefix & Suffix Equality
     * hasPrefix, hasSuffix
@@ -883,7 +894,7 @@ Still a work in progress, there are still some formatting and typo errors, will 
     * A hash value is an Int value that is the same for all object that compare equal if a == b, a.hashValue == b.hashValue
     * All Swift's basic types are hash able by default
     * Enumeration member values without associated values are hash able by default
-    * Note:
+    * Note
       * Make custom typ to conform to Hashable protocol
       * To provide hashValue and "==" operator property implementation
       * hashValue not required to be the same across different executions or in different programs
@@ -904,7 +915,7 @@ println("\(index) times 5 is \(index * 5)")
     * If you don't need the index value
 
       ```swift
-      for \_ in 1...power { ... }
+      for _ in 1...power { ... }
       ```
 
     * You can use for in for array and dictionaries too:
@@ -989,7 +1000,7 @@ println("\(index) times 5 is \(index * 5)")
       switch somePoint {
         case (0, 0):
           ....
-        case (\_, 0):
+        case (_, 0):
           ...
         case (-2...2, -2...2):
           ...
@@ -1000,7 +1011,6 @@ println("\(index) times 5 is \(index * 5)")
 
   * Value Bindings
     * Bind value or values it matches to temporary constants or variables for use in the body of the case, known as value binding
-    * Example:
 
       ```swift
       switch anotherPoint {
@@ -1063,8 +1073,6 @@ println("\(index) times 5 is \(index * 5)")
 
 ### Defining and Calling Functions
   
-  * Example:
-
     ```swift
     func sayHello(personName: String) -> String {
       let greeting = "Hello, " + personName + "!"
@@ -1128,8 +1136,6 @@ println("\(index) times 5 is \(index * 5)")
 
 ### Function Parameter Names
 
-  * Example:
-
     ```swift
     fund someFunction(paramName: Int) { ... }
     ```
@@ -1138,7 +1144,6 @@ println("\(index) times 5 is \(index * 5)")
   * External Parameter Names
     * Sometimes it is useful to use a different param when you call a function
     * To do that, define an external parameter name for each parameter
-    * Example:
 
       ```swift
       func someFunction(paramExt  paramName: Int) { ... }
@@ -1153,7 +1158,6 @@ println("\(index) times 5 is \(index * 5)")
   * Default Parameter Values
     * Place params with default values at the end of a function's param list. 
     * Ensures that all calls to the func use the same order for their non-default args
-    * Example:
 
       ```swift
       func someFunc(paramName: String = " ") { ... }
@@ -1161,19 +1165,17 @@ println("\(index) times 5 is \(index * 5)")
 
   * External Names for Parameters with Default Values
     * Swift provides an automatic external name for any param that has a default value, and it is the same with the paramName just like using the hash symbol
-    * Example:
 
       ```swift
       func someFunc(joiner: String = " ")
       someFunc(joiner: "-")
       ```
 
-    * You can opt out of this behaviour by writing an underscore (\_) instead of an explicit external name when you define a parameter  
+    * You can opt out of this behaviour by writing an underscore (_) instead of an explicit external name when you define a parameter  
       * Not recommended
   * Variadic Parameters
     * Accepts 0 or more values for a specified type
     * [someType]...
-    * Example:
 
       ```swift
       func average(numbers: Double...) -> Double
@@ -1900,7 +1902,7 @@ count = 0
         * }
   * Modifying External Parameter Name Behaviour for Methods
     * Use # or add external parameter name for the first param
-    * To disable second param onwards, add \_
+    * To disable second param onwards, add _
   * The self Property
     * self refers to current instance
     * You don't usually need to declare 
@@ -2238,11 +2240,11 @@ blue  = white
 let halfGray = Color(white: 0.5)  
       * // without external name will trigger an error
   * **Initializer Parameters Without External Names**
-    * Use "\_" as the external name
+    * Use "_" as the external name
     * Example:
 
       ```swift
-      init(\_ celsius: Double) {  
+      init(_ celsius: Double) {  
       ```
 
 temperatureInCelsius = celsius  
@@ -2540,7 +2542,7 @@ return boardColors[(row * 10) + column]
   * Example:
     * struct Bank {
 
-static var coinsInBank = 10\_000
+static var coinsInBank = 10_000
 
 static func vendCoins(var numberOfCoinsToVend: Int) -> Int {
 
@@ -2591,7 +2593,7 @@ println("A new player has joined the game with \(playerOne!.coinsInPurse) coins"
 println("There are now \(Bank.coinsInBank) coins left in the bank")
 
 // prints "There are now 9900 coins left in the bank
-    * playerOne!.winCoins(2\_000)  
+    * playerOne!.winCoins(2_000)  
 println("PlayerOne won 2000 coins & now has \(playerOne!.coinsInPurse) coins")  
 // prints "PlayerOne won 2000 coins & now has 2100 coins"  
 println("The bank now only has \(Bank.coinsInBank) coins left")  
@@ -2736,7 +2738,7 @@ deinit { println("Card #\(number) is being deinitialized") }
       ```
 
       * john = Customer(name: "John Appleseed")  
-john!.card = CreditCard(number: 1234\_5678\_9012\_3456, customer: john!)  
+john!.card = CreditCard(number: 1234_5678_9012_3456, customer: john!)  
       * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/6E29FF73-6FD5-44AC-BFF2-A44366DAD7A0.png)  
       * john = nil
       * // prints "John Appleseed is being deinitialized"  
@@ -3287,10 +3289,10 @@ println("theAceOfSpades: \(theAceOfSpades.description)")
 
   * Can add computed properties and computed type properties to existing types:
     * extension Double {  
-var km: Double { return self * 1\_000.0 }  
+var km: Double { return self * 1_000.0 }  
 var m: Double { return self }  
 var cm: Double { return self / 100.0 }  
-var mm: Double { return self / 1\_000.0 }  
+var mm: Double { return self / 1_000.0 }  
 var ft: Double { return self / 3.28084 }  
 }  
 let oneInch = [25.4.mm][4]  
@@ -3581,121 +3583,133 @@ required override init() {
     * As a parameter type or return type in a function, method or init
     * As a  type of a constant, variable or property
     * As a type of items in an array, dictionary or other container
-  * Example:
-    * class Dice {  
-let sides: Int  
-let generator: RandomNumberGenerator  
-init(sides: Int, generator: RandomNumberGenerator) {  
-self.sides = sides  
-self.generator = generator  
-}  
-func roll() -> Int {  
-return Int(generator.random() * Double(sides)) + 1  
-}  
-}  
-    * var d6 = Dice(sides: 6, generator: LinearCongruentialGenerator())  
-for \_ in 1...5 {  
-println("Random dice roll is \(d6.roll())")  
-}  
+
+    ```swift
+    class Dice {
+        let sides: Int
+        let generator: RandomNumberGenerator
+        init(sides: Int, generator: RandomNumberGenerator) {
+            self.sides = sides
+            self.generator = generator
+        }
+        func roll() -> Int {
+            return Int(generator.random() * Double(sides)) + 1
+        }
+    }
+
+    var d6 = Dice(sides: 6, generator: LinearCongruentialGenerator())
+    
+    for _ in 1...5 {
+        println("Random dice roll is \(d6.roll())")
+    }
+    ```
 
 ### Delegation
 
   * A design pattern that enables a class or structure to hand off (or delegate) some of its responsibilities to an instance of another type
   * Implemented by defining a protocol that encapsulates the delegated responsibilities
-  * Example:
-    * protocol DiceGame {  
-var dice: Dice { get }  
-func play()  
-}  
-protocol DiceGameDelegate {  
-func gameDidStart(game: DiceGame)  
-func game(game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int)  
-func gameDidEnd(game: DiceGame)  
-}  
-    * class SnakesAndLadders: DiceGame {  
-let finalSquare = 25  
-let dice = Dice(sides: 6, generator: LinearCongruentialGenerator())  
-var square = 0  
-var board: [Int]  
-init() {  
-board = [Int](count: finalSquare + 1, repeatedValue: 0)  
-board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02  
-board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08  
-}  
-var delegate: DiceGameDelegate?  
-func play() {  
-square = 0  
-delegate?.gameDidStart(self)  
-gameLoop: while square != finalSquare {  
-let diceRoll = dice.roll()  
-delegate?.game(self, didStartNewTurnWithDiceRoll: diceRoll)  
-switch square + diceRoll {  
-case finalSquare:  
-break gameLoop  
-case let newSquare where newSquare > finalSquare:  
-continue gameLoop  
-default:  
-square += diceRoll  
-square += board[square]  
-}  
-}  
-delegate?.gameDidEnd(self)  
-}  
-}  
-    * class DiceGameTracker: DiceGameDelegate {  
-var numberOfTurns = 0  
-func gameDidStart(game: DiceGame) {  
-numberOfTurns = 0  
-if game is SnakesAndLadders {  
-println("Started a new game of Snakes and Ladders")  
-}  
-println("The game is using a \(game.dice.sides)-sided dice")  
-}  
-func game(game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int) {  
-++numberOfTurns  
-println("Rolled a \(diceRoll)")  
-}  
-func gameDidEnd(game: DiceGame) {  
-println("The game lasted for \(numberOfTurns) turns")  
-}  
-}  
-    * let tracker = DiceGameTracker()  
-let game = SnakesAndLadders()  
-game.delegate = tracker  
-game.play()  
+
+  ```swift
+  protocol DiceGame {
+      var dice: Dice { get }
+      func play()
+  }
+
+  protocol DiceGameDelegate {
+      func gameDidStart(game: DiceGame)
+      func game(game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int)
+      func gameDidEnd(game: DiceGame)
+  }
+
+  class SnakesAndLadders: DiceGame {
+      let finalSquare = 25
+      let dice = Dice(sides: 6, generator: LinearCongruentialGenerator())
+      var square = 0
+      var board: [Int]
+      init() {
+          board = [Int](count: finalSquare + 1, repeatedValue: 0)
+          board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02
+          board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08
+      }
+      var delegate: DiceGameDelegate?
+      func play() {
+          square = 0
+          delegate?.gameDidStart(self)
+          gameLoop: while square != finalSquare {
+              let diceRoll = dice.roll()
+              delegate?.game(self, didStartNewTurnWithDiceRoll: diceRoll)
+              switch square + diceRoll {
+              case finalSquare:
+                  break gameLoop
+              case let newSquare where newSquare > finalSquare:
+                  continue gameLoop
+              default:
+                  square += diceRoll
+                  square += board[square]
+              }
+          }
+          delegate?.gameDidEnd(self)
+      }
+  }
+
+  class DiceGameTracker: DiceGameDelegate {
+      var numberOfTurns = 0
+      func gameDidStart(game: DiceGame) {
+          numberOfTurns = 0
+          if game is SnakesAndLadders {
+              println("Started a new game of Snakes and Ladders")
+          }
+          println("The game is using a \(game.dice.sides)-sided dice")
+      }
+      func game(game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int) {
+          ++numberOfTurns  
+          println("Rolled a \(diceRoll)")  
+      }  
+      func gameDidEnd(game: DiceGame) {  
+          println("The game lasted for \(numberOfTurns) turns")  
+      }  
+  }  
+
+  let tracker = DiceGameTracker()  
+  let game = SnakesAndLadders()  
+  game.delegate = tracker  
+  game.play()
+  ```
 
 ### Adding Protocol Conformance with an Extension
 
   * You can extend existing type to adopt and conform to a new protocol, even if you do not have access to the source code.
   * Extensions can add new properties, methods, and subscripts to an existing type, and are therefore able to add any requirements that a protocol demand.
-  * Example:
-    * protocol TextRepresentable {  
-func asText() -> String  
-}  
-    * extension Dice: TextRepresentable {  
-func asText() -> String {  
-return "A \(sides)-sided dice"  
-}  
-}  
+    
+    ```swift
+    protocol TextRepresentable {  
+      func asText() -> String  
+    }  
+    
+    extension Dice: TextRepresentable {  
+      func asText() -> String {  
+        return "A \(sides)-sided dice"  
+      }  
+    }
+    ```
+ 
   * Declaring Protocol Adoption with Extension
     * If a type already conforms to a protocol, but has not adopted that protocol you can make it adopt the protocol with an empty extension:
 
       ```swift
       struct Hamster {  
-      ```
-
-var name: String  
-func asText() -> String {  
-return "A hamster named \(name)"  
-}  
-}  
-extension Hamster: TextRepresentable {}  
-
-      ```swift
+        var name: String  
+        
+        func asText() -> String {  
+          return "A hamster named \(name)"  
+        }  
+      }  
+      
+      extension Hamster: TextRepresentable {}  
       let simonTheHamster = Hamster(name: "Simon")  
+      let somethingTextRepresentable: TextRepresentable = simonTheHamster"  
       ```
 
-let somethingTextRepresentable: TextRepresentable = simonTheHamster"  
     * Note
       * Types do not automatically adopt a protocol  by just satisfying its requirements, they must explicitly declare their adoption of the protocol
 
@@ -3792,53 +3806,62 @@ println("Something that doesn't have an area")
     * Optional protocol can only be specified if the protocol is marked with the @objc attribute
     * Even if you are not interoperating with Obj-C you need to mark your protocols with @objc
     * @objc can only be adopted by classes, not structures/enumerations
-  * Example:
-    * @objc protocol CounterDataSource {  
-optional func incrementForCount(count: Int) -> Int  
-optional var fixedIncrement: Int { get }  
-}  
-    * @objc class Counter {  
-var count = 0  
-var dataSource: CounterDataSource?  
-func increment() {  
-if let amount = dataSource?.incrementForCount?(count) {  
-count += amount  
-} else if let amount = dataSource?.fixedIncrement? {  
-count += amount  
-}  
-}  
-}  
-    * class ThreeSource: CounterDataSource {  
-let fixedIncrement = 3  
-}  
-    * var counter = Counter()  
-counter.dataSource = ThreeSource()  
-for \_ in 1...4 {  
-counter.increment()  
-println(counter.count)  
-}  
-    * class TowardsZeroSource: CounterDataSource {  
-func incrementForCount(count: Int) -> Int {  
-if count == 0 {  
-return 0  
-} else if count < 0 {  
-return 1  
-} else {  
-return -1  
-}  
-}  
-}  
-    * counter.count = -4  
-counter.dataSource = TowardsZeroSource()  
-for \_ in 1...5 {  
-counter.increment()  
-println(counter.count)  
-}  
-    * // -3  
-// -2  
-// -1  
-// 0  
-// 0  
+    
+    ```swift
+    @objc protocol CounterDataSource {
+        optional func incrementForCount(count: Int) -> Int
+        optional var fixedIncrement: Int { get }
+    }
+
+    @objc class Counter {
+        var count = 0
+        var dataSource: CounterDataSource?
+        func increment() {
+            if let amount = dataSource?.incrementForCount?(count) {
+                count += amount
+            } else if let amount = dataSource?.fixedIncrement? {
+                count += amount
+            }
+        }
+    }
+
+    class ThreeSource: CounterDataSource {
+        let fixedIncrement = 3
+    }
+
+    var counter = Counter()
+    counter.dataSource = ThreeSource()
+
+    for _ in 1...4 {
+        counter.increment()
+        println(counter.count)
+    }
+
+    class TowardsZeroSource: CounterDataSource {
+        func incrementForCount(count: Int) -> Int {
+            if count == 0 {
+                return 0
+            } else if count < 0 {
+                return 1
+            } else {
+                return -1
+            }
+        }
+    }
+
+    counter.count = -4
+    counter.dataSource = TowardsZeroSource()  
+
+    for _ in 1...5 {
+        counter.increment()  
+        println(counter.count)  
+    }  
+    // -3  
+    // -2  
+    // -1  
+    // 0  
+    // 0
+    ```
 
 ## Generics
 
