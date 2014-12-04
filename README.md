@@ -3,7 +3,7 @@
 
 Notes taken from [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) by Apple Inc.
 
-Still a work in progress, there are still some formatting and typo errors, will fix them soon.
+There are still some formatting and typo errors, will fix them soon.
 
 ## The Basics
 
@@ -1236,34 +1236,26 @@ Still a work in progress, there are still some formatting and typo errors, will 
 
 ### Function Types
 
-  * Using Function Types
-    * Use a function type such as (Int, Int) -> Int as a parameter type for another function
+```swift
+// Function Type as a parameter type for another function
+func printMathResult(mathFunc: (Int, Int) -> Int, a: Int, b:Int) { ... }
+printMathResult(addTwoInts, 3, 5)
 
-      ```swift
-      func printMathResult(mathFunc: (Int, Int) -> Int, a: Int, b:Int) { ... }
-      printMathResult(addTwoInts, 3, 5)
-      ```
-
-  * Function Types as Return Types  
-
-    ```swift
-    func someFunc(backwards: Bool) -> (Int) -> Int {
-      return backwards ? stepBackward : stepForward
-    }
-    ```
+// Function Types as Return Types  
+func someFunc(backwards: Bool) -> (Int) -> Int {
+  return backwards ? stepBackward : stepForward
+}
+```
 
 ### Nested Functions
   
-  * All the functions you have encountered so far are global functions  
-  * You can define functions in the bodies of other functions, i.e. nested functions
-
-    ```swift
-    func chooseStepFunction(backwards: Bool) -> (Int) -> Int {  
-      func stepForward(input: Int) -> Int { return input + 1 }  
-      func stepBackward(input: Int) -> Int { return input - 1 }  
-      return backwards ? stepBackward : stepForward  
-    }  
-    ```
+ ```swift
+func chooseStepFunction(backwards: Bool) -> (Int) -> Int {  
+  func stepForward(input: Int) -> Int { return input + 1 }  
+  func stepBackward(input: Int) -> Int { return input - 1 }  
+  return backwards ? stepBackward : stepForward  
+}  
+```
 
 ## Closures
 
