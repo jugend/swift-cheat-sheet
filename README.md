@@ -1,6 +1,6 @@
 # Swift Cheat Sheet
 
-Notes taken from [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467).
+Notes taken from [The Swift Programming Language](https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467).
 
 ## Topics
 
@@ -4604,7 +4604,6 @@ func swapTwoValues<T>(inout a: T, inout b: T) {
     * You cannot write a public protocol that inherits from an internal protocol
   * **Protocol Conformance**
     * A type can conform to a protocol with a lower access level than the type itself
-      *   
     * The context type conforms to a  particular protocol is the min of the type's access level and the protocol's access level
       * If a type is public, and protocol is internal, type's conformance to that protocol is also internal
     * Implementation of each protocol requirement has at least the same access level as the type's conformance to that protocol
