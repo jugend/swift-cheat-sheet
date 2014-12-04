@@ -313,17 +313,32 @@ let cat="hello"; println(cat)
       * In Swift it is not a pointer, it is an absence value of a certain type
       * Optionals of any type can be set to nil, not just object types
   * If statements & Forced Unwrapping
-    * if convertedNumber != nil { println("Coverted value: \(convertedValue)!")) }
+    
+    ```swift
+    if convertedNumber != nil { 
+      println("Coverted value: \(convertedValue)!"))
+    }
+    ```
+
     * Trying to use ! to access non-existent optional value will trigger an error
   * Optional Binding
     * To find out whether an optional contains a value, if so make the value available as a temporary constant or variable
     * Can be used in if/while statement
-    * if let constantName = someOptional { statements }
+      
+      ```swift
+      if let constantName = someOptional { 
+        // statements
+      }
+      ```
+
   * Implicitly Unwrapped Optionals
     * Sometimes it is clear that an optional will always have a value
     * To remove the need to check and unwrap optional's value every time it is accessed
-    * You write implicitly unwrapped optionals with exclamation mark
-      * String! instead of String?
+
+      ```swift
+      String! // instead of String?
+      ```
+
     * Is a normal optional behind the scenes, but can also be used like a non optional value, without the need to unwrap
     * Primary use described in **Unowned References and Implicitly Unwrapped Optional Properties**
 
