@@ -1,9 +1,9 @@
 
 ## Introduction
 
-My notes while reading [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) by Apple Inc.
+Notes taken while reading [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) by Apple Inc.
 
-It is still a work in progress, there are still some formatting and typo errors, will fix them soon.
+Still a work in progress, there are still some formatting and typo errors, will fix them soon.
 
 ## The Basics
 
@@ -184,7 +184,11 @@ It is still a work in progress, there are still some formatting and typo errors,
     * Use others to catch any accidental value overflows & implicitly documents the nature of data being used
   * Integer Conversion
     * Compilation error if a number does not fit into a variable integer type
-      * let cannotBeNegative: UInt8 = -1
+      
+      ```swift
+      let cannotBeNegative: UInt8 = -1
+      ```
+
     * Because of limited range of values, you must opt in to number type conversion on a case-by-case basis
     * Opt-in approach prevents hidden conversion errors
     * To convert:
@@ -253,9 +257,9 @@ It is still a work in progress, there are still some formatting and typo errors,
     let http404Error = (404, "Not found")
     let (statusCode, statusMessage) = http404Error
     let (justStatusCode, \_) = http404Error
-    println("Status code is \\(http404Error.0), message: \\(http404Error.1)")
+    println("Status code is \(http404Error.0), message: \(http404Error.1)")
     let http200Status = (statusCode: 200, description: "OK")
-    println("Status code: \\(http200Status.statusCode)")
+    println("Status code: \(http200Status.statusCode)")
     ```
 
   * Useful to return values of  functions, by returning a tuple with two distinct values, each of a different type the function provides more useful info about its outcome
@@ -302,7 +306,7 @@ It is still a work in progress, there are still some formatting and typo errors,
       * In Swift it is not a pointer, it is an absence value of a certain type
       * Optionals of any type can be set to nil, not just object types
   * If statements & Forced Unwrapping
-    * if convertedNumber != nil { println("Coverted value: \\(convertedValue)!")) }
+    * if convertedNumber != nil { println("Coverted value: \(convertedValue)!")) }
     * Trying to use ! to access non-existent optional value will trigger an error
   * Optional Binding
     * To find out whether an optional contains a value, if so make the value available as a temporary constant or variable
@@ -420,7 +424,7 @@ It is still a work in progress, there are still some formatting and typo errors,
   * Overview
     * Addition (+)
     * Substraction (-)
-    * MUltiplication (\*)
+    * MUltiplication (*)
     * Division (/)
   * Remainder Operator
     * Works out how many multiples b will fit inside a and returns the value that is left over (remainder)
@@ -545,7 +549,7 @@ It is still a work in progress, there are still some formatting and typo errors,
       let names = ["Anna", "Alex", "Brian", "Jack"]  
       let count = names.count  
       for i in 0..<count {  
-        println("Person \\(i + 1) is called \\(names[i])")  
+        println("Person \(i + 1) is called \(names[i])")  
       }  
       ```
 
@@ -687,7 +691,7 @@ It is still a work in progress, there are still some formatting and typo errors,
 
   ```swift
   let unusualMenagerie = "Koala , Snail , Penguin , Dromedary"  
-  println("unusualMenagerie has \\(countElements(unusualMenagerie)) character  
+  println("unusualMenagerie has \(countElements(unusualMenagerie)) character  
   // prints "unusualMenagerie has 40 characters  
   ```
 
@@ -737,7 +741,7 @@ It is still a work in progress, there are still some formatting and typo errors,
 
     ```swift
     for codeUnit in dogString.utf8 {  
-      print("\\(codeUnit) ")  
+      print("\(codeUnit) ")  
     }  
     print("\\n")
     // 68 111 103 226 128 188 240 159 144 182  
@@ -750,7 +754,7 @@ It is still a work in progress, there are still some formatting and typo errors,
 
     ```swift
     for codeUnit in dogString.utf16 {  
-      print("\\(codeUnit) ")  
+      print("\(codeUnit) ")  
     }  
     print("\\n")  
     // 68 111 103 8252 55357 56374  
@@ -763,8 +767,8 @@ It is still a work in progress, there are still some formatting and typo errors,
 
 ****    ```swift
     for scalar in dogString.unicodeScalars {  
-      print("\\(scalar.value) ")
-      println("\\(scalar) ") // print the characters  
+      print("\(scalar.value) ")
+      println("\(scalar) ") // print the characters  
     }  
     print("\\n")  
     // 68 111 103 8252 128054  
@@ -823,7 +827,7 @@ It is still a work in progress, there are still some formatting and typo errors,
     * Enumerate function
       * return index and value
       * for (index, value) in enumerate(shoppingList) {
-      * println("Item \\(index + 1): \\(value)")
+      * println("Item \(index + 1): \(value)")
       * }
   * Creating and Initialising an Array
 
@@ -895,7 +899,7 @@ It is still a work in progress, there are still some formatting and typo errors,
       for index in 1...5 {  
       ```
 
-println("\\(index) times 5 is \\(index \* 5)")  
+println("\(index) times 5 is \(index * 5)")  
 }
     * If you don't need the index value
 
@@ -1092,7 +1096,7 @@ println("\\(index) times 5 is \\(index \* 5)")
 
         ```swift
         func sayGoodbye(personName: String) {  
-          println("Goodbye, \\(personName)!")  
+          println("Goodbye, \(personName)!")  
         }
         sayGoodbye("Dave")  
         ```
@@ -1144,8 +1148,8 @@ println("\\(index) times 5 is \\(index \* 5)")
 
     * Consider using external param names when the purpose of a function's argument are not clear
   * Shorthand External Parameter Names
-    * If the local param name the same with external param name, use the hash symbol (\#)
-    * func someFunction(\#paramName: Int)
+    * If the local param name the same with external param name, use the hash symbol (#)
+    * func someFunction(#paramName: Int)
   * Default Parameter Values
     * Place params with default values at the end of a function's param list. 
     * Ensures that all calls to the func use the same order for their non-default args
@@ -1480,10 +1484,10 @@ println("\\(index) times 5 is \\(index \* 5)")
       ```swift
       switch productBarcode {
         case .UPCA(let numberSystem, let manufacturer, let product, let check):
-          println("UPC-A: \\(numberSystem), \\(manufacturer), \\(product), \\(check).")
+          println("UPC-A: \(numberSystem), \(manufacturer), \(product), \(check).")
 
         case .QRCode(let productCode):
-          println("QR code: \\(productCode).")
+          println("QR code: \(productCode).")
       }
       
       // prints "QR code: ABCDEFGHIJKLMNOP."
@@ -1494,9 +1498,9 @@ println("\\(index) times 5 is \\(index \* 5)")
       ```swift
       switch productBarcode {  
         case let .UPCA(numberSystem, manufacturer, product, check):  
-          println("UPC-A: \\(numberSystem), \\(manufacturer), \\(product), \\(check).")  
+          println("UPC-A: \(numberSystem), \(manufacturer), \(product), \(check).")  
         case let .QRCode(productCode):  
-          println("QR code: \\(productCode).")  
+          println("QR code: \(productCode).")  
       }  
       // prints "QR code: ABCDEFGHIJKLMNOP.  
       ```
@@ -1736,7 +1740,7 @@ origin.y = newValue.y - (size.height / 2)
       * struct Cuboid {  
 var width = 0.0, height = 0.0, depth = 0.0  
 var volume: Double {  
-return width \* height \* depth  
+return width * height * depth  
 }  
 }  
 let fourByFiveByTwo = Cuboid(width: 4.0, height: 5.0, depth: 2.0)  
@@ -1875,7 +1879,7 @@ count = 0
     * 
 > var count: Int = 0  
 > func incrementBy(amount: Int, numberOfTimes: Int) {  
-> count += amount \* numberOfTimes  
+> count += amount * numberOfTimes  
 > }  
 > }
 
@@ -1883,11 +1887,11 @@ count = 0
         * let counter = Counter()
         * counter.incrementBy(5, numberOftimes: 3)
       * Default behaviour as if
-        * func incrementBy(amount: Int, \#numberOfTimes: Int) {
-        * count += amount \* numberOfTimes
+        * func incrementBy(amount: Int, #numberOfTimes: Int) {
+        * count += amount * numberOfTimes
         * }
   * Modifying External Parameter Name Behaviour for Methods
-    * Use \# or add external parameter name for the first param
+    * Use # or add external parameter name for the first param
     * To disable second param onwards, add \_
   * The self Property
     * self refers to current instance
@@ -2018,11 +2022,11 @@ set(newValue) {
     * struct TimesTable {  
 let multiplier: Int  
 subscript(index: Int) -> Int {  
-return multiplier \* index  
+return multiplier * index  
 }  
 }  
 let threeTimesTable = TimesTable(multiplier: 3)  
-    * println("six times three is \\(threeTimesTable[6])")  
+    * println("six times three is \(threeTimesTable[6])")  
 // prints "six times three is 18  
 
 ### Subscript Usage
@@ -2053,7 +2057,7 @@ var grid: [Double]
 init(rows: Int, columns: Int) {  
 self.rows = rows  
 self.columns = columns  
-grid = Array(count: rows \* columns, repeatedValue: 0.0)  
+grid = Array(count: rows * columns, repeatedValue: 0.0)  
 }  
 func indexIsValidForRow(row: Int, column: Int) -> Bool {  
 return row >= 0 && row < rows && column >= 0 && column < columns  
@@ -2061,11 +2065,11 @@ return row >= 0 && row < rows && column >= 0 && column < columns
 subscript(row: Int, column: Int) -> Double {  
 get {  
 assert(indexIsValidForRow(row, column: column), "Index out of range")  
-return grid[(row \* columns) + column]  
+return grid[(row * columns) + column]  
 }  
 set {  
 assert(indexIsValidForRow(row, column: column), "Index out of range")  
-grid[(row \* columns) + column] = newValue  
+grid[(row * columns) + column] = newValue  
 }  
 }  
 }
@@ -2086,7 +2090,7 @@ grid[(row \* columns) + column] = newValue
     * class Vehicle {  
 var currentSpeed = 0.0  
 var description: String {  
-return "traveling at \\(currentSpeed) miles per hour"  
+return "traveling at \(currentSpeed) miles per hour"  
 }  
 func makeNoise() {  
 // do nothing - an arbitrary vehicle doesn't necessarily make a noise  
@@ -2129,7 +2133,7 @@ println("Choo Choo")
 
 var gear = 1  
 override var description: String {  
-return super.description + " in gear \\(gear)"  
+return super.description + " in gear \(gear)"  
 }  
 }  
   * Overriding property Observers
@@ -2394,7 +2398,7 @@ size: Size(width: 5.0, height: 5.0))
 
 var numberOfWheels = 0  
 var description: String {  
-return "\\(numberOfWheels) wheel(s)"  
+return "\(numberOfWheels) wheel(s)"  
 }  
 }  
       * class Bicycle: Vehicle {  
@@ -2443,7 +2447,7 @@ let sixEggs = RecipeIngredient(name: "Eggs", quantity: 6)
     * class ShoppingListItem: RecipeIngredient {  
     * var purchased = false  
 var description: String {  
-var output = "\\(quantity) x \\(name)"  
+var output = "\(quantity) x \(name)"  
 output += purchased ? " ✔" : " ✘"  
 return output  
 }  
@@ -2505,7 +2509,7 @@ isBlack = !isBlack
 return temporaryBoard  
 }()  
 func squareIsBlackAtRow(row: Int, column: Int) -> Bool {  
-return boardColors[(row \* 10) + column]  
+return boardColors[(row * 10) + column]  
 }  
 }  
 
@@ -2572,22 +2576,22 @@ Bank.receiveCoins(coinsInPurse)
 }
     * var playerOne: Player? = Player(coins: 100)
 
-println("A new player has joined the game with \\(playerOne!.coinsInPurse) coins")
+println("A new player has joined the game with \(playerOne!.coinsInPurse) coins")
 
 // prints "A new player has joined the game with 100 coins"
 
-println("There are now \\(Bank.coinsInBank) coins left in the bank")
+println("There are now \(Bank.coinsInBank) coins left in the bank")
 
 // prints "There are now 9900 coins left in the bank
     * playerOne!.winCoins(2\_000)  
-println("PlayerOne won 2000 coins & now has \\(playerOne!.coinsInPurse) coins")  
+println("PlayerOne won 2000 coins & now has \(playerOne!.coinsInPurse) coins")  
 // prints "PlayerOne won 2000 coins & now has 2100 coins"  
-println("The bank now only has \\(Bank.coinsInBank) coins left")  
+println("The bank now only has \(Bank.coinsInBank) coins left")  
 // prints "The bank now only has 7900 coins left  
     * playerOne = nil  
 println("PlayerOne has left the game")  
 // prints "PlayerOne has left the game"  
-println("The bank now has \\(Bank.coinsInBank) coins")  
+println("The bank now has \(Bank.coinsInBank) coins")  
 // prints "The bank now has 10000 coins
 
 ## Automatic Reference Counting
@@ -2608,10 +2612,10 @@ println("The bank now has \\(Bank.coinsInBank) coins")
 let name: String  
 init(name: String) {  
 [self.name][2] = name  
-println("\\(name) is being initialized")  
+println("\(name) is being initialized")  
 }  
 deinit {  
-println("\\(name) is being deinitialized")  
+println("\(name) is being deinitialized")  
 }  
 }  
   * var reference1: Person?  
@@ -2635,14 +2639,14 @@ reference2 = nil
 let name: String  
 init(name: String) { [self.name][2] = name }  
 var apartment: Apartment?  
-deinit { println("\\(name) is being deinitialized") }  
+deinit { println("\(name) is being deinitialized") }  
 }  
   
 class Apartment {  
 let number: Int  
 init(number: Int) { self.number = number }  
 var tenant: Person?  
-deinit { println("Apartment \#\\(number) is being deinitialized") }  
+deinit { println("Apartment #\(number) is being deinitialized") }  
 }  
     * var john: Person?  
 var number73: Apartment?  
@@ -2674,14 +2678,14 @@ number73 = nil
 let name: String  
 init(name: String) { [self.name][2] = name }  
 var apartment: Apartment?  
-deinit { println("\\(name) is being deinitialized") }  
+deinit { println("\(name) is being deinitialized") }  
 }  
   
 class Apartment {  
 let number: Int  
 init(number: Int) { self.number = number }  
 weak var tenant: Person?  
-deinit { println("Apartment \#\\(number) is being deinitialized") }  
+deinit { println("Apartment #\(number) is being deinitialized") }  
 }  
       * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/EC725EFA-13D4-411A-8236-D9A53047D7EE.png)  
   * **Unowned References**
@@ -2703,7 +2707,7 @@ var card: CreditCard?
 init(name: String) {  
 [self.name][2] = name  
 }  
-deinit { println("\\(name) is being deinitialized") }  
+deinit { println("\(name) is being deinitialized") }  
 }  
   
 class CreditCard {  
@@ -2713,7 +2717,7 @@ init(number: UInt64, customer: Customer) {
 self.number = number  
 self.customer = customer  
 }  
-deinit { println("Card \#\\(number) is being deinitialized") }  
+deinit { println("Card #\(number) is being deinitialized") }  
 }  
     * Note
       * The number property of the CreditCard class is defined with a type of UInt64 rather than Int, to ensure that the number property's capacity is large enough to store a 16-digit card number on both 32-bit and 64-bit systems.  
@@ -2728,7 +2732,7 @@ john!.card = CreditCard(number: 1234\_5678\_9012\_3456, customer: john!)
       * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/6E29FF73-6FD5-44AC-BFF2-A44366DAD7A0.png)  
       * john = nil
       * // prints "John Appleseed is being deinitialized"  
-// prints "Card \#1234567890123456 is being reinitialised"  
+// prints "Card #1234567890123456 is being reinitialised"  
       * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/64747DE2-441C-43EF-99E2-12B37CEA1E8D.png)  
   * **Unowned References and Implicitly Unwrapped Optional Properties**
     * Third scenario which both properties should have a value
@@ -2757,7 +2761,7 @@ self.country = country
 }  
 }  
       * var country = Country(name: "Canada", capitalName: "Ottawa")  
-println("\\(country.name)'s capital city is called \\(country.[capitalCity.name][3])")  
+println("\(country.name)'s capital city is called \(country.[capitalCity.name][3])")  
 // prints "Canada's capital city is called Ottawa"
 
 ### Strong Reference Cycles for Closures
@@ -2777,9 +2781,9 @@ let text: String?
   
 lazy var asHTML: () -> String = {  
 if let text = self.text {  
-return "<\\(self.name)>\\(text)</\\(self.name)>"  
+return "<\(self.name)>\(text)</\(self.name)>"  
 } else {  
-return "<\\(self.name) />"  
+return "<\(self.name) />"  
 }  
 }  
   
@@ -2789,7 +2793,7 @@ self.text = text
 }  
   
 deinit {  
-println("\\(name) is being deinitialized")  
+println("\(name) is being deinitialized")  
 }  
   
 }  
@@ -2853,7 +2857,7 @@ var numberOfRooms = 1
     * // this trigger a runtime error
   * Use optional chaining:
     * if let roomCount = john.residence?.numberOfRooms {  
-println("John's residence has \\(roomCount) room(s).")  
+println("John's residence has \(roomCount) room(s).")  
 } else {  
 println("Unable to retrieve the number of rooms.")  
 }  
@@ -2879,7 +2883,7 @@ rooms[i] = newValue
 }  
 }  
 func printNumberOfRooms() {  
-println("The number of rooms is \\(numberOfRooms)")  
+println("The number of rooms is \(numberOfRooms)")  
 }  
 var address: Address?  
 }  
@@ -2907,7 +2911,7 @@ return nil
   * Use optional chaining to access property on optional value or to check if property access is successful
   * let john = Person()  
 if let roomCount = john.residence?.numberOfRooms {  
-println("John's residence has \\(roomCount) room(s).")  
+println("John's residence has \(roomCount) room(s).")  
 } else {  
 println("Unable to retrieve the number of rooms.")  
 }  
@@ -2915,21 +2919,26 @@ println("Unable to retrieve the number of rooms.")
 ### Calling Methods Through Optional Chaining
 
   * Use optional chaining to call a method on an optional value or to check whether a method call is successful, even if the method does not define a return value
-  * Example:
-    * Residence\#printNumberOfRooms
-    * func printNumberOfRooms() {  
-println("The number of rooms is \\(numberOfRooms)")  
-}  
+
+    ```swift
+    * Residence#printNumberOfRooms
+    func printNumberOfRooms() {  
+      println("The number of rooms is \(numberOfRooms)")  
+    } 
+    ```
+ 
   * Method has no return tip, bbut have an implicit value of Void
     * Means they return a value of () or an empty tubule.
   * If you call this on an optional value with optional chaining, the return type will be Void/ not Void, because the return values are always of an optional type when called with  optional chaining
-  * Example:
-    * if john.residence?.printNumberOfRooms() != nil {  
-println("It was possible to print the number of rooms.")  
-} else {  
-println("It was not possible to print the number of rooms.")  
-}  
-// prints "It was not possible to print the number of rooms.  
+
+    ```swift
+    if john.residence?.printNumberOfRooms() != nil {  
+      println("It was possible to print the number of rooms.")  
+    } else {  
+      println("It was not possible to print the number of rooms.")  
+    }  
+    // prints "It was not possible to print the number of rooms.  
+    ```
 
 ### Accessing SubscriptsThrough Optional Chaining
 
@@ -2937,7 +2946,6 @@ println("It was not possible to print the number of rooms.")
     * To retrieve and set a value of a subscript on an optional value, and to check if the subscript call is successful
     * Note
       * Place the question mark before the subscript's braces, not after
-    * Example:
 
       ```swift
       if let firstRoomName = john.residence?[0].name " { ... }
@@ -2945,16 +2953,15 @@ println("It was not possible to print the number of rooms.")
 
   * Accessing Subscripts of Optional Type
     * If a subscript returns a value of optional type, such as the key subscript of Swift's Dictionary type, place  question mark after the subscript's closing bracket to chain on its optional return value.
-    * Example:
 
       ```swift
       var testScores = ["Dave": [86, 82, 84], "Bev": [79, 94, 81]]  
+      testScores["Dave"]?[0] = 91  
+      testScores["Bev"]?[0]++  
+      testScores["Brian"]?[0] = 72  
+      
+      // the "Dave" array is now [91, 82, 84] and the "Bev" array is now [80, 94, 81]  
       ```
-
-testScores["Dave"]?[0] = 91  
-testScores["Bev"]?[0]++  
-testScores["Brian"]?[0] = 72  
-// the "Dave" array is now [91, 82, 84] and the "Bev" array is now [80, 94, 81]  
 
 ### Linking Multiple Levels of Chaining
 
@@ -2964,7 +2971,7 @@ testScores["Brian"]?[0] = 72
     * Thus if you retrieve an Int through optional chaining, and Int? is always returned
   * Example  
     * if let johnsStreet = john.residence?.address?.street {  
-println("John's street name is \\(johnsStreet).")  
+println("John's street name is \(johnsStreet).")  
 } else {  
 println("Unable to retrieve the address.")  
 }  
@@ -2975,7 +2982,7 @@ johnsAddress.street = "Laurel Street"
 john.residence!.address = johnsAddress  
   
 if let johnsStreet = john.residence?.address?.street {  
-println("John's street name is \\(johnsStreet).")  
+println("John's street name is \(johnsStreet).")  
 } else {  
 println("Unable to retrieve the address.")  
 }  
@@ -2987,7 +2994,7 @@ println("Unable to retrieve the address.")
   * Use optional chaining to call a method that returns a value of optional type, and to chain the method's return value if needed
   * Example:
     * if let buildingIdentifier = john.residence?.address?.buildingIdentifier() {  
-println("John's building identifier is \\(buildingIdentifier).")  
+println("John's building identifier is \(buildingIdentifier).")  
 }  
 // prints "John's building identifier is The Larches."  
   * if let beginsWithThe =  
@@ -3066,9 +3073,9 @@ if item is Movie {
   * Example:
     * for item in library {  
 if let movie = item as? Movie {  
-println("Movie: '\\(movie.name)', dir. \\(movie.director)")  
+println("Movie: '\(movie.name)', dir. \(movie.director)")  
 } else if let song = item as? Song {  
-println("Song: '\\(song.name)', by \\(song.artist)")  
+println("Song: '\(song.name)', by \(song.artist)")  
 }  
 }
 
@@ -3100,11 +3107,11 @@ Movie(name: "Alien", director: "Ridley Scott")
       ```
 
 let movie = object as Movie  
-println("Movie: '\\(movie.name)', dir. \\(movie.director)")  
+println("Movie: '\(movie.name)', dir. \(movie.director)")  
 }  
       * Shorter version
         * for movie in someObjects as [Movie] {  
-println("Movie: '\\(movie.name)', dir. \\(movie.director)")  
+println("Movie: '\(movie.name)', dir. \(movie.director)")  
 }  
   * Any
     * To work with a mix of different types including non-class types
@@ -3130,17 +3137,17 @@ println("zero as an Int")
 case 0 as Double:  
 println("zero as a Double")  
 case let someInt as Int:  
-println("an integer value of \\(someInt)")  
+println("an integer value of \(someInt)")  
 case let someDouble as Double where someDouble > 0:  
-println("a positive double value of \\(someDouble)")  
+println("a positive double value of \(someDouble)")  
 case is Double:  
 println("some other double value that I don't want to print")  
 case let someString as String:  
-println("a string value of \\"\\(someString)\\"")  
+println("a string value of \\"\(someString)\\"")  
 case let (x, y) as (Double, Double):  
-println("an (x, y) point at \\(x), \\(y)")  
+println("an (x, y) point at \(x), \(y)")  
 case let movie as Movie:  
-println("a movie called '\\(movie.name)', dir. \\(movie.director)")  
+println("a movie called '\(movie.name)', dir. \(movie.director)")  
 default:  
 println("something else")  
 }  
@@ -3212,13 +3219,13 @@ let rank: Rank, suit: Suit
 
 var description: String {
 
-var output = "suit is \\(suit.toRaw()),"
+var output = "suit is \(suit.toRaw()),"
 
-output += " value is \\(rank.values.first)"
+output += " value is \(rank.values.first)"
 
 if let second = rank.values.second {
 
-output += " or \\(second)"
+output += " or \(second)"
 
 }
 
@@ -3229,7 +3236,7 @@ return output
 }
     * let theAceOfSpades = BlackjackCard(rank: .Ace, suit: .Spades)
 
-println("theAceOfSpades: \\(theAceOfSpades.description)")
+println("theAceOfSpades: \(theAceOfSpades.description)")
 
 // prints "theAceOfSpades: suit is ♠, value is 1 or 11
 
@@ -3272,17 +3279,17 @@ println("theAceOfSpades: \\(theAceOfSpades.description)")
 
   * Can add computed properties and computed type properties to existing types:
     * extension Double {  
-var km: Double { return self \* 1\_000.0 }  
+var km: Double { return self * 1\_000.0 }  
 var m: Double { return self }  
 var cm: Double { return self / 100.0 }  
 var mm: Double { return self / 1\_000.0 }  
 var ft: Double { return self / 3.28084 }  
 }  
 let oneInch = [25.4.mm][4]  
-println("One inch is \\(oneInch) meters")  
+println("One inch is \(oneInch) meters")  
 // prints "One inch is 0.0254 meters"  
 let threeFeet = 3.ft  
-println("Three feet is \\(threeFeet) meters")  
+println("Three feet is \(threeFeet) meters")  
 // prints "Three feet is 0.914399970739201 meters  
     * let aMarathon = 42.km + 195.m
   * Note
@@ -3341,7 +3348,7 @@ println("Hello!")
       ```
 
 mutating func square() {  
-self = self \* self  
+self = self * self  
 }  
 }
 
@@ -3352,7 +3359,7 @@ self = self \* self
 subscript(var digitIndex: Int) -> Int {  
 var decimalBase = 1  
 while digitIndex > 0 {  
-decimalBase \*= 10  
+decimalBase *= 10  
 --digitIndex  
 }  
 return (self / decimalBase) % 10  
@@ -3575,12 +3582,12 @@ self.sides = sides
 self.generator = generator  
 }  
 func roll() -> Int {  
-return Int(generator.random() \* Double(sides)) + 1  
+return Int(generator.random() * Double(sides)) + 1  
 }  
 }  
     * var d6 = Dice(sides: 6, generator: LinearCongruentialGenerator())  
 for \_ in 1...5 {  
-println("Random dice roll is \\(d6.roll())")  
+println("Random dice roll is \(d6.roll())")  
 }  
 
 ### Delegation
@@ -3634,14 +3641,14 @@ numberOfTurns = 0
 if game is SnakesAndLadders {  
 println("Started a new game of Snakes and Ladders")  
 }  
-println("The game is using a \\(game.dice.sides)-sided dice")  
+println("The game is using a \(game.dice.sides)-sided dice")  
 }  
 func game(game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int) {  
 ++numberOfTurns  
-println("Rolled a \\(diceRoll)")  
+println("Rolled a \(diceRoll)")  
 }  
 func gameDidEnd(game: DiceGame) {  
-println("The game lasted for \\(numberOfTurns) turns")  
+println("The game lasted for \(numberOfTurns) turns")  
 }  
 }  
     * let tracker = DiceGameTracker()  
@@ -3659,7 +3666,7 @@ func asText() -> String
 }  
     * extension Dice: TextRepresentable {  
 func asText() -> String {  
-return "A \\(sides)-sided dice"  
+return "A \(sides)-sided dice"  
 }  
 }  
   * Declaring Protocol Adoption with Extension
@@ -3671,7 +3678,7 @@ return "A \\(sides)-sided dice"
 
 var name: String  
 func asText() -> String {  
-return "A hamster named \\(name)"  
+return "A hamster named \(name)"  
 }  
 }  
 extension Hamster: TextRepresentable {}  
@@ -3727,7 +3734,7 @@ var name: String
 var age: Int  
 }  
 func wishHappyBirthday(celebrator: protocol<Named, Aged>) {  
-println("Happy birthday \\(celebrator.name) - you're \\(celebrator.age)!")  
+println("Happy birthday \(celebrator.name) - you're \(celebrator.age)!")  
 }  
 let birthdayPerson = Person(name: "Malcolm", age: 21)  
 wishHappyBirthday(birthdayPerson)  
@@ -3750,7 +3757,7 @@ var area: Double { get }
     * class Circle: HasArea {  
 let pi = 3.1415927  
 var radius: Double  
-var area: Double { return pi \* radius \* radius }  
+var area: Double { return pi * radius * radius }  
 init(radius: Double) { self.radius = radius }  
 }  
 class Country: HasArea {  
@@ -3759,7 +3766,7 @@ init(area: Double) { self.area = area }
 }  
     * for object in objects {  
 if let objectWithArea = object as? HasArea {  
-println("Area is \\(objectWithArea.area)")  
+println("Area is \(objectWithArea.area)")  
 } else {  
 println("Something that doesn't have an area")  
 }  
@@ -3847,7 +3854,7 @@ b = temporaryA
     * var someInt = 3  
 var anotherInt = 107  
 swapTwoInts(&someInt, &anotherInt)  
-println("someInt is now \\(someInt), and anotherInt is now \\(anotherInt)")  
+println("someInt is now \(someInt), and anotherInt is now \(anotherInt)")  
 // prints "someInt is now 107, and anotherInt is now 3  
     * func swapTwoStrings(inout a: String, inout b: String) {  
 let temporaryA = a  
@@ -3982,7 +3989,7 @@ return nil
 let strings = ["cat", "dog", "llama", "parakeet", "terrapin"]  
   
 if let foundIndex = findStringIndex(strings, "llama") {  
-println("Found index: \\(foundIndex)")  
+println("Found index: \(foundIndex)")  
 }  
     * Generic version
 
@@ -4276,7 +4283,7 @@ numberOfEdits++
 stringToEdit.value = "This string will be tracked."  
 stringToEdit.value += " This edit will increment numberOfEdits."  
 stringToEdit.value += " So will this one."  
-println("The number of edits is \\(stringToEdit.numberOfEdits)")  
+println("The number of edits is \(stringToEdit.numberOfEdits)")  
 // prints "The number of edits is 3"  
     * You can assign explicit access level for both getter and setter if required, e.g. numberOfEdits getter is public and set is private:
       * public struct TrackedString {  
@@ -4444,7 +4451,7 @@ potentialOverflow += 1
   * When you want an overflow condition to truncate the number of available bits, you can opt in to this behaviour with:
     * Overflow addition (&+)  
 Overflow subtraction (&-)  
-Overflow multiplication (&\*)  
+Overflow multiplication (&*)  
 Overflow division (&/)  
 Overflow remainder (&%)  
   * **Value Overflow**
@@ -4479,11 +4486,11 @@ let y = x &/ 0
     * Operator precedence gives some operators higher priority than others
     * Operator associativity defines how operators of the same precedence grouped together (or associated) either grouped from the left or grouped from the right
     * Example:
-      * 2 + 3 \* 4 % 5 // 4
-    * In swift as in C, the precedence, \*, %, have higher precedence than +
+      * 2 + 3 * 4 % 5 // 4
+    * In swift as in C, the precedence, *, %, have higher precedence than +
       * Multiplication and remainder have the same precedence of each other
       * But both associate the expression to their left
-      * 2 + ((3 \* 4) % 5)
+      * 2 + ((3 * 4) % 5)
       * More info the Language Reference > Expressions
     * Note
       * Swift's operator precedences and associativity rules are simpler and more predictable than in C and Obj-C
