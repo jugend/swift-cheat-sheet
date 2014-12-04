@@ -33,21 +33,13 @@ Notes taken from [The Swift Programming Language](https://developer.apple.com/li
 ### Constants & Variables
 
   * Declaring Constants & Variables
-    * Constant
 
       ```swift
+      // Constant
       let maximumNumberOfLoginAttempts = 10
-      ```
-   
-    * Variable
-
-      ```swift
+      
+      // Variable
       var currentLoginAttempt = 0
-      ```
-   
-    * Multiple declarations
-
-      ```swift
       var x = 0.0, y = 0.0, z = 0.0
       ```
    
@@ -79,33 +71,22 @@ Notes taken from [The Swift Programming Language](https://developer.apple.com/li
 
 ### Comments
   
-  * Single comment
-
     ```swift
     // this is a comment
-    ```
-
-  * Multilines comments
-
-    ```swift
     /* multiple lines comment */
+    /* /* nested multilines supported */ */
     ```
-
-    * can be nested inside other multiline comments
-    * nice feature!
 
 ### Semicolons
   
-  * No semicolon, unless for multiple statements on a single line:
-
     ```swift
+    // No semicolon, unless for multiple statements on a single line
     let cat="hello"; println(cat)
     ```
 
 ### Integers
   
-  * Whole numbers with no fractional component
-    * Signed or unsigned
+  * Whole numbers with no fractional component, signed or unsigned
   * Swift provides signed & unsigned integers in 8, 16, 32 and 64 bits
     * Follow naming convention similar to C, e.g.
       * UInt8
