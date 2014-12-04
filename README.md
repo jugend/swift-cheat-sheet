@@ -819,45 +819,55 @@ Still a work in progress, there are still some formatting and typo errors, will 
 
     ```swift
     [value 1, value 2, value 3]
+    var shoppingList: [String] = ["Eggs", "Milk"]
     ```
 
-    * var shoppingList: [String] = ["Eggs", "Milk"]
   * Accessing and Modifying An Array
 
     ```swift
     var shoppingList: [String] = ["Eggs", "Milk"]
+    shoppingList.count
+    shoppingList.isEmpty
+    shoppingList.append("Flour")
+    shoppingList += ["BakingPowder", "Cheese"] // Add new items to an array
+    
+    var firstItem = shoppingList[0] // subscript syntax
+    shoppingList[0] = "Six eggs"
+    shoppingList[4...6] = ["Bananas", "Apples"] // Shopping list now has 4 items
+    shoppingList.insert("Maple Syrup", atIndex: 0)
+    
+    let mapleSyrup = shoppingList.removeAtIndex(0)
+    let apples = shoppingList.removeLast()
     ```
 
-    * shoppingList.count
-    * shoppingList.isEmpty
-    * shoppingList.append("Flour")
-    * shoppingList += ["BakingPowder", "Cheese"] // Add new items to an array
-    * var firstItem = shoppingList[0] // subscript syntax
-    * shoppingList[0] = "Six eggs"
-    * shoppingList[4...6] = ["Bananas", "Apples"] // Shopping list now has 4 items
-    * shoppingList.insert("Maple Syrup", atIndex: 0)
-    * let mapleSyrup = shoppingList.removeAtIndex(0)
-    * let apples = shoppingList.removeLast()
+
     * Note  
       * Subscript can't be used to append a new item to an array
       * Out of range index, cause runtime error
   * Iterating Over an Array
-    * for item in shoppingList { println(item) }
+
+    ```swift
+    for item in shoppingList { println(item) }
+    ```
+
     * Enumerate function
-      * return index and value
-      * for (index, value) in enumerate(shoppingList) {
-      * println("Item \(index + 1): \(value)")
-      * }
+
+      ```swift
+      for (index, value) in enumerate(shoppingList) {
+        println("Item \(index + 1): \(value)")
+      }
+      ```
+
   * Creating and Initialising an Array
 
     ```swift
     var someInts = [Int]()
+    someInts.append(3)
+    someInts = [] // reset to empty Int array
+    var xyz = [] // runtime error, cause type unknown
+    var threeDoubles = [Double](count: 3, repeatedValue: 2.5) // [2.5, 2.5, 2.5]
     ```
 
-    * someInts.append(3)
-    * someInts = [] // reset to empty Int array
-    * var xyz = [] // runtime error, cause type unknown
-    * var threeDoubles = [Double](count: 3, repeatedValue: 2.5) // [2.5, 2.5, 2.5]
 
 ### Dictionaries
   
@@ -1426,18 +1436,18 @@ Still a work in progress, there are still some formatting and typo errors, will 
 
 ### Enumeration Syntax
 
-    ```swift
-    enum SomeEnumeration {  
-      // enumeration definition goes here  
-    }
-    
-    enum CompassPoint {  
-      case North  
-      case South  
-      case East  
-      case West  
-    }
-    ```
+  ```swift
+  enum SomeEnumeration {  
+    // enumeration definition goes here  
+  }
+  
+  enum CompassPoint {  
+    case North  
+    case South  
+    case East  
+    case West  
+  }
+  ```
 
   * Unlike C & Obj-C, Swift enumeration members are not assigned with a default integer value when they are created
     * Instead, the different enumeration members are fully fledged values in their own right, with an explicitly defined type of CompassPoint
