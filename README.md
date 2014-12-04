@@ -2287,9 +2287,9 @@ class Counter {
       ```
 
   * Initializer Parameters Without External Names
-    * Use "_" as the external name
 
       ```swift
+      // Use "_" as the external name
       init(_ celsius: Double) {
         temperatureInCelsius = celsius  
       }  
