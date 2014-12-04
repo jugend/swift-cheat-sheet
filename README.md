@@ -1,11 +1,9 @@
 
 ## Introduction
 
-These are the notes I had taken while reading [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) by Apple Inc. 
-If you don't have time to read the book, skimming through these points will save you some time.
+My notes while reading [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) by Apple Inc.
 
-It is still a work in progress, there are still some formatting errors. Should you spot any typo or data error, please submit a pull request.
-
+It is still a work in progress, there are still some formatting and typo errors, will fix them soon.
 
 ## The Basics
 
@@ -101,7 +99,7 @@ It is still a work in progress, there are still some formatting errors. Should y
       * 32-bit platform, Int = Int32
       * 64-bit platform, Int = Int64
     * Unless you need to use specific size, always use Int, for codes consistency and interoperability.
-    * On 32-bit platform Int values: -2,147,483,648 =\> 2,147,483,648, large enough
+    * On 32-bit platform Int values: -2,147,483,648 => 2,147,483,648, large enough
   * UInt
     * When you specifically need unsigned integer, else Int is preferred
     * A consistent use of Int aids code interoperability, avoids the need to convert to different number types, matches integer type inference as described in Type Safety and Type Inference
@@ -197,7 +195,7 @@ It is still a work in progress, there are still some formatting errors. Should y
       * let twoThousandAndOne = twoThousand + UInt16(one)
       ```
 
-    * SomeType(ofInitialValue) =\> default in Swift and pass in an initial value
+    * SomeType(ofInitialValue) => default in Swift and pass in an initial value
       * UInt16 has initialiser that accepts a UInt8 value
       * You can't pass in any type here, it has to be a type which UInt16 provides an init
       * Extending inits to cover other types covered in Extensions
@@ -344,11 +342,10 @@ It is still a work in progress, there are still some formatting errors. Should y
     * Some cases, not possible for code to continue, use assertions end code execution, to provide an opportunity to debug
   * Debugging with Assertions
     * If your code triggers an assertion while running in a debug environment, such as when build and run an app inXCode, you can see invalid state and query the state of your app at the time the assertion was triggered
-    * Example:
 
       ```swift
       let age = -3
-      assert(age \>=0, "A person's age cannot be less than 0)
+      assert(age >=0, "A person's age cannot be less than 0)
       ```
 
   * When to use Assertions
@@ -395,11 +392,11 @@ It is still a work in progress, there are still some formatting errors. Should y
 
 ### Assignment Operator
 
-    ```swift
-    let b = 10
-    let (x,y) = (1,2)
-    if x = y { // invalid }
-    ```
+  ```swift
+  let b = 10
+  let (x,y) = (1,2)
+  if x = y { // invalid }
+  ```
 
   * Does not allow value to be overflow
   * You can option to value overflow behaviour by using
@@ -451,7 +448,6 @@ It is still a work in progress, there are still some formatting errors. Should y
 
   * Increment & Decrement Operators
     * ++ and ---
-    * Example:
 
       ```swift
       var i = 0
@@ -502,9 +498,9 @@ It is still a work in progress, there are still some formatting errors. Should y
     ```swift
     a == b
     a != b
-    a \> b
+    a > b
     a < b
-    a \>= b
+    a >= b
     a <= b
     ```
 
@@ -546,10 +542,10 @@ It is still a work in progress, there are still some formatting errors. Should y
     * Useful when work with zero-based lists, such as arrays
 
       ```swift
-      let names = \["Anna", "Alex", "Brian", "Jack"\]  
+      let names = ["Anna", "Alex", "Brian", "Jack"]  
       let count = names.count  
       for i in 0..<count {  
-        println("Person \\(i + 1) is called \\(names\[i\])")  
+        println("Person \\(i + 1) is called \\(names[i])")  
       }  
       ```
 
@@ -615,7 +611,6 @@ It is still a work in progress, there are still some formatting errors. Should y
 ### Working with Characters
 
   * Strings are collection of characters
-  * Example:
 
     ```swift
     for char in "Dog!" { println(char) }
@@ -662,27 +657,31 @@ It is still a work in progress, there are still some formatting errors. Should y
     * \\r: carriage return
     * \\": double quote
     * \\': single quote
-    * An arbitrary unicode scalar, written as \\u{n}, where n is between one and eight hexadecimal digits
-    * Examples:
-      * "\\u{24}" // $
-      * "\\u{2665}" // ♥
-      * "\\u{1F496}" //  - Unicode scalar: U+1F496
+    * An arbitrary unicode scalar, written as \u{n}, where n is between one and eight hexadecimal digits
+
+      ```swift
+      "\u{24}"    // $
+      "\u{2665}"  // ♥
+      "\u{1F496}" //   - Unicode scalar: U+1F496
+      ```
+
   * Extended Grapheme Clusters
     * Every instance of Swift's Character type represents a single extended grapheme cluster
       * A sequence of one or more Unicode scalars that (when combined) produce a single human-readable character
-    * Example:
-      * let eAcute: Character = "\\u{E9}"                         // é  
-      * let combinedEAcute: Character = "\\u{65}\\u{301}"          // e followed by ́eAcute is é, combinedEAcute is é  
-    * To represent many complex script characters as a single character value. Example: 
-      * Hangul syllables from the Korean alphabet, can be represented as either a precomposed or decomposed sequence
-        * let precomposed: Character = "\\u{D55C}" // 한
-        * let decomposed: Character = "\\u{1112}\\u{1161}\\u{11AB}"   // ᄒ, ᅡ,  precomposed is 한, decomposed is 한
 
       ```swift
-      let enclosedEAcute: Character = "\\u{E9}\\u{20DD}"  
+      let eAcute: Character = "\u{E9}"                         // é  
+      let combinedEAcute: Character = "\u{65}\u{301}"          // e followed by ́eAcute is é, combinedEAcute is é  
       ```
 
-// enclosedEAcute is  é⃝
+    * To represent many complex script characters as a single character value.
+      * Hangul syllables from the Korean alphabet, can be represented as either a precomposed or decomposed sequence
+
+      ```swift
+      let precomposed: Character = "\u{D55C}"                 // 한
+      let decomposed: Character = "\u{1112}\u{1161}\u{11AB}"  // ᄒ, ᅡ,  precomposed is 한, decomposed is 한
+      let enclosedEAcute: Character = "\u{E9}\u{20DD}"        // enclosedEAcute is  é⃝
+      ```
 
 ### Counting Characters
 
@@ -695,7 +694,7 @@ It is still a work in progress, there are still some formatting errors. Should y
   * Use of extended grapheme clusters for Character values means character count may not be affected
 
     ```swift
-    var word = "cafe" +  "\\u{301}" // café  
+    var word = "cafe" +  "\u{301}"  // café  
     countElements(word)             // 4  
     ```
 
@@ -711,8 +710,8 @@ It is still a work in progress, there are still some formatting errors. Should y
     * == and !=
     * Two String values (or two Character values) are considered equal if their extended grapheme clusters are canonically equivalent
       * If they have the same linguistic metalling or appearance, even if they are composed from different Unicode scalars behind the scene
-    * "\\u{E9}" == "\\u{65}\\u{301}" //  é - true  
-    * "\\u{41}" == "\\u{0410}" // false - latinCapitalLetterA & cyrillicCapitalLetterA different linguistic meaning  
+    * "\u{E9}" == "\u{65}\u{301}" //  é - true  
+    * "\u{41}" == "\u{0410}" // false - latinCapitalLetterA & cyrillicCapitalLetterA different linguistic meaning  
     * Note
       * String and character comparisons in Swift are not locale sensitive
   * Prefix & Suffix Equality
@@ -792,27 +791,27 @@ It is still a work in progress, there are still some formatting errors. Should y
     * Swift's Array differ from Objective-C's NSArray or NSMutableArray which can store any kind of object
     * In Swift, the type of values is always made clear, explicitly or through type inference
   * Array Type Shorthand Syntax
-    * **Array<SomeType\> or \[SomeType\] (preferred)**
+    * **Array<SomeType> or [SomeType] (preferred)**
   * Array Literals  
 
     ```swift
-    \[value 1, value 2, value 3\]
+    [value 1, value 2, value 3]
     ```
 
-    * var shoppingList: \[String\] = \["Eggs", "Milk"\]
+    * var shoppingList: [String] = ["Eggs", "Milk"]
   * Accessing and Modifying An Array
 
     ```swift
-    var shoppingList: \[String\] = \["Eggs", "Milk"\]
+    var shoppingList: [String] = ["Eggs", "Milk"]
     ```
 
     * shoppingList.count
     * shoppingList.isEmpty
     * shoppingList.append("Flour")
-    * shoppingList += \["BakingPowder", "Cheese"\] // Add new items to an array
-    * var firstItem = shoppingList\[0\] // subscript syntax
-    * shoppingList\[0\] = "Six eggs"
-    * shoppingList\[4...6\] = \["Bananas", "Apples"\] // Shopping list now has 4 items
+    * shoppingList += ["BakingPowder", "Cheese"] // Add new items to an array
+    * var firstItem = shoppingList[0] // subscript syntax
+    * shoppingList[0] = "Six eggs"
+    * shoppingList[4...6] = ["Bananas", "Apples"] // Shopping list now has 4 items
     * shoppingList.insert("Maple Syrup", atIndex: 0)
     * let mapleSyrup = shoppingList.removeAtIndex(0)
     * let apples = shoppingList.removeLast()
@@ -829,29 +828,29 @@ It is still a work in progress, there are still some formatting errors. Should y
   * Creating and Initialising an Array
 
     ```swift
-    var someInts = \[Int\]()
+    var someInts = [Int]()
     ```
 
     * someInts.append(3)
-    * someInts = \[\] // reset to empty Int array
-    * var xyz = \[\] // runtime error, cause type unknown
-    * var threeDoubles = \[Double\](count: 3, repeatedValue: 2.5) // \[2.5, 2.5, 2.5\]
+    * someInts = [] // reset to empty Int array
+    * var xyz = [] // runtime error, cause type unknown
+    * var threeDoubles = [Double](count: 3, repeatedValue: 2.5) // [2.5, 2.5, 2.5]
 
 ### Dictionaries
   
   * Overview
     * Swift dictionaries are specific about the types of keys and values 
   * Dictionary Type Shorthand Syntax
-    * **Dictionary<KeyType, ValueType\> or \[KeyType: ValueType\]** (preferred)
+    * **Dictionary<KeyType, ValueType> or [KeyType: ValueType]** (preferred)
   * Dictionary Literals
 
     ```swift
-    \[key 1: value 1, key 2: value 2, key 3: value 3\]
+    [key 1: value 1, key 2: value 2, key 3: value 3]
     ```
 
-    * var airports: \[String: String\] = \["TYO": "Tokyo", "DUB": Dublin"\]
+    * var airports: [String: String] = ["TYO": "Tokyo", "DUB": Dublin"]
     * If key and values are consistent, you could skip the type definition
-      * var airports = \["TYO": "Tokyo", "DUB": "Dublin"\]
+      * var airports = ["TYO": "Tokyo", "DUB": "Dublin"]
   * Accessing and Modifying a Dictionary
 
     ```swift
@@ -859,9 +858,9 @@ It is still a work in progress, there are still some formatting errors. Should y
     ```
 
     * airports.isEmpty
-    * airports\["LHR"\] = "London"
+    * airports["LHR"] = "London"
       * airports.updateValue("Dublin International", forKey: "DUB")
-    * airports\["APL"\] = nil
+    * airports["APL"] = nil
       * airports.removeValueForKey("DUB")
   * Iterating Over a Dictionary
 
@@ -873,8 +872,8 @@ It is still a work in progress, there are still some formatting errors. Should y
     * for value in airport.values
     * Swift's Dictionary is an unordered collection
   * Creating and Empty Dictionary
-    * var namesOfIntegers = \[Int: String\]() // empty dictionary
-    * namesOfIntegers\[:\] // reset to empty, once the context is already known
+    * var namesOfIntegers = [Int: String]() // empty dictionary
+    * namesOfIntegers[:] // reset to empty, once the context is already known
   * Hash Values for Dictionary Key Types
     * A type must be hash able to be used as dictionary's key type
     * A hash value is an Int value that is the same for all object that compare equal if a == b, a.hashValue == b.hashValue
@@ -929,13 +928,13 @@ println("\\(index) times 5 is \\(index \* 5)")
   * While
 
     ```swift
-    while \[cond\] { ... }
+    while [cond] { ... }
     ```
 
   * Do-While
 
     ```swift
-    do { ... } while \[cond\]
+    do { ... } while [cond]
     ```
 
 
@@ -944,24 +943,24 @@ println("\\(index) times 5 is \\(index \* 5)")
   * If
 
     ```swift
-    if \[cond\]  { ... }
+    if [cond]  { ... }
+    if [cond] { ... } else { ... }
+    if [cond] { ... } else if [cond] { ...  }
     ```
 
-    * if \[cond\] { ... } else { ... }
-    * if \[cond\] { ... } else if \[cond\] { ...  }
   * Switch
 
     ```swift
-    switch \[value\] {  
+    switch [value] {  
+      case [value 1]:  
+      // respond to value 1  
+      case [value 2], [value 3]:  
+      // respond to value 2 or 3  
+      default:  
+      // otherwise, do something else  
+    }
     ```
 
-case \[value 1\]:  
-// respond to value 1  
-case \[value 2\], \[value 3\]:  
-// respond to value 2 or 3  
-default:  
-// otherwise, do something else  
-}  
     * default is a must
   * No Implicit Fall through
     * In contrast with switch statements in C and Objective-C, switch statement in Swift do not fall through the bottom of each case
@@ -969,46 +968,52 @@ default:
     * Body of each case must contain one executable statement
     * To opt-in for fall through behaviour, use the **fallthough** keyword
   * Range matching
-    * switch count {
-    * case 1...3:
-    * // statement here
-    * }
+
+    ```swift
+    switch count {
+      case 1...3:
+      // statement here
+    }
+    ```
+
   * Tuples
     * You can use tuple to test multiple values in a switch statement
-    * Example:
 
       ```swift
       let somePoint = (1, 1)
+
+      switch somePoint {
+        case (0, 0):
+          ....
+        case (\_, 0):
+          ...
+        case (-2...2, -2...2):
+          ...
+        default:
+          ...
+      }
       ```
 
-      * switch somePoint {:
-      * case (0, 0):
-      * ....
-      * case (\_, 0):
-      * ...
-      * case (-2...2, -2...2):
-      * ...
-      * default:
-      * ...
-      * }
   * Value Bindings
     * Bind value or values it matches to temporary constants or variables for use in the body of the case, known as value binding
     * Example:
 
       ```swift
       switch anotherPoint {
+        case (let x, 0):
+          ...  
+        case let (x, y):
+          ...
+        }
       ```
 
-      * case (let x, 0):
-      * ...  
-      * case let (x, y):
-      * ...
-      * }
     * Note that on this case the default statement is not required, cause every possible case as been catered for
   * Where
     * To check additional conditions
-    * Example:
-      * case let (x, y) where x == y:
+
+      ```swift
+      case let (x, y) where x == y:
+      ```
 
 ### Control Transfer Statements
 
@@ -1022,37 +1027,34 @@ default:
   * Fallthrough
     * Switch statements in Swift do not fall through the bottom of each case into the next one
     * To enable fall through the next case use fallthrough keyword
-    * Example:
 
       ```swift
       case abc:
+        // fallthrough
+      case next:
+        // executed again
+        // fallthrough
+      default:
+        // executed again
       ```
 
-        ...
-        * fallthrough
-      * case next:
-        * // executed again
-        * fallthrough
-      * default:
-        * // executed again
     * Fallthrough does not check the next condition
   * Labeled Statements
     * You can nest switch statement inside another loop statement
     * Sometimes it is important to be explicit which statement you want to break/continue
     * You can mark a loop statement or switch statement with a statement label
     * Format:
-      * \[label name\]:  while \[condition\] { ... }
-    * Example:
+      * [label name]:  while [condition] { ... }
 
       ```swift
-      gameLoop: while \[condition\] {
+      gameLoop: while [condition] {
+        switch [variable] {
+          case [condition]
+            break grameLoop
+        }
+      }
       ```
 
-        * switch \[variable\] {
-        *           * case \[condition\]
-          *             * break grameLoop
-        * }
-      * }
 ## Functions
 
 ### Defining and Calling Functions
@@ -1060,61 +1062,63 @@ default:
   * Example:
 
     ```swift
-    func sayHello(personName: String) -\> String {
+    func sayHello(personName: String) -> String {
+      let greeting = "Hello, " + personName + "!"
+      return greeting
+    }
+    
+    sayHello("Anna")
     ```
-
-
-let greeting = "Hello, " + personName + "!"
-
-return greeting
-
-}
-    * sayHello("Anna")
-
 ### Function Parameters & Return Values
 
   * Multiple Input Parameters
 
     ```swift
-    func halfOpenRangeLength(start: Int, end: Int) -\> Int {  
+    func halfOpenRangeLength(start: Int, end: Int) -> Int {
+      return end - start  
+    }  
+    println(halfOpenRangeLength(1, 10)) // prints "9"  
     ```
+      * Functions without Parameters
 
-return end - start  
-}  
-println(halfOpenRangeLength(1, 10))  
-// prints "9"  
-  * Functions without Parameters
-    * func sayHelloWorld() -\> String {  
-return "hello, world"  
-}  
-println(sayHelloWorld())  
-  * Functions without Return Values
-    * func sayGoodbye(personName: String) {  
-println("Goodbye, \\(personName)!")  
-}  
-sayGoodbye("Dave")  
-  * Functions with Multiple Return Values
-    * func minMax(array: \[Int\]) -\> (min: Int, max: Int) {  
-var currentMin = array\[0\]  
-var currentMax = array\[0\]  
-for value in array\[1..<array.count\] {  
-if value < currentMin {  
-currentMin = value  
-} else if value \> currentMax {  
-currentMax = value  
-}  
-}  
-return (currentMin, currentMax)  
-}  
+        ```swift
+        func sayHelloWorld() -> String {  
+          return "hello, world"  
+        }
+        println(sayHelloWorld())
+        ```
 
-    ```swift
-    let bounds = minMax(\[8, -6, 2, 109, 3, 71\])  
-    ```
+      * Functions without Return Values
 
-    * bounds.min
-    * bounds.max
+        ```swift
+        func sayGoodbye(personName: String) {  
+          println("Goodbye, \\(personName)!")  
+        }
+        sayGoodbye("Dave")  
+        ```
+
+      * Functions with Multiple Return Values
+        ```swift
+        func minMax(array: [Int]) -> (min: Int, max: Int) {  
+          var currentMin = array[0]  
+          var currentMax = array[0]  
+          for value in array[1..<array.count] {  
+            if value < currentMin {  
+              currentMin = value  
+            } else if value > currentMax {  
+              currentMax = value  
+            }  
+          }  
+          return (currentMin, currentMax)  
+        }
+        
+        let bounds = minMax([8, -6, 2, 109, 3, 71])  
+        bounds.min
+        bounds.max
+        ```
+
   * Optional Tuple Return Types
-    * -\> (Int, Int)?
+    * -> (Int, Int)?
     * It's different from (Int?, Int?)
     * if let bounds = minMax(...) { ... }
 
@@ -1134,9 +1138,10 @@ return (currentMin, currentMax)
 
       ```swift
       func someFunction(paramExt  paramName: Int) { ... }
+
+      someFunc(paramExt: 2)
       ```
 
-      * someFunc(paramExt: 2)
     * Consider using external param names when the purpose of a function's argument are not clear
   * Shorthand External Parameter Names
     * If the local param name the same with external param name, use the hash symbol (\#)
@@ -1156,21 +1161,21 @@ return (currentMin, currentMax)
 
       ```swift
       func someFunc(joiner: String = " ")
+      someFunc(joiner: "-")
       ```
 
-      * someFunc(joiner: "-")
     * You can opt out of this behaviour by writing an underscore (\_) instead of an explicit external name when you define a parameter  
       * Not recommended
   * Variadic Parameters
     * Accepts 0 or more values for a specified type
-    * \[someType\]...
+    * [someType]...
     * Example:
 
       ```swift
-      func average(numbers: Double...) -\> Double
+      func average(numbers: Double...) -> Double
+      average(1, 2, 3, 4, 5)
       ```
 
-      * average(1, 2, 3, 4, 5)
     * At most one variadic param, must be as the last in the parameter list
     * If there are default values as well, place variadic param after all the defaulted parameters
   * Constant & Variable Parameters
@@ -1190,45 +1195,45 @@ return (currentMin, currentMax)
     * You can only pass a variable not a constant
     * You place an & before a variable's name when you pass it as an argument
     * Can not have default values, and variadic params can not be marked as inout. If you mark it as inout, you can't mark it as var or let
-    * Example:
 
       ```swift
       func someFunc(inout paramName: Int)
+      
+      var locName = 3
+      someFunc(&locName)
       ```
-
-      * var locName = 3 q
-      * someFunc(&locName)
 
 ### Function Types
 
   * Using Function Types
-    * Use a function type such as (Int, Int) -\> Int as a parameter type for another function
-    * Example:
+    * Use a function type such as (Int, Int) -> Int as a parameter type for another function
 
       ```swift
-      func printMathResult(mathFunc: (Int, Int) -\> Int, a: Int, b:Int) { ... }
+      func printMathResult(mathFunc: (Int, Int) -> Int, a: Int, b:Int) { ... }
+      printMathResult(addTwoInts, 3, 5)
       ```
 
-      * printMathResult(addTwoInts, 3, 5)
   * Function Types as Return Types  
 
     ```swift
-    func someFunc(backwards: Bool) -\> (Int) -\> Int {
+    func someFunc(backwards: Bool) -> (Int) -> Int {
+      return backwards ? stepBackward : stepForward
+    }
     ```
-
-      * return backwards ? stepBackward : stepForward
-    * }
 
 ### Nested Functions
   
   * All the functions you have encountered so far are global functions  
   * You can define functions in the bodies of other functions, i.e. nested functions
-  * Example:
-    * func chooseStepFunction(backwards: Bool) -\> (Int) -\> Int {  
-func stepForward(input: Int) -\> Int { return input + 1 }  
-func stepBackward(input: Int) -\> Int { return input - 1 }  
-return backwards ? stepBackward : stepForward  
-}  
+
+    ```swift
+    func chooseStepFunction(backwards: Bool) -> (Int) -> Int {  
+      func stepForward(input: Int) -> Int { return input + 1 }  
+      func stepBackward(input: Int) -> Int { return input - 1 }  
+      return backwards ? stepBackward : stepForward  
+    }  
+    ```
+
 ## Closures
 
 ### Overview
@@ -1251,36 +1256,38 @@ return backwards ? stepBackward : stepForward
 
   * A way to write inline closure in a brief focused syntax
   * The Sorted Function
-    * Example:
 
       ```swift
-      let names = \["Chris", "Alex", "Ewa", "Barry", "Daniella"\]
+      let names = ["Chris", "Alex", "Ewa", "Barry", "Daniella"]
+      func backwards(s1: String, s2: String) -> Bool { return s1 > s2 }
+      var reversed = sorted(names, backwards)
       ```
 
-      * func backwards(s1: String, s2: String) -\> Bool { return s1 \> s2 }
-      * var reversed = sorted(names, backwards)
   * Closure Expression Syntax
-    * { (\[parameters\] -\> \[return type\] in 
-      * \[statements\]
-    * }
+  
+    ```swift
+    { ([parameters] -> [return type] in 
+      [statements]
+    }
+    ```
+
     * Can use constant, variable and inout parameters.
     * **Default values cannot be provided**
     * Variadic parameters can be used
     * Tuples can also be used as parameter types and return types
-    * Example:
 
       ```swift
-      reversed = sorted(names, { (s1: String, s2: String) -\> Bool in 
+      reversed = sorted(names, { (s1: String, s2: String) -> Bool in 
+        return s1 -> s2
+      })
       ```
 
-        * return s1 -\> s2
-      * })
     * Closure can be written on a single line
   * Inferring Type from Context
     * Because sorting closure is passed as an argument to a function, Swift can infer the types of its parameters and return from the type of the sorted function's second parameter.
 
       ```swift
-      reversed = sorted(names, { s1, s2 in return s1 \> s2 })
+      reversed = sorted(names, { s1, s2 in return s1 > s2 })
       ```
 
     * You never need to write an inline closure in it fullest form when closure is used as a function argument
@@ -1289,25 +1296,27 @@ return backwards ? stepBackward : stepForward
     * Single-expression closures can implicitly return the result of their single expression by omitting the return keyword from their declaration:
 
       ```swift
-      reversed = sorted(names, { s1, s2 in s1 \> s2 })
+      reversed = sorted(names, { s1, s2 in s1 > s2 })
       ```
 
   * Shorthand Argument Names
     * $0, $1, $2
     * You can omit closure's argument list from its definition
     * The in keyword can also be omitted because the closure expression is made up entirely of its body
-    * Example:
-      * reversed = sorted(names, { $0 \> $1 })
+
+      ```swift
+      reversed = sorted(names, { $0 > $1 })
+      ```
+
   * Operator Functions
     * There's actually an even shorter way to write the closure expression above
-    * Swift's String type defines its string specific implementation of the \> operator as a function that has two parameters of type String, and returns Bool
+    * Swift's String type defines its string specific implementation of the > operator as a function that has two parameters of type String, and returns Bool
     * It matches the function type needed for the sorted function
     * Thus Swift can infer that you want to use its string specific implementation:
 
       ```swift
-      reversed = sorted(names, \>)
+      reversed = sorted(names, >)
       ```
-
 
 ### Trailing Closures
 
@@ -1315,58 +1324,55 @@ return backwards ? stepBackward : stepForward
   * Write outside of (and after) the parentheses of the function call it supports:
 
     ```swift
-    func someFunc(closure: (0 -\> ()) { ... }
+    func someFunc(closure: (0 -> ()) { ... }
+    someFunc({  // closure body })
+    someFunc() { // trailing's closure body }
     ```
 
-    * someFunc({  // closure body })
-    * someFunc() { // trailing's closure body }
   * If a closure expression is provided as the function's only argument, you provide that expression as a trailing closure, you can omit a pair of parentheses ()
-  * Example:
 
     ```swift
-    reversed = sorted(names) { $0 -\> $1 }
+    reversed = sorted(names) { $0 -> $1 }
     ```
 
     * Map example:
-      * let strings = numbers.map {
 
-(var number) -\> String in
+      ```swift
+        let strings = numbers.map {
+          (var number) -> String in
 
-var output = ""
+          var output = ""
+          while number > 0 {
+            output = digitNames[number % 10]! + output
+            number /= 10
 
-while number \> 0 {
-
-output = digitNames\[number % 10\]! + output
-
-number /= 10
-
-}
-
-return output
-
-}
+          }
+          return output
+        }
+      ```
 
 ### Capturing Values
 
   * Closure capture constants and variables from the surrounding context in which it is defined
   * Closure can refer and modify those values even if the original scope no longer exists
   * Simplest form of a closure in Swift is a nested function
-  * Example:
-    * func makeIncrementor(forIncrement amount: Int) -\> () -\> Int {  
-var runningTotal = 0  
-func incrementor() -\> Int {  
-runningTotal += amount  
-return runningTotal  
-}  
-return incrementor  
-}
 
     ```swift
+    func makeIncrementor(forIncrement amount: Int) -> () -> Int {  
+      var runningTotal = 0
+      
+      func incrementor() -> Int {  
+        runningTotal += amount  
+        return runningTotal  
+      }  
+      return incrementor  
+    }
+
     let incrementByTen = makeIncrementor(forIncrement: 10)
+    incrementByTen() // 10
+    incrementByTen() // 20
     ```
 
-    * incrementByTen() // 10
-    * incrementByTen() // 20
   * If you assign a closure to a property of a class instance
     * The closure captures that instance by referring to the instance or its members, this will create strong reference cycle
   * Swift uses capture lists to break these strong reference cycles, more info later
@@ -1379,9 +1385,8 @@ return incrementor
 
     ```swift
     let alsoIncrementByTen = incrementByTen
+    alsoIncrementByTen()
     ```
-
-    * alsoIncrementByTen()
 
 ## Enumerations
 
@@ -1668,7 +1673,7 @@ var fileName = "data.txt"
   
 class DataManager {  
 lazy var importer = DataImporter()  
-var data = \[String\]()  
+var data = [String]()  
 // the DataManager class would provide data management functionality here  
 }  
   
@@ -1754,7 +1759,7 @@ let fourByFiveByTwo = Cuboid(width: 4.0, height: 5.0, depth: 2.0)
     * class StepCounter {  
 var totalSteps: Int = 0 {  
 willSet(newTotalSteps) { }  
-didSet { if totalSteps \> oldValue { } }  
+didSet { if totalSteps > oldValue { } }  
 }  
 }  
 
@@ -1819,11 +1824,11 @@ static let thresholdLevel = 10
 static var maxInputLevelForAllChannels = 0  
 var currentLevel: Int = 0 {  
 didSet {  
-if currentLevel \> AudioChannel.thresholdLevel {  
+if currentLevel > AudioChannel.thresholdLevel {  
 // cap the new audio level to the threshold level  
 currentLevel = AudioChannel.thresholdLevel  
 }  
-if currentLevel \> AudioChannel.maxInputLevelForAllChannels {  
+if currentLevel > AudioChannel.maxInputLevelForAllChannels {  
 // store this as the new overall maximum input level  
 AudioChannel.maxInputLevelForAllChannels = currentLevel  
 }  
@@ -1961,13 +1966,13 @@ SomeClass.someTypeMethod()
     * struct LevelTracker {  
 static var highestUnlockedLevel = 1  
 static func unlockLevel(level: Int) {  
-if level \> highestUnlockedLevel { highestUnlockedLevel = level }  
+if level > highestUnlockedLevel { highestUnlockedLevel = level }  
 }  
-static func levelIsUnlocked(level: Int) -\> Bool {  
+static func levelIsUnlocked(level: Int) -> Bool {  
 return level <= highestUnlockedLevel  
 }  
 var currentLevel = 1  
-mutating func advanceToLevel(level: Int) -\> Bool {  
+mutating func advanceToLevel(level: Int) -> Bool {  
 if LevelTracker.levelIsUnlocked(level) {  
 currentLevel = level  
 return true  
@@ -1984,7 +1989,7 @@ return false
   * Classes, structures, enumerations can define subscripts
   * Shortcuts for accessing the member elements of a collection, list or sequence
   * Use subscripts to set/get values by index without the need for separate methods
-    * E.g. someArray\[index\], someDictionary\[key\]
+    * E.g. someArray[index], someDictionary[key]
   * You can define multiple subscripts for a single type
     * Appropriate subscript overload is based on the type of index value passed to the subscript
     * Not limited to a single dimensions
@@ -1993,7 +1998,7 @@ return false
 ### Subscript Syntax
 
   * Similar to instance methods, but can be read-write or read-only
-    * subscript(index: Int) -\> Int {  
+    * subscript(index: Int) -> Int {  
 get {  
 // return an appropriate subscript value here  
 }  
@@ -2004,7 +2009,7 @@ set(newValue) {
     * As with read-only computed properties, you can drop the get keyword:
 
       ```swift
-      subscript(index: Int) -\> Int {  
+      subscript(index: Int) -> Int {  
       ```
 
 // return an appropriate subscript value here  
@@ -2012,24 +2017,24 @@ set(newValue) {
   * Example:  
     * struct TimesTable {  
 let multiplier: Int  
-subscript(index: Int) -\> Int {  
+subscript(index: Int) -> Int {  
 return multiplier \* index  
 }  
 }  
 let threeTimesTable = TimesTable(multiplier: 3)  
-    * println("six times three is \\(threeTimesTable\[6\])")  
+    * println("six times three is \\(threeTimesTable[6])")  
 // prints "six times three is 18  
 
 ### Subscript Usage
 
   * Exact meaning of "subscript" depends on the context which it is used
   * Example:  
-    * var numberOfLegs = \["spider": 8, "ant": 6, "cat": 4\]  
-numberOfLegs\["bird"\] = 2  
+    * var numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]  
+numberOfLegs["bird"] = 2  
     * Dictionary type implements its key-value subscripting, takes and receives an optional type
 
       ```swift
-      numberofLegs\["bird"\] returns a value of type Int?
+      numberofLegs["bird"] returns a value of type Int?
       ```
 
 
@@ -2044,23 +2049,23 @@ numberOfLegs\["bird"\] = 2
   * Example:
     * struct Matrix {  
 let rows: Int, columns: Int  
-var grid: \[Double\]  
+var grid: [Double]  
 init(rows: Int, columns: Int) {  
 self.rows = rows  
 self.columns = columns  
 grid = Array(count: rows \* columns, repeatedValue: 0.0)  
 }  
-func indexIsValidForRow(row: Int, column: Int) -\> Bool {  
-return row \>= 0 && row < rows && column \>= 0 && column < columns  
+func indexIsValidForRow(row: Int, column: Int) -> Bool {  
+return row >= 0 && row < rows && column >= 0 && column < columns  
 }  
-subscript(row: Int, column: Int) -\> Double {  
+subscript(row: Int, column: Int) -> Double {  
 get {  
 assert(indexIsValidForRow(row, column: column), "Index out of range")  
-return grid\[(row \* columns) + column\]  
+return grid[(row \* columns) + column]  
 }  
 set {  
 assert(indexIsValidForRow(row, column: column), "Index out of range")  
-grid\[(row \* columns) + column\] = newValue  
+grid[(row \* columns) + column] = newValue  
 }  
 }  
 }
@@ -2101,7 +2106,7 @@ func makeNoise() {
   * Use override keyword to clearly show the intent or error
     * Compiler will also check if you are overriding any of the superclass methods
   * Accessing superclass Methods, Properties, and Subscripts
-    * super.someMethod, super.someProperty, super\[someIndex\]
+    * super.someMethod, super.someProperty, super[someIndex]
   * Overriding methods
     * class Train: Vehicle {  
 override func makeNoise() {  
@@ -2327,8 +2332,8 @@ size: Size(width: 5.0, height: 5.0))
       * Quite common to have only one
     * Convenience inits, secondary support inits
   * Syntax for Designated and Convenienc initialisers
-    * init (\[parameters\]) { ... }
-    * convenience init(\[parameters\]) { ... }
+    * init ([parameters]) { ... }
+    * convenience init([parameters]) { ... }
   * Init Chaining
     * Rules to simply relationship between designated & convenience inits
 *   1.     1.       1. Designated init must call a designated init for its immediate class
@@ -2417,7 +2422,7 @@ init(name: String) {
 [self.name][2] = name  
 }  
 convenience init() {  
-self.init(name: "\[Unnamed\]")  
+self.init(name: "[Unnamed]")  
 }  
 }  
     * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/EAC71E1D-8420-452D-95EA-7E9073F9983A.png)  
@@ -2443,7 +2448,7 @@ output += purchased ? " ✔" : " ✘"
 return output  
 }  
 }  
-    * var breakfastList = \[
+    * var breakfastList = [
 
 ShoppingListItem(),
 
@@ -2451,7 +2456,7 @@ ShoppingListItem(name: "Bacon"),
 
 ShoppingListItem(name: "Eggs", quantity: 6),
 
-\]
+]
     * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/83B2D621-68B2-4016-88F3-2EAB2DC2E3B0.png)  
   * Required Inits  
     * To indicate every subclass  must implement that initialiser:
@@ -2487,8 +2492,8 @@ return someValue
     * You cannot access any other properties, and you cannot use "self"
   * Example:
     * struct Checkerboard {  
-let boardColors: \[Bool\] = {  
-var temporaryBoard = \[Bool\]()  
+let boardColors: [Bool] = {  
+var temporaryBoard = [Bool]()  
 var isBlack = false  
 for i in 1...10 {  
 for j in 1...10 {  
@@ -2499,8 +2504,8 @@ isBlack = !isBlack
 }  
 return temporaryBoard  
 }()  
-func squareIsBlackAtRow(row: Int, column: Int) -\> Bool {  
-return boardColors\[(row \* 10) + column\]  
+func squareIsBlackAtRow(row: Int, column: Int) -> Bool {  
+return boardColors[(row \* 10) + column]  
 }  
 }  
 
@@ -2525,7 +2530,7 @@ return boardColors\[(row \* 10) + column\]
 
 static var coinsInBank = 10\_000
 
-static func vendCoins(var numberOfCoinsToVend: Int) -\> Int {
+static func vendCoins(var numberOfCoinsToVend: Int) -> Int {
 
 numberOfCoinsToVend = min(numberOfCoinsToVend, coinsInBank)
 
@@ -2770,11 +2775,11 @@ println("\\(country.name)'s capital city is called \\(country.[capitalCity.name]
 let name: String  
 let text: String?  
   
-lazy var asHTML: () -\> String = {  
+lazy var asHTML: () -> String = {  
 if let text = self.text {  
-return "<\\(self.name)\>\\(text)</\\(self.name)\>"  
+return "<\\(self.name)>\\(text)</\\(self.name)>"  
 } else {  
-return "<\\(self.name) /\>"  
+return "<\\(self.name) />"  
 }  
 }  
   
@@ -2790,7 +2795,7 @@ println("\\(name) is being deinitialized")
 }  
     * var paragraph: HTMLElement? = HTMLElement(name: "p", text: "hello, world")  
 println(paragraph!.asHTML())  
-// prints "<p\>hello, world</p\>  
+// prints "<p>hello, world</p>  
     * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/92D56D5E-0877-48C0-8873-816A21C3CCCC.png)  
 
 ### Resolving Strong Reference Cycles for Closures
@@ -2804,19 +2809,19 @@ println(paragraph!.asHTML())
     * Example:
 
       ```swift
-      lazy var someClosure: (Int, String) -\> String = {  
+      lazy var someClosure: (Int, String) -> String = {  
       ```
 
-\[unowned self\] (index: Int, stringToProcess: String) -\> String in  
+[unowned self] (index: Int, stringToProcess: String) -> String in  
 // closure body goes here  
 }  
       * Or
 
       ```swift
-      lazy var someClosure: () -\> String = {  
+      lazy var someClosure: () -> String = {  
       ```
 
-\[unowned self\] in  
+[unowned self] in  
 // closure body goes here  
 }  
   * Weak and Unknowned References
@@ -2861,16 +2866,16 @@ println("Unable to retrieve the number of rooms.")
 var residence: Residence?  
 }
     * class Residence {  
-var rooms = \[Room\]()  
+var rooms = [Room]()  
 var numberOfRooms: Int {  
 return rooms.count  
 }  
-subscript(i: Int) -\> Room {  
+subscript(i: Int) -> Room {  
 get {  
-return rooms\[i\]  
+return rooms[i]  
 }  
 set {  
-rooms\[i\] = newValue  
+rooms[i] = newValue  
 }  
 }  
 func printNumberOfRooms() {  
@@ -2886,7 +2891,7 @@ init(name: String) { [self.name][2] = name }
 var buildingName: String?  
 var buildingNumber: String?  
 var street: String?  
-func buildingIdentifier() -\> String? {  
+func buildingIdentifier() -> String? {  
 if buildingName != nil {  
 return buildingName  
 } else if buildingNumber != nil {  
@@ -2935,7 +2940,7 @@ println("It was not possible to print the number of rooms.")
     * Example:
 
       ```swift
-      if let firstRoomName = john.residence?\[0\].name " { ... }
+      if let firstRoomName = john.residence?[0].name " { ... }
       ```
 
   * Accessing Subscripts of Optional Type
@@ -2943,13 +2948,13 @@ println("It was not possible to print the number of rooms.")
     * Example:
 
       ```swift
-      var testScores = \["Dave": \[86, 82, 84\], "Bev": \[79, 94, 81\]\]  
+      var testScores = ["Dave": [86, 82, 84], "Bev": [79, 94, 81]]  
       ```
 
-testScores\["Dave"\]?\[0\] = 91  
-testScores\["Bev"\]?\[0\]++  
-testScores\["Brian"\]?\[0\] = 72  
-// the "Dave" array is now \[91, 82, 84\] and the "Bev" array is now \[80, 94, 81\]  
+testScores["Dave"]?[0] = 91  
+testScores["Bev"]?[0]++  
+testScores["Brian"]?[0] = 72  
+// the "Dave" array is now [91, 82, 84] and the "Bev" array is now [80, 94, 81]  
 
 ### Linking Multiple Levels of Chaining
 
@@ -3029,13 +3034,13 @@ self.artist = artist
 super.init(name: name)  
 }  
 }
-    * let library = \[  
+    * let library = [  
 Movie(name: "Casablanca", director: "Michael Curtiz"),  
 Song(name: "Blue Suede Shoes", artist: "Elvis Presley"),  
 Movie(name: "Citizen Kane", director: "Orson Welles"),  
 Song(name: "The One And Only", artist: "Chesney Hawkes"),  
 Song(name: "Never Gonna Give You Up", artist: "Rick Astley")  
-\]
+]
 
 ### Checking Type
 
@@ -3076,19 +3081,19 @@ println("Song: '\\(song.name)', by \\(song.artist)")
     * Use Any and AnyObject when you explicitly need the behaviour and capabilities.
     * It is always better to be specific with the types you work with.
   * AnyObject
-    * When you work with CocoaAPI, it is common to receive an array of \[AnyObject\]
+    * When you work with CocoaAPI, it is common to receive an array of [AnyObject]
     * Because Obj-C does not have an Array of explicitly typed objects
     * Use as to downcast each item in the array
     * Example:
 
       ```swift
-      let someObjects: \[AnyObject\] = \[  
+      let someObjects: [AnyObject] = [  
       ```
 
 Movie(name: "2001: A Space Odyssey", director: "Stanley Kubrick"),  
 Movie(name: "Moon", director: "Duncan Jones"),  
 Movie(name: "Alien", director: "Ridley Scott")  
-\]  
+]  
 
       ```swift
       for object in someObjects {  
@@ -3098,7 +3103,7 @@ let movie = object as Movie
 println("Movie: '\\(movie.name)', dir. \\(movie.director)")  
 }  
       * Shorter version
-        * for movie in someObjects as \[Movie\] {  
+        * for movie in someObjects as [Movie] {  
 println("Movie: '\\(movie.name)', dir. \\(movie.director)")  
 }  
   * Any
@@ -3106,7 +3111,7 @@ println("Movie: '\\(movie.name)', dir. \\(movie.director)")
     * Example:
 
       ```swift
-      var things = \[Any\]()  
+      var things = [Any]()  
       ```
 
   
@@ -3126,7 +3131,7 @@ case 0 as Double:
 println("zero as a Double")  
 case let someInt as Int:  
 println("an integer value of \\(someInt)")  
-case let someDouble as Double where someDouble \> 0:  
+case let someDouble as Double where someDouble > 0:  
 println("a positive double value of \\(someDouble)")  
 case is Double:  
 println("some other double value that I don't want to print")  
@@ -3318,7 +3323,7 @@ size: Size(width: 3.0, height: 3.0))
   * Add new instance methods and type methods to existing types
   * Example:
     * extension Int {  
-func repetitions(task: () -\> ()) {  
+func repetitions(task: () -> ()) {  
 for i in 0..<self {  
 task()  
 }  
@@ -3344,26 +3349,26 @@ self = self \* self
 
   * Example:
     * extension Int {  
-subscript(var digitIndex: Int) -\> Int {  
+subscript(var digitIndex: Int) -> Int {  
 var decimalBase = 1  
-while digitIndex \> 0 {  
+while digitIndex > 0 {  
 decimalBase \*= 10  
 --digitIndex  
 }  
 return (self / decimalBase) % 10  
 }  
 }  
-746381295\[0\]  
+746381295[0]  
 // returns 5  
-746381295\[1\]  
+746381295[1]  
 // returns 9  
-746381295\[2\]  
+746381295[2]  
 // returns 2  
-746381295\[8\]  
+746381295[8]  
 // returns 7  
-    * 746381295\[9\]  
+    * 746381295[9]  
 // returns 0, as if you had requested:  
-0746381295\[9\]  
+0746381295[9]  
 
 ### Nested Types
 
@@ -3375,14 +3380,14 @@ var kind: Kind {
 switch self {  
 case 0:  
 return .Zero  
-case let x where x \> 0:  
+case let x where x > 0:  
 return .Positive  
 default:  
 return .Negative  
 }  
 }  
 }  
-  * func printIntegerKinds(numbers: \[Int\]) {
+  * func printIntegerKinds(numbers: [Int]) {
 
 for number in numbers {
 
@@ -3408,7 +3413,7 @@ print("\\n")
 
 }
 
-printIntegerKinds(\[3, 19, -27, 0, -6, 0, 7\])
+printIntegerKinds([3, 19, -27, 0, -6, 0, 7])
 
 // prints "+ + - 0 - 0 +"
 
@@ -3488,7 +3493,7 @@ class func someTypeMethod()
 }  
     * protocol RandomNumberGenerator {
 
-func random() -\> Double
+func random() -> Double
 
 }
 
@@ -3569,7 +3574,7 @@ init(sides: Int, generator: RandomNumberGenerator) {
 self.sides = sides  
 self.generator = generator  
 }  
-func roll() -\> Int {  
+func roll() -> Int {  
 return Int(generator.random() \* Double(sides)) + 1  
 }  
 }  
@@ -3596,11 +3601,11 @@ func gameDidEnd(game: DiceGame)
 let finalSquare = 25  
 let dice = Dice(sides: 6, generator: LinearCongruentialGenerator())  
 var square = 0  
-var board: \[Int\]  
+var board: [Int]  
 init() {  
-board = \[Int\](count: finalSquare + 1, repeatedValue: 0)  
-board\[03\] = +08; board\[06\] = +11; board\[09\] = +09; board\[10\] = +02  
-board\[14\] = -10; board\[19\] = -11; board\[22\] = -02; board\[24\] = -08  
+board = [Int](count: finalSquare + 1, repeatedValue: 0)  
+board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02  
+board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08  
 }  
 var delegate: DiceGameDelegate?  
 func play() {  
@@ -3612,11 +3617,11 @@ delegate?.game(self, didStartNewTurnWithDiceRoll: diceRoll)
 switch square + diceRoll {  
 case finalSquare:  
 break gameLoop  
-case let newSquare where newSquare \> finalSquare:  
+case let newSquare where newSquare > finalSquare:  
 continue gameLoop  
 default:  
 square += diceRoll  
-square += board\[square\]  
+square += board[square]  
 }  
 }  
 delegate?.gameDidEnd(self)  
@@ -3650,10 +3655,10 @@ game.play()
   * Extensions can add new properties, methods, and subscripts to an existing type, and are therefore able to add any requirements that a protocol demand.
   * Example:
     * protocol TextRepresentable {  
-func asText() -\> String  
+func asText() -> String  
 }  
     * extension Dice: TextRepresentable {  
-func asText() -\> String {  
+func asText() -> String {  
 return "A \\(sides)-sided dice"  
 }  
 }  
@@ -3665,7 +3670,7 @@ return "A \\(sides)-sided dice"
       ```
 
 var name: String  
-func asText() -\> String {  
+func asText() -> String {  
 return "A hamster named \\(name)"  
 }  
 }  
@@ -3682,7 +3687,7 @@ let somethingTextRepresentable: TextRepresentable = simonTheHamster"
 ### Collections of Protocol Types
 
   * Protocol can be used as the type to be stored in collection as as array/dictionary:
-    * let things: \[TextRepresentable\] = \[game, d12, simonTheHamster\]  
+    * let things: [TextRepresentable] = [game, d12, simonTheHamster]  
     * for thing in things {  
 println(thing.asText())  
 }  
@@ -3694,7 +3699,7 @@ println(thing.asText())
 // protocol definition goes here  
 }  
     * protocol PrettyTextRepresentable: TextRepresentable {  
-func asPrettyText() -\> String  
+func asPrettyText() -> String  
 }  
 
 ### Class-Only Protocol
@@ -3709,7 +3714,7 @@ func asPrettyText() -\> String
 ### Protocol Composition
 
   * You can combine multiple protocols into a single protocol composition.
-    * protocol<SomeProtocol, AnotherProtocol\>
+    * protocol<SomeProtocol, AnotherProtocol>
   * Example:
     * protocol Named {  
 var name: String { get }  
@@ -3721,7 +3726,7 @@ struct Person: Named, Aged {
 var name: String  
 var age: Int  
 }  
-func wishHappyBirthday(celebrator: protocol<Named, Aged\>) {  
+func wishHappyBirthday(celebrator: protocol<Named, Aged>) {  
 println("Happy birthday \\(celebrator.name) - you're \\(celebrator.age)!")  
 }  
 let birthdayPerson = Person(name: "Malcolm", age: 21)  
@@ -3774,7 +3779,7 @@ println("Something that doesn't have an area")
     * @objc can only be adopted by classes, not structures/enumerations
   * Example:
     * @objc protocol CounterDataSource {  
-optional func incrementForCount(count: Int) -\> Int  
+optional func incrementForCount(count: Int) -> Int  
 optional var fixedIncrement: Int { get }  
 }  
     * @objc class Counter {  
@@ -3798,7 +3803,7 @@ counter.increment()
 println(counter.count)  
 }  
     * class TowardsZeroSource: CounterDataSource {  
-func incrementForCount(count: Int) -\> Int {  
+func incrementForCount(count: Int) -> Int {  
 if count == 0 {  
 return 0  
 } else if count < 0 {  
@@ -3860,14 +3865,14 @@ b = temporaryA
 ### Generic Functions
 
   * Example:
-    * func swapTwoValues<T\>(inout a: T, inout b: T) {  
+    * func swapTwoValues<T>(inout a: T, inout b: T) {  
 let temporaryA = a  
 a = b  
 b = temporaryA  
 }  
   * Comparison
     * func swapTwoInts(inout a: Int, inout b: Int)  
-func swapTwoValues<T\>(inout a: T, inout b: T)  
+func swapTwoValues<T>(inout a: T, inout b: T)  
   * Example:
     * var someInt = 3  
 var anotherInt = 107  
@@ -3884,7 +3889,7 @@ swapTwoValues(&someString, &anotherString)
 ### Type Parameters
 
   * In the swapTwoValues, the placeholder T is an example of a type parameter.
-    * Type parameter specify and name a placeholder type, and are written immediately after the function's name, between a pair of matching angle bracket (such as <T\>)
+    * Type parameter specify and name a placeholder type, and are written immediately after the function's name, between a pair of matching angle bracket (such as <T>)
     * Once you specify the type parameter, you can use it to define the type of a function's parameter, function's return type and or as a type annotation within the body of the function
     * You can provide more than one type parameter by writing type parameter name within the angle bracket.
   * Naming Type Parameters
@@ -3906,29 +3911,29 @@ swapTwoValues(&someString, &anotherString)
     * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/CC626F62-D041-4B0F-8F78-4DEA2FD8B5D9.png)  
   * Integer Stack:
     * struct InStack {  
-var items = \[Int\]()  
+var items = [Int]()  
 mutating func push(item: Int) {  
 items.append(item)  
 }  
   
-mutating func pop() -\> Int {  
+mutating func pop() -> Int {  
 return items.removeLast()  
 }  
 }  
   * Generic Stack:
-    * struct Stack<T\> {  
-var items = \[T\]()  
+    * struct Stack<T> {  
+var items = [T]()  
   
 mutating func push(item: T) {  
 items.append(item)  
 }  
   
-mutating func pop() -\> T {  
+mutating func pop() -> T {  
 return items.removeLast()  
 }  
 }  
   * Usage:
-    * var stackOfStrings = Stack<String\>()  
+    * var stackOfStrings = Stack<String>()  
 stackOfStrings.push("uno")  
 stackOfStrings.push("dos")  
 stackOfStrings.push("tres")  
@@ -3941,7 +3946,7 @@ stackOfStrings.push("tres")
   * Example:
     * extension Stack {  
 var topItem: T? {  
-return items.isEmpty ? nil: items\[items.count - 1\]  
+return items.isEmpty ? nil: items[items.count - 1]  
 }  
 }  
 
@@ -3955,14 +3960,14 @@ return items.isEmpty ? nil: items\[items.count - 1\]
   * Type Constraint Syntax
     * extension Stack {  
 var topItem: T? {  
-return items.isEmpty ? nil: items\[items.count - 1\]  
+return items.isEmpty ? nil: items[items.count - 1]  
 }  
 }  
   * Type Constraints in Action
     * Type specific version
 
       ```swift
-      func findStringIndex(array: \[String\], valueToFind: String) -\> Int? {  
+      func findStringIndex(array: [String], valueToFind: String) -> Int? {  
       ```
 
 for (index, value) in enumerate(array) {  
@@ -3974,7 +3979,7 @@ return index
 return nil  
 }  
   
-let strings = \["cat", "dog", "llama", "parakeet", "terrapin"\]  
+let strings = ["cat", "dog", "llama", "parakeet", "terrapin"]  
   
 if let foundIndex = findStringIndex(strings, "llama") {  
 println("Found index: \\(foundIndex)")  
@@ -3982,7 +3987,7 @@ println("Found index: \\(foundIndex)")
     * Generic version
 
       ```swift
-      func findIndex<T: Equatable\>(array: \[T\], valueToFind: T) -\> Int? {  
+      func findIndex<T: Equatable>(array: [T], valueToFind: T) -> Int? {  
       ```
 
 for (index, value) in enumerate(array) {  
@@ -3994,8 +3999,8 @@ return index
 return nil  
 }  
   
-let doubleIndex = findIndex(\[3.14, 0.1, 0.25\], 9.3)  
-let stringIndex = findIndex(\["Mike", "John", "Andrea"\], "John")  
+let doubleIndex = findIndex([3.14, 0.1, 0.25], 9.3)  
+let stringIndex = findIndex(["Mike", "John", "Andrea"], "John")  
 
 ### Associated Types
 
@@ -4015,17 +4020,17 @@ typealias ItemType
 mutating func append(item: ItemType)  
   
 var count: Int { get }  
-subscript(i: Int) -\> ItemType { get }  
+subscript(i: Int) -> ItemType { get }  
 }
     * Int Stack Implementation
       *   
 struct IntStack: Container {  
 // original IntStack implementation  
-var items = \[Int\]()  
+var items = [Int]()  
 mutating func push(item: Int) {  
 items.append(item)  
 }  
-mutating func pop() -\> Int {  
+mutating func pop() -> Int {  
 return items.removeLast()  
 }  
 // conformance to the Container protocol  
@@ -4036,19 +4041,19 @@ self.push(item)
 var count: Int {  
 return items.count  
 }  
-subscript(i: Int) -\> Int {  
-return items\[i\]  
+subscript(i: Int) -> Int {  
+return items[i]  
 }  
 }
     * Generic Type Implementation, Swift is able to infer that T refers to ItemAlias in the protocol:
-      * struct Stack<T\>: Container {  
-var items = \[T\]()  
+      * struct Stack<T>: Container {  
+var items = [T]()  
   
 mutating func push(item: T) {  
 items.append(item)  
 }  
   
-mutating func pop() -\> T {  
+mutating func pop() -> T {  
 return items.removeLast()  
 }  
   
@@ -4061,8 +4066,8 @@ var count: Int {
 return items.count  
 }  
   
-subscript(i: Int) -\> T {  
-return items\[i\]  
+subscript(i: Int) -> T {  
+return items[i]  
 }  
 }
 
@@ -4072,28 +4077,28 @@ return items\[i\]
   * Define where clauses as part of a type parameter list
   * Where clause allows you to require that an associated type conforms to a certain protocol **and/or** certain taupe parameters an associated types to be the same
   * Example:
-    * func allItemsMatch<C1: Container, C2: Container where C1.ItemType == C2.ItemType, C1.ItemType: Equatable\> (someContainer: C1, anotherContainer: C2) -\> Bool {  
+    * func allItemsMatch<C1: Container, C2: Container where C1.ItemType == C2.ItemType, C1.ItemType: Equatable> (someContainer: C1, anotherContainer: C2) -> Bool {  
   
 if someContainer.count != anotherContainer.count {  
 return false  
 }  
   
 for i in 0..<someContainer.count {  
-if someContainer\[i\] != anotherContainer\[i\] {  
+if someContainer[i] != anotherContainer[i] {  
 return false  
 }  
 }  
   
 return true  
 }  
-    * var stackOfStrings = Stack<String\>()  
+    * var stackOfStrings = Stack<String>()  
 stackOfStrings.push("1")  
 stackOfStrings.push("2")  
 stackOfStrings.push("3")  
   
-//var arrayOfStrings = \["1", "2", "3"\]  
+//var arrayOfStrings = ["1", "2", "3"]  
 // Error cause array of String does not conform to Container protocol  
-var arrayOfStrings = Stack<String\>()  
+var arrayOfStrings = Stack<String>()  
 arrayOfStrings.push("1")  
 arrayOfStrings.push("2")  
 arrayOfStrings.push("3")  
@@ -4198,11 +4203,11 @@ func somePrivateMethod() {}         // implicitly private class member
     * **Function Types**
       * Access level for a function type is calculated as the most restrictive access level of the function's parameter types and return type
       * Example:
-        * func someFunction() -\> (SomeInternalClass, SomePrivateClass) {  
+        * func someFunction() -> (SomeInternalClass, SomePrivateClass) {  
 // function implementation goes here  
 }  
         * Because the function's return type is private, you must mark the function's overall access level with private:
-        *           * private func someFunction() -\> (SomeInternalClass, SomePrivateClass) {  
+        *           * private func someFunction() -> (SomeInternalClass, SomePrivateClass) {  
 // function implementation goes here  
 }  
     * **Enumeration Types**
@@ -4391,7 +4396,7 @@ let outputBits = firstBits ^ otherBits  // equals 00010001
 
 ### Bitwise Left and Right Shift Operators
 
-  * Move the bits in a number to the left (<<) or right (\>\>) by certain number according to the rules defined
+  * Move the bits in a number to the left (<<) or right (>>) by certain number according to the rules defined
   * Have the effect of multiplying or dividing an integer number by a factor of two
     * Shifting to the left by one position doubles its value, and vice versa
   * **Shifting Behavior for Unsigned Integer**
@@ -4399,17 +4404,17 @@ let outputBits = firstBits ^ otherBits  // equals 00010001
     * Any bits that are moved beyond the bounds are discard
     * Zeros are inserted in the space left behind after the original bits are  over
     * Example:
-      * 1111111 << 1 and 11111111 \>\> 1
+      * 1111111 << 1 and 11111111 >> 1
       * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/EE31C084-F829-4AF9-830A-C60247DCE291.png)  
       * let shiftBits: UInt8 = 4   // 00000100 in binary  
 shiftBits << 1             // 00001000  
 shiftBits << 2             // 00010000  
 shiftBits << 5             // 10000000  
 shiftBits << 6             // 00000000  
-shiftBits \>\> 2             // 00000001  
+shiftBits >> 2             // 00000001  
       * let pink: UInt32 = 0xCC6699  
-let redComponent = (pink & 0xFF0000) \>\> 16    // redComponent is 0xCC, or 204  
-let greenComponent = (pink & 0x00FF00) \>\> 8   // greenComponent is 0x66, or 102  
+let redComponent = (pink & 0xFF0000) >> 16    // redComponent is 0xCC, or 204  
+let greenComponent = (pink & 0x00FF00) >> 8   // greenComponent is 0x66, or 102  
 let blueComponent = pink & 0x0000FF           // blueComponent is 0x99, or 153"  
   * **Shifting Behavior for Signed Integers**
     * More complex for signed integers, because the way signed integers are represented in binary
@@ -4479,7 +4484,7 @@ let y = x &/ 0
       * Multiplication and remainder have the same precedence of each other
       * But both associate the expression to their left
       * 2 + ((3 \* 4) % 5)
-      * More info the Language Reference \> Expressions
+      * More info the Language Reference > Expressions
     * Note
       * Swift's operator precedences and associativity rules are simpler and more predictable than in C and Obj-C
 
@@ -4491,7 +4496,7 @@ let y = x &/ 0
     * struct Vector2D {  
 var x = 0.0, y = 0.0  
 }  
-func + (left: Vector2D, right: Vector2D) -\> Vector2D {  
+func + (left: Vector2D, right: Vector2D) -> Vector2D {  
 return Vector2D(x: left.x + right.x, y: left.y + right.y)  
 }  
     * let vector = Vector2D(x: 3.0, y: 1.0)  
@@ -4503,7 +4508,7 @@ let combinedVector = vector + anotherVector
       * prefix, -a
       * postfix i++
     * Example:
-      * prefix func - (vector: Vector2D) -\> Vector2D {
+      * prefix func - (vector: Vector2D) -> Vector2D {
       * return Vector2D(x: -vector.x, y: -vector.y)
       * }
       * let positive = Vector2D(x: 3.0, y: 4.0)  
@@ -4525,7 +4530,7 @@ let vectorToAdd = Vector2D(x: 3.0, y: 4.0)
 original += vectorToAdd  
 // original now has values of (4.0, 6.0)  
     * Combine assignment with either prefix or postfix
-      * prefix func ++ (inout vector: Vector2D) -\> Vector2D {  
+      * prefix func ++ (inout vector: Vector2D) -> Vector2D {  
 vector += Vector2D(x: 1.0, y: 1.0)  
 return vector  
 }  
@@ -4541,10 +4546,10 @@ let afterIncrement = ++toIncrement
       * ==
       * !=
     * Example:
-      * func == (left: Vector2D, right: Vector2D) -\> Bool {  
+      * func == (left: Vector2D, right: Vector2D) -> Bool {  
 return (left.x == right.x) && (left.y == right.y)  
 }  
-func != (left: Vector2D, right: Vector2D) -\> Bool {  
+func != (left: Vector2D, right: Vector2D) -> Bool {  
 return !(left == right)  
 }
       * let twoThree = Vector2D(x: 2.0, y: 3.0)  
@@ -4560,7 +4565,7 @@ println("These two vectors are equivalent.")
   * New operators are declared at a global level using the operator keyword, and marked with prefix, infix or postfix modifiers:
     * prefix operator +++ {}
   * Example:
-    * prefix func +++ (inout vector: Vector2D) -\> Vector2D {  
+    * prefix func +++ (inout vector: Vector2D) -> Vector2D {  
 vector += vector  
 return vector  
 }  
@@ -4576,7 +4581,7 @@ let afterDoubling = +++toBeDoubled
     * The precedence value defaults to 100 if not specified
     * Example:
       * infix operator +- { associativity left precedence 140 }  
-func +- (left: Vector2D, right: Vector2D) -\> Vector2D {  
+func +- (left: Vector2D, right: Vector2D) -> Vector2D {  
 return Vector2D(x: left.x + right.x, y: left.y - right.y)  
 }  
 let firstVector = Vector2D(x: 1.0, y: 2.0)  
