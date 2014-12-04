@@ -580,28 +580,27 @@ a ? b : c
 
 ### String Literals
 
-  ```swift
-  let someString = "Some string literal value"
-  ```
+```swift
+let someString = "Some string literal value"
+```
 
 ### Initializing an Empty String
 
-  ```swift
-  var emptyString = ""
-  var anotherEmptyString = String()
-  emptyString == anotherEmptyString
-  if emptyString.isEmpty
-  ```
+```swift
+var emptyString = ""
+var anotherEmptyString = String()
+
+emptyString == anotherEmptyString
+
+if emptyString.isEmpty { ... }
+```
 
 ### String Mutability
   
-  * Compile time error for constant
-
-    ```swift
-    let constantString = "hello"
-    ```
-
-    * constantString += " world"
+```swift
+let constantString = "hello"
+constantString += " world"   // compilation error
+```
 
 ### String Are Value Types
 
