@@ -271,7 +271,7 @@ There are still some formatting and typo errors, will fix them soon.
     ```
 
   * Useful to return values of  functions, by returning a tuple with two distinct values, each of a different type the function provides more useful info about its outcome
-  * Notes
+  * Note
     * Tuples useful for temporary groups of related values, not suited for creation of complex data structures
     * If data structure likely to persist beyond a temp scope, model it as a class or structure.
 
@@ -279,7 +279,7 @@ There are still some formatting and typo errors, will fix them soon.
   
   * Use optional where a value may be present
   * If there is a value, it equals to x, or there isn't a value at all
-  * Notes
+  * Note
     * Optionals don't exist in C/Obj-C. Nearest is to return nil.
     * Only works for objects, doesn't work for structures, basic C types, and enums.
     * Usually Obj-C methods return a special value NSNotFound to indicate absence of a a value
@@ -308,7 +308,7 @@ There are still some formatting and typo errors, will fix them soon.
       var surveyAnswer: String? // nil
       ```
 
-    * Notes
+    * Note
       * Swift's nil is different from Objective-C's.
       * In Objective-C nil is a pointer to a nonexistent object
       * In Swift it is not a pointer, it is an absence value of a certain type
@@ -364,10 +364,10 @@ There are still some formatting and typo errors, will fix them soon.
     * An integer subscript index is passed to a custom subscript implementation, but the subscript index value could be too low or too high
     * Value passed to a function, check for invalid value
     * An optional value is currently nil, but a non-nil value is essential for subsequent code to execute
-  * Notes
+  * Note
     * Assertion cause app to terminate, an effective way to check conditions before app is published
 
-**Basic Operators**
+## Basic Operators
 
 ### Overview
 
@@ -623,7 +623,7 @@ There are still some formatting and typo errors, will fix them soon.
   * String value is copied when it is passed to a function or method or 
     * when it is assigned to a constant or a variable
   * New copy is created, passed and assigned not the original version
-  * Notes
+  * Note
     * Different from NSString in Cocoa, it is also pass by reference
   * Behind the scenes, Swift's compiler optimises string usage, so copying only takes place when necessary
 
@@ -664,7 +664,7 @@ There are still some formatting and typo errors, will fix them soon.
     * A unique 21-bit number for a character/modifier such as:
       * U+0061 for LATIN SMALL LETTER A ("a")
       * U+1F425 for FRONT-FACING BABY CHICK ("") 
-    * Notes
+    * Note
       * Unicode scalara is any unicode code point in the range of U+0000 to U+D7FF inclusive or U+E000 to U+10FFFF inclusive.
       * Unicode scalars do not include the Unicode surrogate pair code points, which are code points in the range of U+D800 to U+DFFF inclusive
     * Not all 21-bit Unicode scalars are assigned to a char, some are reserved for future assignment
@@ -717,7 +717,7 @@ There are still some formatting and typo errors, will fix them soon.
     countElements(word)             // 4  
     ```
 
-  * Notes
+  * Note
     * The number of chars in a string cannot be calculated without iterating through the whole string, beware of countElements must iterate over the whole string
     * countElements is not the same with length 
       * length is based on the number of 16-bit code units within the string's UTF-16 representation, not the number of Unicode extended grapheme clusters within the string
@@ -735,7 +735,7 @@ There are still some formatting and typo errors, will fix them soon.
     "\u{41}" == "\u{0410}" // false - latinCapitalLetterA & cyrillicCapitalLetterA different linguistic meaning  
     ```
 
-    * Notes
+    * Note
       * String and character comparisons in Swift are not locale sensitive
   * Prefix & Suffix Equality
     * hasPrefix, hasSuffix
@@ -1241,7 +1241,7 @@ There are still some formatting and typo errors, will fix them soon.
 func printMathResult(mathFunc: (Int, Int) -> Int, a: Int, b:Int) { ... }
 printMathResult(addTwoInts, 3, 5)
 
-// Function Types as Return Types  
+// Function Type as Return Types  
 func someFunc(backwards: Bool) -> (Int) -> Int {
   return backwards ? stepBackward : stepForward
 }
@@ -1608,7 +1608,7 @@ func chooseStepFunction(backwards: Bool) -> (Int) -> Int {
     someVideoMode.resolution.width = 1280
     ```
 
-    * Notes
+    * Note
       * Unlike Obj-C, Swift enables you to set sub properties of a structure property directly. 
       * You are able to set resolution.width directly, without the need to set the entire resolution property
   * Memberwise Initializers for Structure Types
@@ -1892,26 +1892,30 @@ class Counter {
     * Swift makes this naming convention easy to write by using a different default approach for method parameters than it uses for functions
       * It gives the **first parameter** name in a method a **local parameter name** by default
       * And gives the **second and subsequent parameter names** both **local and external parameter** names by default
-    * Example:
 
-      ```swift
-      class Counter {
-      ```
-
-    * 
-> var count: Int = 0  
-> func incrementBy(amount: Int, numberOfTimes: Int) {  
-> count += amount * numberOfTimes  
-> }  
-> }
+        ```swift
+          class Counter {
+            var count: Int = 0  
+            func incrementBy(amount: Int, numberOfTimes: Int) {  
+              count += amount * numberOfTimes  
+            }  
+          }
+        ```
 
       * You can call the method as follows:
-        * let counter = Counter()
-        * counter.incrementBy(5, numberOftimes: 3)
+
+        ```swift
+        let counter = Counter()
+        counter.incrementBy(5, numberOftimes: 3)
+        ```
+
       * Default behaviour as if
-        * func incrementBy(amount: Int, #numberOfTimes: Int) {
-        * count += amount * numberOfTimes
-        * }
+
+        ```swift
+        func incrementBy(amount: Int, #numberOfTimes: Int) {
+          count += amount * numberOfTimes
+        }
+        ```
   * Modifying External Parameter Name Behaviour for Methods
     * Use # or add external parameter name for the first param
     * To disable second param onwards, add _
@@ -2475,98 +2479,123 @@ size: Size(width: 5.0, height: 5.0))   // originRect's origin is (2.0, 2.0) and 
     * Note
       * A subclass can implement a superclass designated init as subclass convenience init as part of satisfying rule 2 
   * Designated and Convenience Inits in Action  
-    * class Food {  
-var name: String  
-init(name: String) {  
-[self.name][2] = name  
-}  
-convenience init() {  
-self.init(name: "[Unnamed]")  
-}  
-}  
+    
+    ```swift
+    class Food {
+        var name: String
+        init(name: String) {
+            [self.name][2] = name
+        }
+        convenience init() {
+            self.init(name: "[Unnamed]")
+        }  
+    }
+    ```
+    
     * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/EAC71E1D-8420-452D-95EA-7E9073F9983A.png)  
-    * class RecipeIngredient: Food {  
-var quantity: Int  
-init(name: String, quantity: Int) {  
-self.quantity = quantity  
-super.init(name: name)  
-}  
-override convenience init(name: String) {  
-self.init(name: name, quantity: 1)  
-}  
-}
-    * let oneMysteryItem = RecipeIngredient()  
-let oneBacon = RecipeIngredient(name: "Bacon")  
-let sixEggs = RecipeIngredient(name: "Eggs", quantity: 6)
+    
+    ```swift
+    class RecipeIngredient: Food {
+        var quantity: Int
+        init(name: String, quantity: Int) {
+            self.quantity = quantity
+            super.init(name: name)
+        }
+        override convenience init(name: String) {
+            self.init(name: name, quantity: 1)
+        }
+    }
+
+    let oneMysteryItem = RecipeIngredient()
+    let oneBacon = RecipeIngredient(name: "Bacon")
+    let sixEggs = RecipeIngredient(name: "Eggs", quantity: 6)
+    ```
+    
     * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/DB577B70-0B89-42A4-AD52-8C0D314A2040.png)  
-    * class ShoppingListItem: RecipeIngredient {  
-    * var purchased = false  
-var description: String {  
-var output = "\(quantity) x \(name)"  
-output += purchased ? " ✔" : " ✘"  
-return output  
-}  
-}  
-    * var breakfastList = [
+    
+    
+    ```swift
+    class ShoppingListItem: RecipeIngredient {
+        var purchased = false
+        var description: String {
+            var output = "\(quantity) x \(name)"
+            output += purchased ? " ✔" : " ✘"
+            return output
+        }
+    }
+    var breakfastList = [
 
-ShoppingListItem(),
+        ShoppingListItem(),
 
-ShoppingListItem(name: "Bacon"),
+        ShoppingListItem(name: "Bacon"),
 
-ShoppingListItem(name: "Eggs", quantity: 6),
+        ShoppingListItem(name: "Eggs", quantity: 6),
 
-]
-    * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/83B2D621-68B2-4016-88F3-2EAB2DC2E3B0.png)  
+    ]
+    ```
+    
+    * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/83B2D621-68B2-4016-88F3-2EAB2DC2E3B0.png)
   * Required Inits  
     * To indicate every subclass  must implement that initialiser:
 
       ```swift
       class SomeClass {  
+        required init() {  
+          // initializer implementation goes here  
+        }  
+      }
       ```
 
-required init() {  
-// initializer implementation goes here  
-}  
-}
     * You do not write the override modifier when overriding:
-      * class SomeSubclass: SomeClass {  
-required init() {  
-// subclass implementation of the required initializer goes here  
-}  
-}
+    
+      
+      ```swift
+      class SomeSubclass: SomeClass {  
+        required init() {  
+          // subclass implementation of the required initializer goes here  
+        }  
+      }
+      ```
+      
     * You do not have to provide an explicit implementation if the init can be inherited.
 
 ### Setting a Default Property Value with a Closure or Function
-  
-  * Example:
-    * class SomeClass {  
-let someProperty: SomeType = {  
-// create a default value for someProperty inside this closure  
-// someValue must be of the same type as SomeType  
-return someValue  
-}()  
+
+
+```swift
+class SomeClass {
+    let someProperty: SomeType = {
+        // create a default value for someProperty inside this closure
+        // someValue must be of the same type as SomeType
+        return someValue
+        }()  
 }  
+```
+
   * Note
     * If you use closure to init a property, remember the rest of the instance has not been initialised yet
     * You cannot access any other properties, and you cannot use "self"
-  * Example:
-    * struct Checkerboard {  
-let boardColors: [Bool] = {  
-var temporaryBoard = [Bool]()  
-var isBlack = false  
-for i in 1...10 {  
-for j in 1...10 {  
-temporaryBoard.append(isBlack)  
-isBlack = !isBlack  
-}  
-isBlack = !isBlack  
-}  
-return temporaryBoard  
-}()  
-func squareIsBlackAtRow(row: Int, column: Int) -> Bool {  
-return boardColors[(row * 10) + column]  
-}  
-}  
+    
+      ```swift
+      struct Checkerboard {
+          let boardColors: [Bool] = {
+              var temporaryBoard = [Bool]()
+              var isBlack = false
+              for i in 1...10 {
+                  for j in 1...10 {
+                      temporaryBoard.append(isBlack)
+                      isBlack = !isBlack
+                  }
+                  isBlack = !isBlack
+              }
+              return temporaryBoard
+              }()
+          func squareIsBlackAtRow(row: Int, column: Int) -> Bool {  
+              return boardColors[(row * 10) + column]  
+          }  
+      }
+      ```
+      
 
 ## Deinitialization
 
@@ -2584,70 +2613,64 @@ return boardColors[(row * 10) + column]
 
 ### Deinitializers in Action
 
-  * Example:
-    * struct Bank {
-
-static var coinsInBank = 10_000
-
-static func vendCoins(var numberOfCoinsToVend: Int) -> Int {
-
-numberOfCoinsToVend = min(numberOfCoinsToVend, coinsInBank)
-
-coinsInBank -= numberOfCoinsToVend
-
-return numberOfCoinsToVend
-
+```swift
+struct Bank {
+    static var coinsInBank = 10_000
+    
+    static func vendCoins(var numberOfCoinsToVend: Int) -> Int {
+        numberOfCoinsToVend = min(numberOfCoinsToVend, coinsInBank)
+        coinsInBank -= numberOfCoinsToVend
+        return numberOfCoinsToVend
+        
+    }
+    
+    static func receiveCoins(coins: Int) {
+        coinsInBank += coins
+    }
+    
 }
 
-static func receiveCoins(coins: Int) {
-
-coinsInBank += coins
-
+class Player {
+    var coinsInPurse: Int
+    
+    init(coins: Int) {
+        coinsInPurse = Bank.vendCoins(coins)
+    }
+    
+    func winCoins(coins: Int) {
+        coinsInPurse += Bank.vendCoins(coins)
+    }
+    
+    deinit {
+        Bank.receiveCoins(coinsInPurse)
+    }
 }
 
-} 
-    * class Player {
-
-var coinsInPurse: Int
-
-init(coins: Int) {
-
-coinsInPurse = Bank.vendCoins(coins)
-
-}
-
-func winCoins(coins: Int) {
-
-coinsInPurse += Bank.vendCoins(coins)
-
-}
-
-deinit {
-
-Bank.receiveCoins(coinsInPurse)
-
-}
-
-}
-    * var playerOne: Player? = Player(coins: 100)
+var playerOne: Player? = Player(coins: 100)
 
 println("A new player has joined the game with \(playerOne!.coinsInPurse) coins")
-
 // prints "A new player has joined the game with 100 coins"
 
 println("There are now \(Bank.coinsInBank) coins left in the bank")
-
 // prints "There are now 9900 coins left in the bank
-    * playerOne!.winCoins(2_000)  
-println("PlayerOne won 2000 coins & now has \(playerOne!.coinsInPurse) coins")  
-// prints "PlayerOne won 2000 coins & now has 2100 coins"  
-println("The bank now only has \(Bank.coinsInBank) coins left")  
-// prints "The bank now only has 7900 coins left  
-    * playerOne = nil  
+
+playerOne!.winCoins(2_000)
+
+println("PlayerOne won 2000 coins & now has \(playerOne!.coinsInPurse) coins")
+// prints "PlayerOne won 2000 coins & now has 2100 coins"
+
+println("The bank now only has \(Bank.coinsInBank) coins left")
+// prints "The bank now only has 7900 coins left
+
+playerOne = nil
+
 println("PlayerOne has left the game")  
-// prints "PlayerOne has left the game"  
+// prints "PlayerOne has left the game"
+
 println("The bank now has \(Bank.coinsInBank) coins")  
 // prints "The bank now has 10000 coins
+```
+
 
 ## Automatic Reference Counting
 
@@ -2663,58 +2686,77 @@ println("The bank now has \(Bank.coinsInBank) coins")
 
 ### ARC In Action
 
-  * class Person {  
-let name: String  
-init(name: String) {  
-[self.name][2] = name  
-println("\(name) is being initialized")  
-}  
-deinit {  
-println("\(name) is being deinitialized")  
-}  
-}  
-  * var reference1: Person?  
-var reference2: Person?  
+```swift
+class Person {
+    let name: String
+    init(name: String) {
+        [self.name][2] = name
+        println("\(name) is being initialized")
+    }
+    deinit {
+        println("\(name) is being deinitialized")
+    }
+}
+var reference1: Person?
+var reference2: Person?
 var reference3: Person?
-  * reference1 = Person(name: "John Appleseed")  
-// prints "John Appleseed is being initialised"  
-  * reference2 = reference1  
-reference3 = reference1  
-  * reference1 = nil  
+
+reference1 = Person(name: "John Appleseed")
+// prints "John Appleseed is being initialised"
+
+reference2 = reference1
+reference3 = reference1
+reference1 = nil
 reference2 = nil
-  * reference3 = nil  
-// prints "John Appleseed is being deinitialized  
+reference3 = nil
+// prints "John Appleseed is being deinitialized
+```
 
 ### Strong Reference Cycles Between Class Instances
 
   * Two class instances holding a strong reference to each other
   * You resolve strong reference cycles by defining some of the relationships between classes as weak or unowned references instead of as strong references.  
-  * Example:
-    * class Person {  
-let name: String  
-init(name: String) { [self.name][2] = name }  
-var apartment: Apartment?  
-deinit { println("\(name) is being deinitialized") }  
-}  
+
   
-class Apartment {  
-let number: Int  
-init(number: Int) { self.number = number }  
-var tenant: Person?  
-deinit { println("Apartment #\(number) is being deinitialized") }  
-}  
-    * var john: Person?  
-var number73: Apartment?  
-    * john = Person(name: "John Appleseed")  
-number73 = Apartment(number: 73)  
-    * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/598B95C0-D50B-4ECD-9CD5-126685263ACA.png)  
-    * john!.apartment = number73  
-number73!.tenant = john  
-    * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/3DCF8042-9FC0-4B33-A406-E4DFEE2D7291.png)  
-    * john = nil  
-number73 = nil  
-    * // reference count does not frop to 0
-    * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/EC4DBFFE-F082-4689-B812-9872A63A5417.png)  
+    ```swift
+    class Person {
+        let name: String
+        init(name: String) { [self.name][2] = name }
+        var apartment: Apartment?
+        deinit { println("\(name) is being deinitialized") }
+    }
+
+    class Apartment {
+        let number: Int
+        init(number: Int) { self.number = number }
+        var tenant: Person?
+        deinit { println("Apartment #\(number) is being deinitialized") }
+    }
+    var john: Person?
+    var number73: Apartment?
+    john = Person(name: "John Appleseed")
+    number73 = Apartment(number: 73)
+    ```
+  
+
+  * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/598B95C0-D50B-4ECD-9CD5-126685263ACA.png)
+
+
+    ```swift
+      john!.apartment = number73
+      number73!.tenant = john
+    ```
+
+  * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/3DCF8042-9FC0-4B33-A406-E4DFEE2D7291.png)
+
+    ```swift
+      john = nil
+      number73 = nil
+      // reference count does not frop to 0
+
+    ```
+
+  * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/EC4DBFFE-F082-4689-B812-9872A63A5417.png)
 
 ### Resolving Strong Reference Cycles Between Class Instances
   
@@ -2723,27 +2765,30 @@ number73 = nil
       * Use weak reference whenever it is valid for the reference to become nil at some point during its lifetime
     * unowned references
       * When you know that the reference will never be nil once it has been set during initialization
-  * **Weak References**  
+  * Weak References
     * Enable one instance in the reference cycle to refer to the other instance without keeping a strong hold on it
     * Use keyword "weak"
     * Optional, constant not allowed
     * ARC will set to nil when it is deallocated
-    * Example:
-      * class Person {  
-let name: String  
-init(name: String) { [self.name][2] = name }  
-var apartment: Apartment?  
-deinit { println("\(name) is being deinitialized") }  
-}  
-  
-class Apartment {  
-let number: Int  
-init(number: Int) { self.number = number }  
-weak var tenant: Person?  
-deinit { println("Apartment #\(number) is being deinitialized") }  
-}  
+    
+      ```swift
+      class Person {
+          let name: String
+          init(name: String) { [self.name][2] = name }
+          var apartment: Apartment?
+          deinit { println("\(name) is being deinitialized") }
+      }
+
+      class Apartment {
+          let number: Int
+          init(number: Int) { self.number = number }
+          weak var tenant: Person?
+          deinit { println("Apartment #\(number) is being deinitialized") }
+      }
+      ```
+    
       * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/EC725EFA-13D4-411A-8236-D9A53047D7EE.png)  
-  * **Unowned References**
+  * Unowned References
     * Like weak reference, but it is assumed to always have a value
     * Non-optional type
     * Use "unowned" keyword
@@ -2751,73 +2796,75 @@ deinit { println("Apartment #\(number) is being deinitialized") }
     * Note
       * If you try to access an unowned reference after the instance that it references is deallocated, will trigger a runtime error
       * Use unowned references only when you are sure that the reference refers to an instance
-    * Example:
 
-      ```swift
-      class Customer {  
-      ```
+        ```swift
+        class Customer {
+        
+          let name: String
+          var card: CreditCard?
+          init(name: String) {
+              [self.name][2] = name
+          }
+          deinit { println("\(name) is being deinitialized") }
+        }
+      
+        class CreditCard {
+          let number: UInt64
+          unowned let customer: Customer
+          init(number: UInt64, customer: Customer) {
+              self.number = number
+              self.customer = customer  
+          }  
+          deinit { println("Card #\(number) is being deinitialized") }  
+        }
+        ```
 
-let name: String  
-var card: CreditCard?  
-init(name: String) {  
-[self.name][2] = name  
-}  
-deinit { println("\(name) is being deinitialized") }  
-}  
-  
-class CreditCard {  
-let number: UInt64  
-unowned let customer: Customer  
-init(number: UInt64, customer: Customer) {  
-self.number = number  
-self.customer = customer  
-}  
-deinit { println("Card #\(number) is being deinitialized") }  
-}  
     * Note
       * The number property of the CreditCard class is defined with a type of UInt64 rather than Int, to ensure that the number property's capacity is large enough to store a 16-digit card number on both 32-bit and 64-bit systems.  
-    * Example:
 
-      ```swift
-      var john: Customer?  
-      ```
-
-      * john = Customer(name: "John Appleseed")  
-john!.card = CreditCard(number: 1234_5678_9012_3456, customer: john!)  
+        ```swift
+        var john: Customer?  
+        john = Customer(name: "John Appleseed")  
+        john!.card = CreditCard(number: 1234_5678_9012_3456, customer: john!)  
+        ```
       * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/6E29FF73-6FD5-44AC-BFF2-A44366DAD7A0.png)  
-      * john = nil
-      * // prints "John Appleseed is being deinitialized"  
-// prints "Card #1234567890123456 is being reinitialised"  
+      
+        ```swift
+        john = nil
+        // prints "John Appleseed is being deinitialized"  
+        // prints "Card #1234567890123456 is being reinitialised"
+        ```
+      
       * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/64747DE2-441C-43EF-99E2-12B37CEA1E8D.png)  
   * **Unowned References and Implicitly Unwrapped Optional Properties**
     * Third scenario which both properties should have a value
     * Combine unowned property on one class with an implicit unwrapped optional property on the other class
     * Enables both properties to be accessed directly without optional unwrapping once init is complete, while avoiding reference cycle
-    * Example:
 
       ```swift
-      class Country {  
+      class Country {
+        
+        let name: String
+        let capitalCity: City!
+        init(name: String, capitalName: String) {
+            [self.name][2] = name
+            self.capitalCity = City(name: capitalName, country: self)
+        }
+      }
+      
+      class City {
+        let name: String
+        unowned let country: Country
+        init(name: String, country: Country) {
+            [self.name][2] = name
+            self.country = country
+        }
+      }
+      
+      var country = Country(name: "Canada", capitalName: "Ottawa")
+      println("\(country.name)'s capital city is called \(country.[capitalCity.name][3])")  
+      // prints "Canada's capital city is called Ottawa"
       ```
-
-let name: String  
-**let capitalCity: City!**  
-init(name: String, capitalName: String) {  
-[self.name][2] = name  
-self.capitalCity = City(name: capitalName, country: self)  
-}  
-}  
-  
-class City {  
-let name: String  
-unowned let country: Country  
-init(name: String, country: Country) {  
-[self.name][2] = name  
-self.country = country  
-}  
-}  
-      * var country = Country(name: "Canada", capitalName: "Ottawa")  
-println("\(country.name)'s capital city is called \(country.[capitalCity.name][3])")  
-// prints "Canada's capital city is called Ottawa"
 
 ### Strong Reference Cycles for Closures
 
@@ -2828,33 +2875,35 @@ println("\(country.name)'s capital city is called \(country.[capitalCity.name][3
   * Closure are reference types, when you assign to a property, you are assigning a reference to that closure
     * Class instance and a closure keeping each other alive
   * Solution to use a "closure capture list"
-  * Example:
-    * class HTMLElement {  
-  
-let name: String  
-let text: String?  
-  
-lazy var asHTML: () -> String = {  
-if let text = self.text {  
-return "<\(self.name)>\(text)</\(self.name)>"  
-} else {  
-return "<\(self.name) />"  
-}  
-}  
-  
-init(name: String, text: String? = nil) {  
-[self.name][2] = name  
-self.text = text  
-}  
-  
-deinit {  
-println("\(name) is being deinitialized")  
-}  
-  
-}  
-    * var paragraph: HTMLElement? = HTMLElement(name: "p", text: "hello, world")  
-println(paragraph!.asHTML())  
-// prints "<p>hello, world</p>  
+
+    ```swift
+    class HTMLElement {
+        let name: String
+        let text: String?
+
+        lazy var asHTML: () -> String = {
+            if let text = self.text {
+                return "<\(self.name)>\(text)</\(self.name)>"
+            } else {
+                return "<\(self.name) />"
+            }
+        }
+
+        init(name: String, text: String? = nil) {
+            [self.name][2] = name
+            self.text = text
+        }
+
+        deinit {
+            println("\(name) is being deinitialized")
+        }
+
+    }
+    var paragraph: HTMLElement? = HTMLElement(name: "p", text: "hello, world")
+    println(paragraph!.asHTML())  
+    // prints "<p>hello, world</p>
+    ```
+
     * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/92D56D5E-0877-48C0-8873-816A21C3CCCC.png)  
 
 ### Resolving Strong Reference Cycles for Closures
@@ -2865,24 +2914,22 @@ println(paragraph!.asHTML())
   * Note
     * Write self.someProperty or self.someMethod, instead of removing the self to help you remember that it's possible to capture self by accident
   * Defining Capture List
-    * Example:
 
-      ```swift
-      lazy var someClosure: (Int, String) -> String = {  
-      ```
-
-[unowned self] (index: Int, stringToProcess: String) -> String in  
-// closure body goes here  
-}  
+    ```swift
+    lazy var someClosure: (Int, String) -> String = {
+        [unowned self] (index: Int, stringToProcess: String) -> String in
+        // closure body goes here
+    }  
+    ```
       * Or
 
       ```swift
-      lazy var someClosure: () -> String = {  
+      lazy var someClosure: () -> String = {
+        [unowned self] in
+        // closure body goes here
+      }  
       ```
 
-[unowned self] in  
-// closure body goes here  
-}  
   * Weak and Unknowned References
     * If captured reference will never become nil, it should be captured as an unowned reference, rather than a weak reference
 
@@ -2899,78 +2946,93 @@ println(paragraph!.asHTML())
 ### Optional Chaining as an Alternative to Forced Unwrapping
 
   * Place a question mark (?) after the optional value to chain
-  * Example:
-    * class Person {  
-var residence: Residence?  
-}  
   
-class Residence {  
-var numberOfRooms = 1  
-}  
-    * let john = Person()
-    * let roomCount = john.residence!.numberOfRooms
-    * // this trigger a runtime error
+    ```swift
+    class Person {
+        var residence: Residence?
+    }
+
+    class Residence {
+        var numberOfRooms = 1
+    }
+
+    let john = Person()
+    let roomCount = john.residence!.numberOfRooms // this trigger a runtime error
+    ```
+
   * Use optional chaining:
-    * if let roomCount = john.residence?.numberOfRooms {  
-println("John's residence has \(roomCount) room(s).")  
-} else {  
-println("Unable to retrieve the number of rooms.")  
-}  
+  
+    ```swift
+    if let roomCount = john.residence?.numberOfRooms {
+        println("John's residence has \(roomCount) room(s).")
+    } else {
+        println("Unable to retrieve the number of rooms.")
+    }
+    ```
 
 ### Defining Model Classes for Optional Chaining
 
   * Optional chaining can be more than on level
   * Model classes
-    * class Person {  
-var residence: Residence?  
-}
-    * class Residence {  
-var rooms = [Room]()  
-var numberOfRooms: Int {  
-return rooms.count  
-}  
-subscript(i: Int) -> Room {  
-get {  
-return rooms[i]  
-}  
-set {  
-rooms[i] = newValue  
-}  
-}  
-func printNumberOfRooms() {  
-println("The number of rooms is \(numberOfRooms)")  
-}  
-var address: Address?  
-}  
-    * class Room {  
-let name: String  
-init(name: String) { [self.name][2] = name }  
-}  
-    * class Address {  
-var buildingName: String?  
-var buildingNumber: String?  
-var street: String?  
-func buildingIdentifier() -> String? {  
-if buildingName != nil {  
-return buildingName  
-} else if buildingNumber != nil {  
-return buildingNumber  
-} else {  
-return nil  
-}  
-}  
-}  
+    
+    ```swift
+    class Person {
+        var residence: Residence?
+    }
+
+    class Residence {
+        var rooms = [Room]()
+        var numberOfRooms: Int {
+            return rooms.count
+        }
+        subscript(i: Int) -> Room {
+            get {
+                return rooms[i]
+            }
+            set {
+                rooms[i] = newValue
+            }
+        }
+        func printNumberOfRooms() {
+            println("The number of rooms is \(numberOfRooms)")
+        }
+        var address: Address?
+    }
+    
+    class Room {
+        let name: String
+        init(name: String) { [self.name][2] = name }
+    }
+    
+    class Address {
+        var buildingName: String?
+        var buildingNumber: String?
+        var street: String?
+        func buildingIdentifier() -> String? {
+            if buildingName != nil {
+                return buildingName  
+            } else if buildingNumber != nil {  
+                return buildingNumber  
+            } else {  
+                return nil  
+            }  
+        }  
+    }
+    ```
 
 ### Accessing Properties Through Optional Chaining
 
   * Use optional chaining to access property on optional value or to check if property access is successful
-  * let john = Person()  
-if let roomCount = john.residence?.numberOfRooms {  
-println("John's residence has \(roomCount) room(s).")  
-} else {  
-println("Unable to retrieve the number of rooms.")  
-}  
-
+    
+    ```swift
+    let john = Person()
+    if let roomCount = john.residence?.numberOfRooms {
+        println("John's residence has \(roomCount) room(s).")
+    } else {
+        println("Unable to retrieve the number of rooms.")
+    }
+    ```
+    
 ### Calling Methods Through Optional Chaining
 
   * Use optional chaining to call a method on an optional value or to check whether a method call is successful, even if the method does not define a return value
@@ -3942,50 +4004,63 @@ println("Something that doesn't have an area")
 ### The Problem That Generic Solve
 
   * Fixed Type Example:
-    * func swapTwoInts(inout a: Int, inout b: Int) {  
-let temporaryA = a  
-a = b  
-b = temporaryA  
-}  
-    * var someInt = 3  
-var anotherInt = 107  
-swapTwoInts(&someInt, &anotherInt)  
-println("someInt is now \(someInt), and anotherInt is now \(anotherInt)")  
-// prints "someInt is now 107, and anotherInt is now 3  
-    * func swapTwoStrings(inout a: String, inout b: String) {  
-let temporaryA = a  
-a = b  
-b = temporaryA  
-}  
   
-func swapTwoDoubles(inout a: Double, inout b: Double) {  
-let temporaryA = a  
-a = b  
-b = temporaryA  
-}
+  ```swift
+  func swapTwoInts(inout a: Int, inout b: Int) {
+      let temporaryA = a
+      a = b
+      b = temporaryA
+  }
+  
+  var someInt = 3
+  var anotherInt = 107
+  
+  swapTwoInts(&someInt, &anotherInt)
+  println("someInt is now \(someInt), and anotherInt is now \(anotherInt)")
+  // prints "someInt is now 107, and anotherInt is now 3
+  
+  func swapTwoStrings(inout a: String, inout b: String) {
+      let temporaryA = a
+      a = b
+      b = temporaryA
+  }
+
+  func swapTwoDoubles(inout a: Double, inout b: Double) {
+      let temporaryA = a
+      a = b
+      b = temporaryA  
+  }
+  ```
+
   * In all 3 functions, it is important that the types a and b are defined to be the same as each other.
 
 ### Generic Functions
 
-  * Example:
-    * func swapTwoValues<T>(inout a: T, inout b: T) {  
-let temporaryA = a  
-a = b  
-b = temporaryA  
-}  
-  * Comparison
-    * func swapTwoInts(inout a: Int, inout b: Int)  
-func swapTwoValues<T>(inout a: T, inout b: T)  
-  * Example:
-    * var someInt = 3  
-var anotherInt = 107  
-swapTwoValues(&someInt, &anotherInt)  
-// someInt is now 107, and anotherInt is now 3  
+```swift
+func swapTwoValues<T>(inout a: T, inout b: T) {
+    let temporaryA = a
+    a = b
+    b = temporaryA
+}
+```
   
-var someString = "hello"  
-var anotherString = "world"  
-swapTwoValues(&someString, &anotherString)  
-// someString is now "world", and anotherString is now "hello"  
+  * Comparison
+
+    ```swift
+    func swapTwoInts(inout a: Int, inout b: Int)  
+    func swapTwoValues<T>(inout a: T, inout b: T)  
+    
+    var someInt = 3  
+    var anotherInt = 107  
+    swapTwoValues(&someInt, &anotherInt)  
+    // someInt is now 107, and anotherInt is now 3  
+  
+    var someString = "hello"  
+    var anotherString = "world"  
+    swapTwoValues(&someString, &anotherString)  
+    // someString is now "world", and anotherString is now "hello"  
+    ```
+
     * Note
       * swapTwoValues inspired by generic function called swap, which is part of Swift standard library, is automatically made available for you to use in your apps
 
@@ -4013,45 +4088,54 @@ swapTwoValues(&someString, &anotherString)
     * Last in, first out
     * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/CC626F62-D041-4B0F-8F78-4DEA2FD8B5D9.png)  
   * Integer Stack:
-    * struct InStack {  
-var items = [Int]()  
-mutating func push(item: Int) {  
-items.append(item)  
-}  
-  
-mutating func pop() -> Int {  
-return items.removeLast()  
-}  
-}  
-  * Generic Stack:
-    * struct Stack<T> {  
-var items = [T]()  
-  
-mutating func push(item: T) {  
-items.append(item)  
-}  
-  
-mutating func pop() -> T {  
-return items.removeLast()  
-}  
-}  
-  * Usage:
-    * var stackOfStrings = Stack<String>()  
-stackOfStrings.push("uno")  
-stackOfStrings.push("dos")  
-stackOfStrings.push("tres")  
+    
+    ```swift
+    struct InStack {
+        var items = [Int]()
+        mutating func push(item: Int) {
+            items.append(item)
+        }
 
+        mutating func pop() -> Int {
+            return items.removeLast()
+        }
+    }
+    ```
+  
+  * Generic Stack:
+  
+    ```swift
+    struct Stack<T> {
+        var items = [T]()
+
+        mutating func push(item: T) {
+            items.append(item)
+        }
+
+        mutating func pop() -> T {
+            return items.removeLast()  
+        }  
+    }
+    
+    var stackOfStrings = Stack<String>()  
+    stackOfStrings.push("uno")  
+    stackOfStrings.push("dos")  
+    stackOfStrings.push("tres")  
+    ```
+  
 ### Extending a Generic Type
 
   * When you extend a generic type, you do not provide a type parameter list as part of the extension's definition.
   * Type parameter list from the original type definition is available within the body of the extension
   * The original type parameter names are used to refer to the type parameters of the original definition
-  * Example:
-    * extension Stack {  
-var topItem: T? {  
-return items.isEmpty ? nil: items[items.count - 1]  
-}  
-}  
+
+    ```swift
+    extension Stack {
+        var topItem: T? {
+            return items.isEmpty ? nil: items[items.count - 1]
+        }  
+    }
+    ```
 
 ### Type Constraints
   
@@ -4061,49 +4145,53 @@ return items.isEmpty ? nil: items[items.count - 1]
     * Dictionary places a limitation on the types that can be used as keys for a dictionary
     * Keys must be hashable, conform to the Hashable protocol
   * Type Constraint Syntax
-    * extension Stack {  
-var topItem: T? {  
-return items.isEmpty ? nil: items[items.count - 1]  
-}  
-}  
+    
+    ```swift
+    extension Stack {
+        var topItem: T? {
+            return items.isEmpty ? nil: items[items.count - 1]
+        }  
+    }
+    ```
+
   * Type Constraints in Action
     * Type specific version
 
       ```swift
-      func findStringIndex(array: [String], valueToFind: String) -> Int? {  
-      ```
-
-for (index, value) in enumerate(array) {  
-if value == valueToFind {  
-return index  
-}  
-}  
-  
-return nil  
-}  
-  
-let strings = ["cat", "dog", "llama", "parakeet", "terrapin"]  
-  
-if let foundIndex = findStringIndex(strings, "llama") {  
-println("Found index: \(foundIndex)")  
-}  
-    * Generic version
-
+      func findStringIndex(array: [String], valueToFind: String) -> Int? {
+        
+        for (index, value) in enumerate(array) {
+            if value == valueToFind {
+                return index
+            }
+        }
+        
+        return nil
+      }
+      
+      let strings = ["cat", "dog", "llama", "parakeet", "terrapin"]
+      
+      if let foundIndex = findStringIndex(strings, "llama") {
+        println("Found index: \(foundIndex)")
+      }
+      * Generic version
+      
       ```swift
-      func findIndex<T: Equatable>(array: [T], valueToFind: T) -> Int? {  
+      func findIndex<T: Equatable>(array: [T], valueToFind: T) -> Int? {
+        ```
+        
+        for (index, value) in enumerate(array) {
+            if value == valueToFind {
+                return index
+            }  
+        }  
+        
+        return nil  
+      }  
+      
+      let doubleIndex = findIndex([3.14, 0.1, 0.25], 9.3)  
+      let stringIndex = findIndex(["Mike", "John", "Andrea"], "John")
       ```
-
-for (index, value) in enumerate(array) {  
-if value == valueToFind {  
-return index  
-}  
-}  
-  
-return nil  
-}  
-  
-let doubleIndex = findIndex([3.14, 0.1, 0.25], 9.3)  
-let stringIndex = findIndex(["Mike", "John", "Andrea"], "John")  
 
 ### Associated Types
 
@@ -4115,102 +4203,113 @@ let stringIndex = findIndex(["Mike", "John", "Andrea"], "John")
     * Example:
 
       ```swift
-      protocol Container {  
+      protocol Container {
+        typealias ItemType
+        mutating func append(item: ItemType)
+        
+        var count: Int { get }
+        subscript(i: Int) -> ItemType { get }  
+      }
       ```
 
-typealias ItemType  
-  
-mutating func append(item: ItemType)  
-  
-var count: Int { get }  
-subscript(i: Int) -> ItemType { get }  
-}
     * Int Stack Implementation
-      *   
-struct IntStack: Container {  
-// original IntStack implementation  
-var items = [Int]()  
-mutating func push(item: Int) {  
-items.append(item)  
-}  
-mutating func pop() -> Int {  
-return items.removeLast()  
-}  
-// conformance to the Container protocol  
-typealias ItemType = Int  
-mutating func append(item: Int) {  
-self.push(item)  
-}  
-var count: Int {  
-return items.count  
-}  
-subscript(i: Int) -> Int {  
-return items[i]  
-}  
-}
+      
+      ```swift
+      struct IntStack: Container {
+          // original IntStack implementation
+          var items = [Int]()
+          mutating func push(item: Int) {
+              items.append(item)
+          }
+          
+          mutating func pop() -> Int {
+              return items.removeLast()
+          }
+          
+          // conformance to the Container protocol
+          typealias ItemType = Int
+          mutating func append(item: Int) {
+              self.push(item)
+          }
+          
+          var count: Int {
+              return items.count
+          }
+            
+          subscript(i: Int) -> Int {  
+              return items[i]  
+          }  
+      }
+      ```
+    
     * Generic Type Implementation, Swift is able to infer that T refers to ItemAlias in the protocol:
-      * struct Stack<T>: Container {  
-var items = [T]()  
-  
-mutating func push(item: T) {  
-items.append(item)  
-}  
-  
-mutating func pop() -> T {  
-return items.removeLast()  
-}  
-  
-// conformance to Container protocol  
-mutating func append(item: T) {  
-self.push(item)  
-}  
-  
-var count: Int {  
-return items.count  
-}  
-  
-subscript(i: Int) -> T {  
-return items[i]  
-}  
-}
+    
+      ```swift
+      struct Stack<T>: Container {
+          var items = [T]()
+
+          mutating func push(item: T) {
+              items.append(item)
+          }
+
+          mutating func pop() -> T {
+              return items.removeLast()
+          }
+
+          // conformance to Container protocol
+          mutating func append(item: T) {
+              self.push(item)
+          }
+
+          var count: Int {
+              return items.count
+          }  
+
+          subscript(i: Int) -> T {  
+              return items[i]  
+          }  
+      }
+      ```
 
 ### Where Clause
 
   * Define requirements on the type parameters associated with a generic function or type
   * Define where clauses as part of a type parameter list
   * Where clause allows you to require that an associated type conforms to a certain protocol **and/or** certain taupe parameters an associated types to be the same
-  * Example:
-    * func allItemsMatch<C1: Container, C2: Container where C1.ItemType == C2.ItemType, C1.ItemType: Equatable> (someContainer: C1, anotherContainer: C2) -> Bool {  
-  
-if someContainer.count != anotherContainer.count {  
-return false  
-}  
-  
-for i in 0..<someContainer.count {  
-if someContainer[i] != anotherContainer[i] {  
-return false  
-}  
-}  
-  
-return true  
-}  
-    * var stackOfStrings = Stack<String>()  
-stackOfStrings.push("1")  
-stackOfStrings.push("2")  
-stackOfStrings.push("3")  
-  
-//var arrayOfStrings = ["1", "2", "3"]  
-// Error cause array of String does not conform to Container protocol  
-var arrayOfStrings = Stack<String>()  
-arrayOfStrings.push("1")  
-arrayOfStrings.push("2")  
-arrayOfStrings.push("3")  
-  
-if allItemsMatch(stackOfStrings, arrayOfStrings) {  
-println("All items match.")  
-} else {  
-println("Not all items match.")  
-}  
+
+    ```swift
+    func allItemsMatch<C1: Container, C2: Container where C1.ItemType == C2.ItemType, C1.ItemType: Equatable> (someContainer: C1, anotherContainer: C2) -> Bool {
+        if someContainer.count != anotherContainer.count {
+            return false
+        }
+
+        for i in 0..<someContainer.count {
+            if someContainer[i] != anotherContainer[i] {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    var stackOfStrings = Stack<String>()
+    stackOfStrings.push("1")
+    stackOfStrings.push("2")
+    stackOfStrings.push("3")
+
+    //var arrayOfStrings = ["1", "2", "3"]
+    // Error cause array of String does not conform to Container protocol
+    var arrayOfStrings = Stack<String>()
+    arrayOfStrings.push("1")
+    arrayOfStrings.push("2")
+    arrayOfStrings.push("3")
+
+    if allItemsMatch(stackOfStrings, arrayOfStrings) {
+        println("All items match.")
+    } else {  
+        println("Not all items match.")  
+    }
+    ```
 
 ## Access Control
 
@@ -4262,17 +4361,25 @@ println("Not all items match.")
 ### Access Control Syntax
 
   * Syntax
-    * public class SomePublicClass {}  
-internal class SomeInternalClass {}  
-private class SomePrivateClass {}  
-  
-public var somePublicVariable = 0  
-internal let someInternalConstant = 0  
-private func somePrivateFunction() {}  
+    
+    ```swift
+    public class SomePublicClass {}
+    internal class SomeInternalClass {}
+    private class SomePrivateClass {}
+
+    public var somePublicVariable = 0
+    internal let someInternalConstant = 0
+    private func somePrivateFunction() {}
+    ```
+    
     * Implicit - internal access
-      * class SomeInternalClass {}              // implicitly internal  
-var someInternalConstant = 0            // implicitly internal  
-  * **Custom Types**
+      
+      ```swift
+      class SomeInternalClass {}              // implicitly internal  
+      var someInternalConstant = 0            // implicitly internal  
+      ```
+
+  * Custom Types
     * If you want to specify an explicit access level to a custom type, do at the point that you define the type.
       * The new type can then be used whenever its access level permits.
       * Access level of a type also affects the default access level of type's members (properties, methods, inits and subscripts)
@@ -4281,57 +4388,68 @@ var someInternalConstant = 0            // implicitly internal
       * A public type defaults to having internal members, not public members
       * If you want type member to be public, you must explicitly mark it as such
       * Ensure API is something you opt-in to publish
-    * Examples:
-      * public class SomePublicClass {         // explicitly public class  
-public var somePublicProperty = 0 // explicitly public class member  
-var someInternalProperty = 0 // implicitly internal class member  
-private func somePrivateMethod() {} // explicitly private class member  
-}  
-  
-class SomeInternalClass {              // implicitly internal class  
-var someInternalProperty = 0 // implicitly internal class member  
-private func somePrivateMethod() {} // explicitly private class member  
-}  
-  
-private class SomePrivateClass {       // explicitly private class  
-var somePrivateProperty = 0 // implicitly private class member  
-func somePrivateMethod() {}         // implicitly private class member  
-}  
-    * **Tuple Types**
+      
+      ```swift
+      public class SomePublicClass {         // explicitly public class
+          public var somePublicProperty = 0 // explicitly public class member
+          var someInternalProperty = 0 // implicitly internal class member
+          private func somePrivateMethod() {} // explicitly private class member
+      }
+
+      class SomeInternalClass {              // implicitly internal class
+          var someInternalProperty = 0 // implicitly internal class member
+          private func somePrivateMethod() {} // explicitly private class member
+      }
+
+      private class SomePrivateClass {       // explicitly private class
+          var somePrivateProperty = 0 // implicitly private class member
+          func somePrivateMethod() {}         // implicitly private class member
+      }
+      ```
+      
+    * Tuple Types
       * Access level for a tuple type is the most restrictive access level of all types used in the tuple.
       * If members of the tuple comprises of internal and private access, tuple will be private
       * Note
         * Tuple does not have a standalone definition in a way that classes, structures, enums and functions do
         * Tuple type's access is deduced automatically when the tuple is used
-    * **Function Types**
+    * Function Types
       * Access level for a function type is calculated as the most restrictive access level of the function's parameter types and return type
-      * Example:
-        * func someFunction() -> (SomeInternalClass, SomePrivateClass) {  
-// function implementation goes here  
-}  
+
+        ```swift
+        func someFunction() -> (SomeInternalClass, SomePrivateClass) {  
+          // function implementation goes here  
+        }
+        ```
+        
         * Because the function's return type is private, you must mark the function's overall access level with private:
-        *           * private func someFunction() -> (SomeInternalClass, SomePrivateClass) {  
-// function implementation goes here  
-}  
-    * **Enumeration Types**
+        
+          ```swift
+          private func someFunction() -> (SomeInternalClass, SomePrivateClass) {  
+          // function implementation goes here  
+          }
+          ```
+
+    * Enumeration Types
       * Individual cases of an enums automatically receive the same access level as the enum they belong to
       * Can't specify different access level for individual enum cases
-      * Example:
-        * public enum CompassPoint {  
-case North  
-case South  
-case East  
-case West  
-}  
-      *   
-    * **Raw Values and Association Type**
+        
+        ```swift
+        public enum CompassPoint {  
+          case North  
+          case South  
+          case East  
+          case West  
+        }
+        ```
+    * Raw Values and Association Type
       * The types used for any raw values or associated values in enum must have an access level at least as high as the enum's access level
       * You cannot use a private type as the raw value type of an enumeration with an internal access level for example.
-    * **Nested Types**
+    * Nested Types
       * Nested types within a private type will be private
       * Nested types in a public type or internal type will be internal
       * Explicitly declare public type as public to be public
-  * **Subclassing**
+  * Subclassing
     * Subclass cannot have a higher level access level than its superclass
     * You can override any class member that is visible in a certain access context
       * An override can make inherited class more accessible than its superclass
@@ -4344,16 +4462,18 @@ case West
     * Valid for a subclass member to call a superclass member that has lower access permission, as long as the call takes place within the allowed access level context
       * same source file as the superclass for a private member call
       * within the same module for internal member call
-    * Example:
-      * public class A {  
-private func someMethod() {}  
-}  
-  
-internal class B: A {  
-override internal func someMethod() {  
-super.someMethod()  
-}  
-}  
+      
+      ```swift
+      public class A {
+          private func someMethod() {}
+      }
+
+      internal class B: A {
+          override internal func someMethod() {
+              super.someMethod()
+          }  
+      }  
+      ```
 
 ### Constants, Variables, Properties, and Subscripts
 
@@ -4366,32 +4486,37 @@ super.someMethod()
       * By writing **private(set)** or **internal(set)** before the var or subscript introducer
     * Note
       * This rule apply for stored and computed properties
-    * Example:
-      * struct TrackedString {  
-private(set) var numberOfEdits = 0  
-var value: String = "" {  
-didSet {  
-numberOfEdits++  
-}  
-}  
-}  
-      * var stringToEdit = TrackedString()  
-stringToEdit.value = "This string will be tracked."  
-stringToEdit.value += " This edit will increment numberOfEdits."  
-stringToEdit.value += " So will this one."  
-println("The number of edits is \(stringToEdit.numberOfEdits)")  
-// prints "The number of edits is 3"  
-    * You can assign explicit access level for both getter and setter if required, e.g. numberOfEdits getter is public and set is private:
-      * public struct TrackedString {  
-public private(set) var numberOfEdits = 0  
-public var value: String = "" {  
-didSet {  
-numberOfEdits++  
-}  
-}  
-public init() {}  
-}
 
+        struct TrackedString {
+            private(set) var numberOfEdits = 0
+            var value: String = "" {
+                didSet {
+                    numberOfEdits++
+                }
+            }
+        }
+      
+        var stringToEdit = TrackedString()
+        stringToEdit.value = "This string will be tracked."
+        stringToEdit.value += " This edit will increment numberOfEdits."
+        stringToEdit.value += " So will this one."
+        println("The number of edits is \(stringToEdit.numberOfEdits)")
+        // prints "The number of edits is 3"
+      
+      * You can assign explicit access level for both getter and setter if required, e.g. numberOfEdits getter is public and set is private:
+      
+        ```swift
+        public struct TrackedString {
+            public private(set) var numberOfEdits = 0
+            public var value: String = "" {
+                didSet {
+                    numberOfEdits++  
+                }  
+            }  
+            public init() {}  
+        }
+        ```
+      
 ### Initializers
 
   * Custom inits can be assigned access level <= type they initialise
