@@ -1,7 +1,7 @@
 
 ## Introduction
 
-Notes taken while reading [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) by Apple Inc.
+Notes taken reading [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) by Apple Inc.
 
 Still a work in progress, there are still some formatting and typo errors, will fix them soon.
 
@@ -654,13 +654,13 @@ Still a work in progress, there are still some formatting and typo errors, will 
       * Unicode scalars do not include the Unicode surrogate pair code points, which are code points in the range of U+D800 to U+DFFF inclusive
     * Not all 21-bit Unicode scalars are assigned to a char, some are reserved for future assignment
   * Special Unicode Characters in String Literals
-    * \\0: null character
-    * \\\\: backslash
-    * \\t: horizontal tab
-    * \\n: line feed
-    * \\r: carriage return
-    * \\": double quote
-    * \\': single quote
+    * \0: null character
+    * \\: backslash
+    * \t: horizontal tab
+    * \n: line feed
+    * \r: carriage return
+    * \": double quote
+    * \': single quote
     * An arbitrary unicode scalar, written as \u{n}, where n is between one and eight hexadecimal digits
 
       ```swift
@@ -743,7 +743,7 @@ Still a work in progress, there are still some formatting and typo errors, will 
     for codeUnit in dogString.utf8 {  
       print("\(codeUnit) ")  
     }  
-    print("\\n")
+    print("\n")
     // 68 111 103 226 128 188 240 159 144 182  
     //  68, 111, 103 = D, o, g
     //  226, 128, 188 = 3-byte UTF-8 representation of DOUBLE EXCLAMATION MARK character
@@ -756,7 +756,7 @@ Still a work in progress, there are still some formatting and typo errors, will 
     for codeUnit in dogString.utf16 {  
       print("\(codeUnit) ")  
     }  
-    print("\\n")  
+    print("\n")  
     // 68 111 103 8252 55357 56374  
     // 8252 = decimal equivalent of hexadecimal value of 203C which represent Unicode+203C for double Exclamation Mark, this character represented as a single code unit in UTF-16
     //  55357,  56374 = UTF-16 surrogate pair representation of  the DOG FACE
@@ -765,12 +765,12 @@ Still a work in progress, there are still some formatting and typo errors, will 
       * These values are high-surrogate value of U+83D (55357) and low-surrogate value U+DC36 (56374)
   * Unicode Scalar Representation
 
-****    ```swift
+    ```swift
     for scalar in dogString.unicodeScalars {  
       print("\(scalar.value) ")
       println("\(scalar) ") // print the characters  
     }  
-    print("\\n")  
+    print("\n")  
     // 68 111 103 8252 128054  
     // 8252 = decimal of U+203C = double exclamation mark
     // 128054 = decimal of U+1F436 of the dog face character
@@ -1448,7 +1448,7 @@ println("\(index) times 5 is \(index * 5)")
 
 ### Matching Enumeration Values with a Switch Statement
 
-  ****```swift
+  ```swift
   directionToHead = .South  
     switch directionToHead {  
       case .North:  
@@ -1511,9 +1511,9 @@ println("\(index) times 5 is \(index * 5)")
 
     ```swift
     enum ASCIIControlCharacter: Character {  
-      case Tab = "\\t"  
-      case LineFeed = "\\n"  
-      case CarriageReturn = "\\r"  
+      case Tab = "\t"  
+      case LineFeed = "\n"  
+      case CarriageReturn = "\r"  
     }
     ```
 
@@ -1555,33 +1555,41 @@ println("\(index) times 5 is \(index * 5)")
 
       ```swift
       class SomeClass { ... }
+      struct SomeStructure { ... }
       ```
 
-      * struct SomeStructure { ... }
     * When you define a new class or structure, you define a new Swift type.
-    * Example:
 
       ```swift
       struct Resolution {  
+        var width = 0  
+        var height = 0  
+      }
+      
+      class VideoMode {  
+        var resolution = Resolution()  
+        var interlaced = false  
+        var frameRate = 0.0  
+        var name: String?  
+      }
       ```
 
-var width = 0  
-var height = 0  
-}
-      * class VideoMode {  
-var resolution = Resolution()  
-var interlaced = false  
-var frameRate = 0.0  
-var name: String?  
-}
   * Class and Structure Instances
-    * let someResolution = Resolution()
-    * let someVideoMode = VideoMode()
+
+    ```swift
+    let someResolution = Resolution()
+    let someVideoMode = VideoMode()
+    ```
+
   * Accessing Properties
-    * someResolution.width // 0
-    * someVideoMode.resolution.width // 0
-    * someVideoMode.resolution.width = 1280
-    * Note
+  
+    ```swift
+    someResolution.width // 0
+    someVideoMode.resolution.width // 0
+    someVideoMode.resolution.width = 1280
+    ```
+
+    * Notes
       * Unlike Obj-C, Swift enables you to set sub properties of a structure property directly. 
       * You are able to set resolution.width directly, without the need to set the entire resolution property
   * Memberwise Initializers for Structure Types
@@ -3000,9 +3008,9 @@ println("John's building identifier is \(buildingIdentifier).")
   * if let beginsWithThe =  
 john.residence?.address?.buildingIdentifier()?.hasPrefix("The") {  
 if beginsWithThe {  
-println("John's building identifier begins with \\"The\\".")  
+println("John's building identifier begins with \"The\".")  
 } else {  
-println("John's building identifier does not begin with \\"The\\".")  
+println("John's building identifier does not begin with \"The\".")  
 }  
 }  
 // prints "John's building identifier begins with "The"."
@@ -3143,7 +3151,7 @@ println("a positive double value of \(someDouble)")
 case is Double:  
 println("some other double value that I don't want to print")  
 case let someString as String:  
-println("a string value of \\"\(someString)\\"")  
+println("a string value of \"\(someString)\"")  
 case let (x, y) as (Double, Double):  
 println("an (x, y) point at \(x), \(y)")  
 case let movie as Movie:  
@@ -3416,7 +3424,7 @@ print("+ ")
 
 }
 
-print("\\n")
+print("\n")
 
 }
 
