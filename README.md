@@ -3287,8 +3287,6 @@ let library = [
 
 ## Nested Types
 
-### Overview
-
   * Enums often created to support a specific class or structure's functionality
   * It can be convenient to define utility classes and structures purely for use within the context of a more complex type
   * Define nested types:
@@ -3296,7 +3294,7 @@ let library = [
 
 ### Nested Types in Action
 
-    ```swift
+```swift
 struct BlackjackCard {
     // nested Suit enumeration
     enum Suit: Character {
