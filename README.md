@@ -140,19 +140,14 @@ let cat="hello"; println(cat)
 
 ### Numeric Literals
   
-  * Integeral literals can be written as 
-    * A decimal number with no prefix
-    * A binary number with a 0b prefix
-    * An octal number with a 0o prefix
-    * A hexadecimal number with a 0x prefix
-    * All of these integer literals have a decimal value of 17:
+  * All of these integer literals have a decimal value of 17:
 
-      ```swift
-      let decimalInteger = 17
-      let binaryInteger = 0b10001   // 17 in binary notation
-      let octalInteger = 0o21       // 17 in octal notation
-      let hexadecimalInteger = 0x11 // 17 hexa decimal notation
-      ```
+    ```swift
+    let decimalInteger = 17
+    let binaryInteger = 0b10001   // 17 in binary notation
+    let octalInteger = 0o21       // 17 in octal notation
+    let hexadecimalInteger = 0x11 // 17 hexa decimal notation
+    ```
 
   * Floating-point literals can be decimal or hexadecimal.They must have a number on both sides of the decimal point
     * Optional exponent, indicated by and uppercase/lowercase e for decimal floats or an p for hexadecimal floats
