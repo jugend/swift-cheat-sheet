@@ -153,11 +153,19 @@ Still a work in progress, there are still some formatting and typo errors, will 
   * Floating-point literals can be decimal or hexadecimal.They must have a number on both sides of the decimal point
     * Optional exponent, indicated by and uppercase/lowercase e for decimal floats or an p for hexadecimal floats
     * For decimal numbers with an exponent of exp, the base number is multiplied by 10exp:
-      * 1.25e2 = 1.25 x 102 = 125.0
-      * 1.25e-2 = 1.25 x 10-2 = 0.0125
+    
+      ```swift
+      1.25e2  // = 1.25 x 102 = 125.0
+      1.25e-2 // = 1.25 x 10-2 = 0.0125
+      ```
+
     * For hexadecimal numbers with an exponent of exp, the base is multiplied by 2exp:
-      * 0xFp2 means 15x22 = 60.0
-      * 0xFp2 means 15x2-2 = 3.75
+    
+      ```swift
+      0xFp2 // means 15x22 = 60.0
+      0xFp2 // means 15x2-2 = 3.75
+      ```
+
     * All of these floating numbers have a decimal value of 12.1875
 
       ```swift
@@ -861,34 +869,42 @@ Still a work in progress, there are still some formatting and typo errors, will 
 
     ```swift
     [key 1: value 1, key 2: value 2, key 3: value 3]
+    var airports: [String: String] = ["TYO": "Tokyo", "DUB": Dublin"]
     ```
 
-    * var airports: [String: String] = ["TYO": "Tokyo", "DUB": Dublin"]
     * If key and values are consistent, you could skip the type definition
-      * var airports = ["TYO": "Tokyo", "DUB": "Dublin"]
+
+      ```swift
+      var airports = ["TYO": "Tokyo", "DUB": "Dublin"]
+      ```
+
   * Accessing and Modifying a Dictionary
 
     ```swift
     airports.count
+    airports.isEmpty
+    airports["LHR"] = "London"
+    airports.updateValue("Dublin International", forKey: "DUB")
+    airports["APL"] = nil
+    airports.removeValueForKey("DUB")
     ```
 
-    * airports.isEmpty
-    * airports["LHR"] = "London"
-      * airports.updateValue("Dublin International", forKey: "DUB")
-    * airports["APL"] = nil
-      * airports.removeValueForKey("DUB")
   * Iterating Over a Dictionary
 
     ```swift
-    for (airportCode, airportName) in airports { }
+    for (airportCode, airportName) in airports { ... }
+    for key in airport.keys { ... }
+    for value in airport.values { ... }
     ```
 
-    * for key in airport.keys
-    * for value in airport.values
     * Swift's Dictionary is an unordered collection
   * Creating and Empty Dictionary
-    * var namesOfIntegers = [Int: String]() // empty dictionary
-    * namesOfIntegers[:] // reset to empty, once the context is already known
+  
+    ```swift
+    var namesOfIntegers = [Int: String]() // empty dictionary
+    namesOfIntegers[:]                    // reset to empty, once the context is already known
+    ```
+
   * Hash Values for Dictionary Key Types
     * A type must be hash able to be used as dictionary's key type
     * A hash value is an Int value that is the same for all object that compare equal if a == b, a.hashValue == b.hashValue
@@ -908,10 +924,10 @@ Still a work in progress, there are still some formatting and typo errors, will 
 
       ```swift
       for index in 1...5 {  
+        println("\(index) times 5 is \(index * 5)")  
+      }
       ```
 
-println("\(index) times 5 is \(index * 5)")  
-}
     * If you don't need the index value
 
       ```swift
@@ -922,9 +938,9 @@ println("\(index) times 5 is \(index * 5)")
 
       ```swift
       for name in names { ... }
+      for (key, value) in dictionaries { ... }
       ```
 
-      * for (key, value) in dictionaries { ... }
     * String character
 
       ```swift
