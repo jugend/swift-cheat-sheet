@@ -3653,41 +3653,49 @@ class SomeClass: SomeSuperclass, FirstProtocol, AnotherProtocol {
 ### Initializer Requirements
 
   * Same way as normal inits, but without curly braces or an init body:
-  * protocol SomeProtocol {  
-init(someParameter: Int)  
-}  
+
+    ```swift
+    protocol SomeProtocol {  
+      init(someParameter: Int)  
+    }
+    ```
+      
   * Class implementations of Protocol initialisers requirements
     * You can implement a protocol initialiser requirement on a conforming class as either a designated initialiser requirement  or a convenience initializer.
     * In both cases you must mark the initialiser implementation with the "required" modifier:
 
       ```swift
       class SomeClass: SomeProtocol {  
-      ```
 
-required init(someParameter: Int) {  
-// initializer implementation goes here  
-}  
-}  
+        required init(someParameter: Int) {  
+          // initializer implementation goes here  
+        }  
+      }
+      ```
+  
     * Required modifier ensures that you provide explicit or inherited implementation of the initialiser requirement on all subclasses.
     * Note
       * You do not need to mark protocol init with required modifier on classes marked with the final modifier, because final classes can not be subclassed.
   * Subclass implementation, note the override:
-    * "protocol SomeProtocol {  
-init()  
-}  
-  
-class SomeSuperClass {  
-init() {  
-// initializer implementation goes here  
-}  
-}  
-  
-class SomeSubClass: SomeSuperClass, SomeProtocol {  
-// "required" from SomeProtocol conformance; "override" from SomeSuperClass  
-required override init() {  
-// initializer implementation goes here  
-}  
-}  
+
+    ```swift
+    protocol SomeProtocol {
+        init()
+    }
+
+    class SomeSuperClass {
+        init() {
+            // initializer implementation goes here
+        }
+    }
+
+    class SomeSubClass: SomeSuperClass, SomeProtocol {
+        // "required" from SomeProtocol conformance; "override" from SomeSuperClass
+        required override init() {
+            // initializer implementation goes here
+        }  
+    }
+    ```
 
 ### Protocols as Types
 
