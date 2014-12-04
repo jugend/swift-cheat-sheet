@@ -3,8 +3,6 @@
 
 Notes taken from [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) by Apple Inc.
 
-There are still some formatting and typo errors, will fix them soon.
-
 ## The Basics
 
 ### Constants & Variables
@@ -4199,13 +4197,11 @@ func swapTwoValues<T>(inout a: T, inout b: T) {
 
       ```swift
       func findStringIndex(array: [String], valueToFind: String) -> Int? {
-        
         for (index, value) in enumerate(array) {
             if value == valueToFind {
                 return index
             }
         }
-        
         return nil
       }
       
@@ -4214,24 +4210,24 @@ func swapTwoValues<T>(inout a: T, inout b: T) {
       if let foundIndex = findStringIndex(strings, "llama") {
         println("Found index: \(foundIndex)")
       }
+      ```
+      
       * Generic version
       
-      ```swift
-      func findIndex<T: Equatable>(array: [T], valueToFind: T) -> Int? {
-        ```
+        ```swift
+        func findIndex<T: Equatable>(array: [T], valueToFind: T) -> Int? {
+          for (index, value) in enumerate(array) {
+              if value == valueToFind {
+                  return index
+              }  
+          }  
         
-        for (index, value) in enumerate(array) {
-            if value == valueToFind {
-                return index
-            }  
+          return nil  
         }  
-        
-        return nil  
-      }  
       
-      let doubleIndex = findIndex([3.14, 0.1, 0.25], 9.3)  
-      let stringIndex = findIndex(["Mike", "John", "Andrea"], "John")
-      ```
+        let doubleIndex = findIndex([3.14, 0.1, 0.25], 9.3)  
+        let stringIndex = findIndex(["Mike", "John", "Andrea"], "John")
+        ```
 
 ### Associated Types
 
