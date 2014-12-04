@@ -1099,14 +1099,15 @@ There are still some formatting and typo errors, will fix them soon.
 
 ### Defining and Calling Functions
   
-    ```swift
-    func sayHello(personName: String) -> String {
-      let greeting = "Hello, " + personName + "!"
-      return greeting
-    }
-    
-    sayHello("Anna")
-    ```
+```swift
+func sayHello(personName: String) -> String {
+  let greeting = "Hello, " + personName + "!"
+  return greeting
+}
+
+sayHello("Anna")
+```
+
 ### Function Parameters & Return Values
 
   * Multiple Input Parameters
@@ -1162,9 +1163,9 @@ There are still some formatting and typo errors, will fix them soon.
 
 ### Function Parameter Names
 
-    ```swift
-    fund someFunction(paramName: Int) { ... }
-    ```
+```swift
+fund someFunction(paramName: Int) { ... }
+```
 
     * Param only be used inside the function
   * External Parameter Names
@@ -1173,7 +1174,6 @@ There are still some formatting and typo errors, will fix them soon.
 
       ```swift
       func someFunction(paramExt  paramName: Int) { ... }
-
       someFunc(paramExt: 2)
       ```
 
@@ -2341,11 +2341,12 @@ class Counter {
     * Initial values can be passed to the init by name
 
       ```swift
-      struct Size {  
+      struct Size {
+         var width = 0.0, height = 0.0
+      }
 
-var width = 0.0, height = 0.0  
-}  
-let twoByTwo = Size(width: 2.0, height: 2.0)  
+      let twoByTwo = Size(width: 2.0, height: 2.0) 
+      ```
 
 ### Initializer Delegation for Value Types
   
@@ -2354,7 +2355,7 @@ let twoByTwo = Size(width: 2.0, height: 2.0)
   * self.init can only be called within an initialiser
   * If custom initialiser is defined, you won't have access to the default initialiser
   
-    ```**swift**
+    ```swift
     struct Size {
         var width = 0.0, height = 0.0
     }
@@ -2397,10 +2398,10 @@ size: Size(width: 5.0, height: 5.0))   // originRect's origin is (2.0, 2.0) and 
     * convenience init([parameters]) { ... }
   * Init Chaining
     * Rules to simply relationship between designated & convenience inits
-*   1.     1.       1. Designated init must call a designated init for its immediate class
+      1. Designated init must call a designated init for its immediate class
       2. Convenience init must call another init from the same class
       3. Convenience init must ultimately call a designated init
-      * Simple way to remember:
+    * Simple way to remember:
       * Designated init delegates up
       * Convenience init delegates across
     * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/A662D106-1ACE-41E3-A32B-BA295C62B660.png)  
@@ -2447,7 +2448,6 @@ size: Size(width: 5.0, height: 5.0))   // originRect's origin is (2.0, 2.0) and 
     * If you write subclass init that matches superclass convenience init, superclass convenience init can never be called directly by your subclass, as described in Init Chaining
       * **Therefore your subclass is not strictly providing an override of the superclass init**
       * Thus you do not write the override modifier when providing a matching implementation of a superclass convenience initialiser
-    * Example:
 
       ```swift
       class Vehicle {
@@ -3143,43 +3143,43 @@ reference3 = nil
 
 ### Defining a Class Hierarchy for Type Casting
 
-  * Example:
- 
+```swift
+class MediaItem {
+    var name: String
+    init(name: String) {
+        [self.name][2] = name
+    }
+}
+class Movie: MediaItem {
+    var director: String
+    init(name: String, director: String) {
+        self.director = director
+        super.init(name: name)
+    }
+}
+
+class Song: MediaItem {
+    var artist: String
+    init(name: String, artist: String) {
+        self.artist = artist
+        super.init(name: name)
+    }
+}
+let library = [
+    Movie(name: "Casablanca", director: "Michael Curtiz"),
+    Song(name: "Blue Suede Shoes", artist: "Elvis Presley"),
+    Movie(name: "Citizen Kane", director: "Orson Welles"),
+    Song(name: "The One And Only", artist: "Chesney Hawkes"),
+    Song(name: "Never Gonna Give You Up", artist: "Rick Astley")
+]
+```
+
+### Checking Type
+
+  * Use type check operator (is) to check whether an instance is a certain subclass type
+
     ```swift
-    class MediaItem {
-        var name: String
-        init(name: String) {
-            [self.name][2] = name
-        }
-    }
-    class Movie: MediaItem {
-        var director: String
-        init(name: String, director: String) {
-            self.director = director
-            super.init(name: name)
-        }
-    }
-
-    class Song: MediaItem {
-        var artist: String
-        init(name: String, artist: String) {
-            self.artist = artist
-            super.init(name: name)
-        }
-    }
-    let library = [
-        Movie(name: "Casablanca", director: "Michael Curtiz"),
-        Song(name: "Blue Suede Shoes", artist: "Elvis Presley"),
-        Movie(name: "Citizen Kane", director: "Orson Welles"),
-        Song(name: "The One And Only", artist: "Chesney Hawkes"),
-        Song(name: "Never Gonna Give You Up", artist: "Rick Astley")
-    ]
-
-    ### Checking Type
-
-    * Use type check operator (is) to check whether an instance is a certain subclass type
-    * Example:
-    * var movieCount = 0
+    var movieCount = 0
     var songCount = 0
 
     for item in library {
@@ -3415,20 +3415,25 @@ reference3 = nil
 ### Computed Properties
 
   * Can add computed properties and computed type properties to existing types:
-    * extension Double {  
-var km: Double { return self * 1_000.0 }  
-var m: Double { return self }  
-var cm: Double { return self / 100.0 }  
-var mm: Double { return self / 1_000.0 }  
-var ft: Double { return self / 3.28084 }  
-}  
-let oneInch = [25.4.mm][4]  
-println("One inch is \(oneInch) meters")  
-// prints "One inch is 0.0254 meters"  
-let threeFeet = 3.ft  
-println("Three feet is \(threeFeet) meters")  
-// prints "Three feet is 0.914399970739201 meters  
-    * let aMarathon = 42.km + 195.m
+    
+    ```swift
+    extension Double {
+        var km: Double { return self * 1_000.0 }
+        var m: Double { return self }
+        var cm: Double { return self / 100.0 }
+        var mm: Double { return self / 1_000.0 }
+        var ft: Double { return self / 3.28084 }
+    }
+
+    let oneInch = [25.4.mm][4]
+    println("One inch is \(oneInch) meters")      // prints "One inch is 0.0254 meters"
+
+    let threeFeet = 3.ft
+    println("Three feet is \(threeFeet) meters")  // prints "Three feet is 0.914399970739201 meters
+
+    let aMarathon = 42.km + 195.m
+    ```
+
   * Note
     * Extensions add new computed properties but they cannot add stored properties, add property observers to existing properties
 
@@ -3436,130 +3441,124 @@ println("Three feet is \(threeFeet) meters")
 
   * Extensions can add new convenience initialisers to a class, but they cannot add new designated initialisers or deinitializers to a class
   * Designated initialisers and deinitializer must always be provided by original class implementation
-  * Example:
-    * struct Size {  
-var width = 0.0, height = 0.0  
-}  
-struct Point {  
-var x = 0.0, y = 0.0  
-}  
-struct Rect {  
-var origin = Point()  
-var size = Size()  
-}  
-    * let defaultRect = Rect()
 
-let memberwiseRect = Rect(origin: Point(x: 2.0, y: 2.0),
+    ```swift
+    struct Size {
+        var width = 0.0, height = 0.0
+    }
 
-size: Size(width: 5.0, height: 5.0))
-    * extension Rect {  
-init(center: Point, size: Size) {  
-let originX = center.x - (size.width / 2)  
-let originY = center.y - (size.height / 2)  
-self.init(origin: Point(x: originX, y: originY), size: size)  
-}  
-}  
-    * let centerRect = Rect(center: Point(x: 4.0, y: 4.0),  
-size: Size(width: 3.0, height: 3.0))  
+    struct Point {
+        var x = 0.0, y = 0.0
+    }
 
+    struct Rect {
+        var origin = Point()
+        var size = Size()
+    }
+
+    let defaultRect = Rect()
+    let memberwiseRect = Rect(origin: Point(x: 2.0, y: 2.0), size: Size(width: 5.0, height: 5.0))
+
+    extension Rect {
+        init(center: Point, size: Size) {
+            let originX = center.x - (size.width / 2)
+            let originY = center.y - (size.height / 2)
+            self.init(origin: Point(x: originX, y: originY), size: size)
+        }
+    }
+
+    let centerRect = Rect(center: Point(x: 4.0, y: 4.0),
+        size: Size(width: 3.0, height: 3.0))
+    ```
+     
 ### Methods
 
   * Add new instance methods and type methods to existing types
-  * Example:
-    * extension Int {  
-func repetitions(task: () -> ()) {  
-for i in 0..<self {  
-task()  
-}  
-}  
-}  
-    * 3.repetitions({  
-println("Hello!")  
-})  
+    
+    ```swift
+    extension Int {
+        func repetitions(task: () -> ()) {
+            for i in 0..<self {
+                task()
+            }
+        }
+    }
+
+    3.repetitions({
+        println("Hello!")  
+    })
+    ```
+
   * Mutating Instance Methods
     * Instance methods added with extension can also modify (mutate the instance itself
-    * Example:
 
       ```swift
       extension Int {  
+        mutating func square() {  
+          self = self * self  
+        }  
+      }
       ```
-
-mutating func square() {  
-self = self * self  
-}  
-}
 
 ### Subscripts
 
-  * Example:
-    * extension Int {  
-subscript(var digitIndex: Int) -> Int {  
-var decimalBase = 1  
-while digitIndex > 0 {  
-decimalBase *= 10  
---digitIndex  
-}  
-return (self / decimalBase) % 10  
-}  
-}  
-746381295[0]  
-// returns 5  
-746381295[1]  
-// returns 9  
-746381295[2]  
-// returns 2  
-746381295[8]  
-// returns 7  
-    * 746381295[9]  
-// returns 0, as if you had requested:  
-0746381295[9]  
+
+```swift
+extension Int {
+    subscript(var digitIndex: Int) -> Int {
+        var decimalBase = 1
+        while digitIndex > 0 {
+            decimalBase *= 10
+            --digitIndex
+        }
+        return (self / decimalBase) % 10
+    }
+}
+746381295[0]  // returns 5
+746381295[1]  // returns 9
+746381295[2]  // returns 2
+746381295[8]  // returns 7
+746381295[9]  // returns 0, as if you had requested:  
+0746381295[9]
+```
 
 ### Nested Types
 
-  * extension Int {  
-enum Kind {  
-case Negative, Zero, Positive  
-}  
-var kind: Kind {  
-switch self {  
-case 0:  
-return .Zero  
-case let x where x > 0:  
-return .Positive  
-default:  
-return .Negative  
-}  
-}  
-}  
-  * func printIntegerKinds(numbers: [Int]) {
+```swift
+extension Int {
+    enum Kind {
+        case Negative, Zero, Positive
+    }
 
-for number in numbers {
-
-switch number.kind {
-
-case .Negative:
-
-print("- ")
-
-case .Zero:
-
-print("0 ")
-
-case .Positive:
-
-print("+ ")
-
+    var kind: Kind {
+        switch self {
+        case 0:
+            return .Zero
+        case let x where x > 0:
+            return .Positive
+        default:
+            return .Negative
+        }
+    }
 }
 
+func printIntegerKinds(numbers: [Int]) {
+    
+    for number in numbers {
+        switch number.kind {
+        case .Negative:
+            print("- ")
+        case .Zero:
+            print("0 ")
+        case .Positive:
+            print("+ ")
+        }
+    }
+    print("\n")
 }
 
-print("\n")
-
-}
-
-printIntegerKinds([3, 19, -27, 0, -6, 0, 7])
-
-// prints "+ + - 0 - 0 +"
+printIntegerKinds([3, 19, -27, 0, -6, 0, 7])  // prints "+ + - 0 - 0 +"
+```
 
 ## Protocols
 
@@ -3572,97 +3571,117 @@ printIntegerKinds([3, 19, -27, 0, -6, 0, 7])
 
 ### Protocol Syntax
 
-  * Syntax
-    * protocol SomeProtocol {  
-// protocol definition goes here  
+```swift
+protocol SomeProtocol {  
+  // protocol definition goes here  
 }  
-    * struct SomeStructure: FirstProtocol, AnotherProtocol {  
-// structure definition goes here  
+
+struct SomeStructure: FirstProtocol, AnotherProtocol {  
+  // structure definition goes here  
 }  
-    * class SomeClass: SomeSuperclass, FirstProtocol, AnotherProtocol {  
-// class definition goes here  
+class SomeClass: SomeSuperclass, FirstProtocol, AnotherProtocol {  
+  // class definition goes here  
 }
+```
 
 ### Protocol Requirements
 
   * Getter & setter requirements
-    * protocol SomeProtocol {  
-var mustBeSettable: Int { get set }  
-var doesNotNeedToBeSettable: Int { get }  
-}
+    
+    ```swift
+    protocol SomeProtocol {  
+      var mustBeSettable: Int { get set }  
+      var doesNotNeedToBeSettable: Int { get }  
+    }
+    ```
+
   * Type property protocol, use "static" keyword for structure or enumeration
-    * protocol AnotherProtocol {  
-class var someTypeProperty: Int { get set }  
-}  
+    
+    ```swift
+    protocol AnotherProtocol {  
+      class var someTypeProperty: Int { get set }  
+    }
+    ```
+    
   * Protocol with a single instance property requirements:
-    * protocol FullyNamed {  
-var fullName: String { get }  
-}  
+    
+    ```swift
+    protocol FullyNamed {
+        var fullName: String { get }
+    }
+    ```
+  
     * Simple structure conforms to FullyNamed protocol
 
       ```swift
-      struct Person: FullyNamed {  
+      struct Person: FullyNamed {
+        
+        var fullName: String
+      }
+      let john = Person(fullName: "John Appleseed")
+      // john.fullName is "John Appleseed"
       ```
 
-var fullName: String  
-}  
-let john = Person(fullName: "John Appleseed")  
-// john.fullName is "John Appleseed"  
     * Class conforms to the protocol:
 
       ```swift
-      class Starship: FullyNamed {  
+      class Starship: FullyNamed {
+      
+        var prefix: String?
+        var name: String
+        init(name: String, prefix: String? = nil) {
+            [self.name][2] = name
+            self.prefix = prefix
+        }
+        var fullName: String {
+            return (prefix != nil ? prefix! + " " : "") + name
+        }
+      }
+      var ncc1701 = Starship(name: "Enterprise", prefix: "USS")
+      // ncc1701.fullName is "USS Enterprise"
       ```
-
-var prefix: String?  
-var name: String  
-init(name: String, prefix: String? = nil) {  
-[self.name][2] = name  
-self.prefix = prefix  
-}  
-var fullName: String {  
-return (prefix != nil ? prefix! + " " : "") + name  
-}  
-}  
-var ncc1701 = Starship(name: "Enterprise", prefix: "USS")  
-// ncc1701.fullName is "USS Enterprise"
 
 ### Method Requirements
 
   * Protocol can require specific instance methods or type methods to be implemented
   * Use the same syntax as normal methods, but are not allowed to specify default values for method params.
-  * Example:
-    * protocol SomeProtocol {  
-class func someTypeMethod()  
-}  
-    * protocol RandomNumberGenerator {
+    
+    ```swift
+    protocol SomeProtocol {
+        class func someTypeMethod()
+    }
+    protocol RandomNumberGenerator {
 
-func random() -> Double
+        func random() -> Double
 
-}
-
+    }
+    ```
+    
 ### Mutating Method Requirements
 
   * If you mark a protocol instance method requirements as mutating, you do not need to write he mutating keyword when writing an implementation of that method for a class
   * Mutating only used by structures and enumerations
-  * Example:
-    * protocol Togglable {  
-mutating func toggle()  
-}  
-    * enum OnOffSwitch: Togglable {  
-case Off, On  
-mutating func toggle() {  
-switch self {  
-case Off:  
-self = On  
-case On:  
-self = Off  
-}  
-}  
-}  
-var lightSwitch = OnOffSwitch.Off  
-lightSwitch.toggle()  
-// lightSwitch is now equal to .On  
+
+    ```swift
+    protocol Togglable {
+        mutating func toggle()
+    }
+
+    enum OnOffSwitch: Togglable {
+        case Off, On
+        mutating func toggle() {
+            switch self {
+            case Off:
+                self = On
+            case On:
+                self = Off
+            }
+        }
+    }
+  
+    var lightSwitch = OnOffSwitch.Off
+    lightSwitch.toggle()  // lightSwitch is now equal to .On
+    ```
 
 ### Initializer Requirements
 
@@ -3843,27 +3862,38 @@ required override init() {
 ### Collections of Protocol Types
 
   * Protocol can be used as the type to be stored in collection as as array/dictionary:
-    * let things: [TextRepresentable] = [game, d12, simonTheHamster]  
-    * for thing in things {  
-println(thing.asText())  
-}  
+    
+    ```swift
+    let things: [TextRepresentable] = [game, d12, simonTheHamster]
+    for thing in things {
+        println(thing.asText())
+    }
+    ```
 
 ### Protocol Inheritance
 
   * Protocol can inherit one or more other protocols and can add further requirements on top of the requirements it inherits:
-    * protocol InheritingProtocol: SomeProtocol, AnotherProtocol {  
-// protocol definition goes here  
-}  
-    * protocol PrettyTextRepresentable: TextRepresentable {  
-func asPrettyText() -> String  
-}  
+    
+    ```swift
+    protocol InheritingProtocol: SomeProtocol, AnotherProtocol {
+        // protocol definition goes here
+    }
 
+    protocol PrettyTextRepresentable: TextRepresentable {
+        func asPrettyText() -> String
+    }
+    ```
+    
 ### Class-Only Protocol
 
   * Limit protocol adoption to class types (and not structures or enumerations) by adding the class keyword to a protocol's inheritance list:
-    * protocol SomeClassOnlyProtocol: class, SomeInheritedProtocol {  
-// class-only protocol definition goes here  
-}  
+    
+    ```swift
+    protocol SomeClassOnlyProtocol: class, SomeInheritedProtocol {  
+      // class-only protocol definition goes here  
+    }
+    ```
+    
   * Note
     * Use a class-only protocol when the behaviour defined that protocol's requirements assumes or requires that a conforming type has reference semantics rather than value semantics.
 
@@ -3871,55 +3901,65 @@ func asPrettyText() -> String
 
   * You can combine multiple protocols into a single protocol composition.
     * protocol<SomeProtocol, AnotherProtocol>
-  * Example:
-    * protocol Named {  
-var name: String { get }  
-}  
-protocol Aged {  
-var age: Int { get }  
-}  
-struct Person: Named, Aged {  
-var name: String  
-var age: Int  
-}  
-func wishHappyBirthday(celebrator: protocol<Named, Aged>) {  
-println("Happy birthday \(celebrator.name) - you're \(celebrator.age)!")  
-}  
-let birthdayPerson = Person(name: "Malcolm", age: 21)  
-wishHappyBirthday(birthdayPerson)  
-// prints "Happy birthday Malcolm - you're 21!"  
+
+    ```swift
+    protocol Named {
+        var name: String { get }
+    }
+    protocol Aged {
+        var age: Int { get }
+    }
+    struct Person: Named, Aged {
+        var name: String
+        var age: Int
+    }
+    func wishHappyBirthday(celebrator: protocol<Named, Aged>) {
+        println("Happy birthday \(celebrator.name) - you're \(celebrator.age)!")
+    }
+    let birthdayPerson = Person(name: "Malcolm", age: 21)
+    wishHappyBirthday(birthdayPerson)  // prints "Happy birthday Malcolm - you're 21!"
+    ```
+
   * Note
     * Protocol compositions do not define a new, permanent protocol type, rather they define a temporary local protocol that has the combined requirements of all protocols in the composition.
 
 ### Checking for Protocol Conformance
 
   * You can use is and as operators
-  * Example:
-    * @objc protocol HasArea {  
-var area: Double { get }  
-}  
+
+    ```swift
+    @objc protocol HasArea {  
+      var area: Double { get }  
+    }
+    ```
+    
   * Note
     * You can check protocol conformance only if your protocol is marked with the @objc attribute
     * It indicates that protocol should be exposed to Objective-C Code
     * @objc protocols can be adopted only by classes, not by structures or enumerations
-  * Example:  
-    * class Circle: HasArea {  
-let pi = 3.1415927  
-var radius: Double  
-var area: Double { return pi * radius * radius }  
-init(radius: Double) { self.radius = radius }  
-}  
-class Country: HasArea {  
-var area: Double  
-init(area: Double) { self.area = area }  
-}  
-    * for object in objects {  
-if let objectWithArea = object as? HasArea {  
-println("Area is \(objectWithArea.area)")  
-} else {  
-println("Something that doesn't have an area")  
-}  
-}
+
+    
+    ```swift
+    class Circle: HasArea {
+        let pi = 3.1415927
+        var radius: Double
+        var area: Double { return pi * radius * radius }
+        init(radius: Double) { self.radius = radius }
+    }
+
+    class Country: HasArea {
+        var area: Double
+        init(area: Double) { self.area = area }
+    }
+
+    for object in objects {
+        if let objectWithArea = object as? HasArea {
+            println("Area is \(objectWithArea.area)")
+        } else {
+            println("Something that doesn't have an area")
+        }  
+    }
+    ```
 
 ### Optional Protocol Requirements
 
@@ -4003,34 +4043,34 @@ println("Something that doesn't have an area")
 
 ### The Problem That Generic Solve
 
-  * Fixed Type Example:
+  * Fixed Type Example
   
-  ```swift
-  func swapTwoInts(inout a: Int, inout b: Int) {
-      let temporaryA = a
-      a = b
-      b = temporaryA
-  }
+    ```swift
+    func swapTwoInts(inout a: Int, inout b: Int) {
+        let temporaryA = a
+        a = b
+        b = temporaryA
+    }
   
-  var someInt = 3
-  var anotherInt = 107
+    var someInt = 3
+    var anotherInt = 107
   
-  swapTwoInts(&someInt, &anotherInt)
-  println("someInt is now \(someInt), and anotherInt is now \(anotherInt)")
-  // prints "someInt is now 107, and anotherInt is now 3
+    swapTwoInts(&someInt, &anotherInt)
+    println("someInt is now \(someInt), and anotherInt is now \(anotherInt)")
+    // prints "someInt is now 107, and anotherInt is now 3
   
-  func swapTwoStrings(inout a: String, inout b: String) {
-      let temporaryA = a
-      a = b
-      b = temporaryA
-  }
+    func swapTwoStrings(inout a: String, inout b: String) {
+        let temporaryA = a
+        a = b
+        b = temporaryA
+    }
 
-  func swapTwoDoubles(inout a: Double, inout b: Double) {
-      let temporaryA = a
-      a = b
-      b = temporaryA  
-  }
-  ```
+    func swapTwoDoubles(inout a: Double, inout b: Double) {
+        let temporaryA = a
+        a = b
+        b = temporaryA  
+    }
+    ```
 
   * In all 3 functions, it is important that the types a and b are defined to be the same as each other.
 
@@ -4200,17 +4240,16 @@ func swapTwoValues<T>(inout a: T, inout b: T) {
     * Gives a placeholder name (alias) to a type that is used as part of the protocol
     * Actual type to use for the associated type is not specified until the protocol is adopted
   * Associated Types in Action
-    * Example:
 
-      ```swift
-      protocol Container {
-        typealias ItemType
-        mutating func append(item: ItemType)
-        
-        var count: Int { get }
-        subscript(i: Int) -> ItemType { get }  
-      }
-      ```
+    ```swift
+    protocol Container {
+      typealias ItemType
+      mutating func append(item: ItemType)
+      
+      var count: Int { get }
+      subscript(i: Int) -> ItemType { get }  
+    }
+    ```
 
     * Int Stack Implementation
       
@@ -4442,6 +4481,7 @@ func swapTwoValues<T>(inout a: T, inout b: T) {
           case West  
         }
         ```
+        
     * Raw Values and Association Type
       * The types used for any raw values or associated values in enum must have an access level at least as high as the enum's access level
       * You cannot use a private type as the raw value type of an enumeration with an internal access level for example.
