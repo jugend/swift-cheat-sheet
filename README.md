@@ -435,7 +435,7 @@ Still a work in progress, there are still some formatting and typo errors, will 
       a % b
       a = (b × some multiplier) + remainder
       ```
-    * Examples:
+    * Example:
 
       ```swift
       9 % 4 = 1
@@ -1187,7 +1187,6 @@ println("\(index) times 5 is \(index * 5)")
   * Constant & Variable Parameters
     * Function params are constants by default
     * Sometimes it is useful to have a variable copy to work with
-    * Example:
 
       ```swift
       func someFunc(var paramName: String)
@@ -1652,18 +1651,19 @@ println("\(index) times 5 is \(index * 5)")
 ### Stored Properties
 
   * Is a constant or variable that is stored as part of an instance of a particular class or structure
-  * Example:
-    * struct FixedLengthRange {  
-var firstValue: Int  
-let length: Int  
-}  
-var rangeOfThreeItems = FixedLengthRange(firstValue: 0, length: 3)  
-// the range represents integer values 0, 1, and 2  
-rangeOfThreeItems.firstValue = 6  
-// the range now represents integer values 6, 7, and 8  
+
+    ```swift
+    struct FixedLengthRange {  
+      var firstValue: Int  
+      let length: Int  
+    }
+     
+    var rangeOfThreeItems = FixedLengthRange(firstValue: 0, length: 3)  // the range represents integer values 0, 1, and 2  
+    rangeOfThreeItems.firstValue = 6 // the range now represents integer values 6, 7, and 8  
+    ```
+
   * Stored Properties of Constant Structure Instances
     * When an instance of a value type is marked as a constant, so are all of its properties, but not true for classes.
-    * Example:
 
       ```swift
       let someStruct = SomeStruct(x: 0, y: 0)
@@ -1675,26 +1675,25 @@ rangeOfThreeItems.firstValue = 6
     * Use 'lazy' modifier before its declaration
     * Must always declare lazy as a var
     * Useful for a property that is dependent on outside factors, whose values are not known after an initialisation completes, e.g. computationally expensive 
-    * Example:
 
       ```swift
       class DataImporter {  
+        var fileName = "data.txt"  
+        // the DataImporter class would provide data importing functionality here  
+      }  
+  
+      class DataManager {  
+        lazy var importer = DataImporter()  
+        var data = [String]()  
+        // the DataManager class would provide data management functionality here  
+      }  
+
+      let manager = DataManager()  
+      manager.data.append("Some data")  
+      manager.data.append("Some more data")  
+      // the DataImporter instance for the importer property has not yet been created  
       ```
 
-var fileName = "data.txt"  
-// the DataImporter class would provide data importing functionality here  
-}  
-  
-class DataManager {  
-lazy var importer = DataImporter()  
-var data = [String]()  
-// the DataManager class would provide data management functionality here  
-}  
-  
-let manager = DataManager()  
-manager.data.append("Some data")  
-manager.data.append("Some more data")  
-// the DataImporter instance for the importer property has not yet been created  
     * DataImporter instance for the importer property is only created when the importer property is first accessed, e.g.
       * manager.importer.fileName
   * Stored Properties and Instance Variables
@@ -1707,53 +1706,62 @@ manager.data.append("Some more data")
 ### Computed Properties
 
   * Do not store a value, provides a getter and optional setting to retrieve and set other properties/values directly
-  * Examples:
-    * struct Point {  
-var x = 0.0, y = 0.0  
-}  
-struct Size {  
-var width = 0.0, height = 0.0  
-}  
-struct Rect {  
-var origin = Point()  
-var size = Size()  
-var center: Point {  
-get {  
-let centerX = origin.x + (size.width / 2)  
-let centerY = origin.y + (size.height / 2)  
-return Point(x: centerX, y: centerY)  
-}  
-set(newCenter) {  
-origin.x = newCenter.x - (size.width / 2)  
-origin.y = newCenter.y - (size.height / 2)  
-}  
-}  
-}  
-var square = Rect(origin: Point(x: 0.0, y: 0.0),  
-size: Size(width: 10.0, height: 10.0))  
-let initialSquareCenter = square.center  
-square.center = Point(x: 15.0, y: 15.0)  
+    
+    ```swift
+    struct Point {
+        var x = 0.0, y = 0.0
+    }
+    struct Size {
+        var width = 0.0, height = 0.0
+    }
+    struct Rect {
+        var origin = Point()
+        var size = Size()
+        var center: Point {
+            get {
+                let centerX = origin.x + (size.width / 2)
+                let centerY = origin.y + (size.height / 2)
+                return Point(x: centerX, y: centerY)
+            }
+            set(newCenter) {
+                origin.x = newCenter.x - (size.width / 2)
+                origin.y = newCenter.y - (size.height / 2)
+            }
+        }
+    }
+  
+    var square = Rect(origin: Point(x: 0.0, y: 0.0),
+        size: Size(width: 10.0, height: 10.0))
+  
+    let initialSquareCenter = square.center  
+    square.center = Point(x: 15.0, y: 15.0)
+    ```
+  
   * Shorthand Setting Declaration
     * If computed property's setting does not define a name for the new value to be set, "newValue" is used:
 
       ```swift
-      set {  
+      set {
+        origin.x = newValue.x - (size.width / 2)  
+        origin.y = newValue.y - (size.height / 2)  
+      }  
       ```
 
-origin.x = newValue.x - (size.width / 2)  
-origin.y = newValue.y - (size.height / 2)  
-}  
   * Read-Only Computed Properties
     * Has getter but no setter
     * You must declare computed properties, including read only properties as variable properties with 'var' keyword, because their value is not fixed.
     * _You can simplify read-only computed property by removing the get keyword and its braces_:
-      * struct Cuboid {  
-var width = 0.0, height = 0.0, depth = 0.0  
-var volume: Double {  
-return width * height * depth  
-}  
-}  
-let fourByFiveByTwo = Cuboid(width: 4.0, height: 5.0, depth: 2.0)  
+
+    ```swift
+    struct Cuboid {  
+      var width = 0.0, height = 0.0, depth = 0.0  
+      var volume: Double {  
+        return width * height * depth  
+      }  
+    }
+    
+    let fourByFiveByTwo = Cuboid(width: 4.0, height: 5.0, depth: 2.0)  
+    ```
 
 ### Property Observers
 
@@ -1769,13 +1777,15 @@ let fourByFiveByTwo = Cuboid(width: 4.0, height: 5.0, depth: 2.0)
   * Note
     * willSet and didSet are not called when a property is first initialised, only called when its value is set outside the initialisation context
     * If you assign a value to a property within its own didSet observer, the new value will replace the one that you just set
-  * Example:
-    * class StepCounter {  
-var totalSteps: Int = 0 {  
-willSet(newTotalSteps) { }  
-didSet { if totalSteps > oldValue { } }  
-}  
-}  
+
+      ```swift
+      class StepCounter {  
+        var totalSteps: Int = 0 {  
+          willSet(newTotalSteps) { }  
+          didSet { if totalSteps > oldValue { ... } }  
+        }  
+      }
+      ```****
 
 ### Global and Local Variables
 
