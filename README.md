@@ -336,31 +336,15 @@ let cat="hello"; println(cat)
     * To remove the need to check and unwrap optional's value every time it is accessed
 
       ```swift
-      String! // instead of String?
-      ```
-
-    * Is a normal optional behind the scenes, but can also be used like a non optional value, without the need to unwrap
-    * Primary use described in **Unowned References and Implicitly Unwrapped Optional Properties**
-
-      ```swift
       let assumedString: String! = "Implicitly unwrapped"
       let implicitString: String = unassumedString
-      ```
 
-    * If you try to access an implicitly unwrapped optional when it does not contain value, it will trigger runtime error, same with optional
-    * Always check if it contains a value:
-
-      ```swift
       if assumedString != nil { println(assumedString) }
-      ```
 
-    * Optional binding:
-
-      ```swift
       if let definiteString = assumedString { ... }
       ```
 
-    * Do not use implicitly unwrapped optional when there is a possibility to become nil
+    * If you try to access an implicitly unwrapped optional when it does not contain value, it will trigger runtime error, same with optional
 
 ### Assertions
   
