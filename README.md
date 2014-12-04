@@ -375,26 +375,17 @@ let cat="hello"; println(cat)
 
 ### Terminology
 
-  * Unary
-    * Operates on a single target
+```swift
+// Unary
+prefix: !b
+postfix: i++
 
-    ```swift
-    prefix: !b
-    postfix: i++
-    ```
+// Binary
+2 + 3
 
-  * Binary
-
-    ```swift
-    2 + 3
-    ```
-
-  * Ternary
-
-    ```swift
-    a ? b : c
-    ```
-
+// Ternary
+a ? b : c
+```
 
 ### Assignment Operator
 
