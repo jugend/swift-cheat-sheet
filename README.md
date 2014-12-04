@@ -3032,44 +3032,51 @@ println("Unable to retrieve the number of rooms.")
     * If the type you are trying to retrieve is not optional, it will become optional because of optional chaining
     * If the type you are trying to retrieve is already optional, it will not become more optional because of the chaining
     * Thus if you retrieve an Int through optional chaining, and Int? is always returned
-  * Example  
-    * if let johnsStreet = john.residence?.address?.street {  
-println("John's street name is \(johnsStreet).")  
-} else {  
-println("Unable to retrieve the address.")  
-}  
-// prints "Unable to retrieve the address.  
-    * let johnsAddress = Address()  
-johnsAddress.buildingName = "The Larches"  
-johnsAddress.street = "Laurel Street"  
-john.residence!.address = johnsAddress  
-  
-if let johnsStreet = john.residence?.address?.street {  
-println("John's street name is \(johnsStreet).")  
-} else {  
-println("Unable to retrieve the address.")  
-}  
-// prints "John's street name is Laurel Street.  
-  * **Not very sure that this section means**
+
+
+      ```swift
+      if let johnsStreet = john.residence?.address?.street {
+          println("John's street name is \(johnsStreet).")
+      } else {
+          println("Unable to retrieve the address.")
+      }
+      // prints "Unable to retrieve the address.
+      let johnsAddress = Address()
+      johnsAddress.buildingName = "The Larches"
+      johnsAddress.street = "Laurel Street"
+      john.residence!.address = johnsAddress
+
+      if let johnsStreet = john.residence?.address?.street {
+          println("John's street name is \(johnsStreet).")
+      } else {
+          println("Unable to retrieve the address.")
+      }
+    
+      // prints "John's street name is Laurel Street.
+      ```
 
 ### Chaining on Methods with Optional Return Values
 
   * Use optional chaining to call a method that returns a value of optional type, and to chain the method's return value if needed
-  * Example:
-    * if let buildingIdentifier = john.residence?.address?.buildingIdentifier() {  
-println("John's building identifier is \(buildingIdentifier).")  
-}  
-// prints "John's building identifier is The Larches."  
-  * if let beginsWithThe =  
-john.residence?.address?.buildingIdentifier()?.hasPrefix("The") {  
-if beginsWithThe {  
-println("John's building identifier begins with \"The\".")  
-} else {  
-println("John's building identifier does not begin with \"The\".")  
-}  
-}  
-// prints "John's building identifier begins with "The"."
 
+    
+    ```swift
+    if let buildingIdentifier = john.residence?.address?.buildingIdentifier() {
+        println("John's building identifier is \(buildingIdentifier).")
+    }
+    // prints "John's building identifier is The Larches."
+    if let beginsWithThe =
+        john.residence?.address?.buildingIdentifier()?.hasPrefix("The") {
+            if beginsWithThe {
+                println("John's building identifier begins with \"The\".")
+            } else {
+                println("John's building identifier does not begin with \"The\".")
+            }
+    }
+    // prints "John's building identifier begins with "The"."
+    
+    ```
+    
 ## Type Casting
 
 ### Overview
@@ -3083,49 +3090,52 @@ println("John's building identifier does not begin with \"The\".")
 ### Defining a Class Hierarchy for Type Casting
 
   * Example:
-    * class MediaItem {  
-var name: String  
-init(name: String) {  
-[self.name][2] = name  
-}  
-}  
-    * class Movie: MediaItem {  
-var director: String  
-init(name: String, director: String) {  
-self.director = director  
-super.init(name: name)  
-}  
-}  
-  
-class Song: MediaItem {  
-var artist: String  
-init(name: String, artist: String) {  
-self.artist = artist  
-super.init(name: name)  
-}  
-}
-    * let library = [  
-Movie(name: "Casablanca", director: "Michael Curtiz"),  
-Song(name: "Blue Suede Shoes", artist: "Elvis Presley"),  
-Movie(name: "Citizen Kane", director: "Orson Welles"),  
-Song(name: "The One And Only", artist: "Chesney Hawkes"),  
-Song(name: "Never Gonna Give You Up", artist: "Rick Astley")  
-]
+ 
+    ```swift
+    class MediaItem {
+        var name: String
+        init(name: String) {
+            [self.name][2] = name
+        }
+    }
+    class Movie: MediaItem {
+        var director: String
+        init(name: String, director: String) {
+            self.director = director
+            super.init(name: name)
+        }
+    }
 
-### Checking Type
+    class Song: MediaItem {
+        var artist: String
+        init(name: String, artist: String) {
+            self.artist = artist
+            super.init(name: name)
+        }
+    }
+    let library = [
+        Movie(name: "Casablanca", director: "Michael Curtiz"),
+        Song(name: "Blue Suede Shoes", artist: "Elvis Presley"),
+        Movie(name: "Citizen Kane", director: "Orson Welles"),
+        Song(name: "The One And Only", artist: "Chesney Hawkes"),
+        Song(name: "Never Gonna Give You Up", artist: "Rick Astley")
+    ]
 
-  * Use type check operator (is) to check whether an instance is a certain subclass type
-  * Example:
-    * var movieCount = 0  
-var songCount = 0  
-  
-for item in library {  
-if item is Movie {  
-++movieCount  
-} else if item is Song {  
-++songCount  
-}  
-}
+    ### Checking Type
+
+    * Use type check operator (is) to check whether an instance is a certain subclass type
+    * Example:
+    * var movieCount = 0
+    var songCount = 0
+
+    for item in library {
+        if item is Movie {  
+            ++movieCount  
+        } else if item is Song {  
+            ++songCount  
+        }  
+    }
+    ```
 
 ### Downcasting
 
@@ -3133,14 +3143,16 @@ if item is Movie {
     * Downcasting can fail, there are two types:
       * as? returns optional value
       * as, attempts to downcast and force-unwraps result as a single compound action
-  * Example:
-    * for item in library {  
-if let movie = item as? Movie {  
-println("Movie: '\(movie.name)', dir. \(movie.director)")  
-} else if let song = item as? Song {  
-println("Song: '\(song.name)', by \(song.artist)")  
-}  
-}
+    
+    ```swift
+    for item in library {
+        if let movie = item as? Movie {
+            println("Movie: '\(movie.name)', dir. \(movie.director)")
+        } else if let song = item as? Song {
+            println("Song: '\(song.name)', by \(song.artist)")
+        }  
+    }
+    ```
 
 ### Type Casting for Any and AnyObject
 
@@ -3154,67 +3166,68 @@ println("Song: '\(song.name)', by \(song.artist)")
     * When you work with CocoaAPI, it is common to receive an array of [AnyObject]
     * Because Obj-C does not have an Array of explicitly typed objects
     * Use as to downcast each item in the array
-    * Example:
 
       ```swift
       let someObjects: [AnyObject] = [  
-      ```
+        Movie(name: "2001: A Space Odyssey", director: "Stanley Kubrick"),  
+        Movie(name: "Moon", director: "Duncan Jones"),  
+        Movie(name: "Alien", director: "Ridley Scott")  
+      ]  
 
-Movie(name: "2001: A Space Odyssey", director: "Stanley Kubrick"),  
-Movie(name: "Moon", director: "Duncan Jones"),  
-Movie(name: "Alien", director: "Ridley Scott")  
-]  
-
-      ```swift
       for object in someObjects {  
-      ```
 
-let movie = object as Movie  
-println("Movie: '\(movie.name)', dir. \(movie.director)")  
-}  
+      let movie = object as Movie  
+      println("Movie: '\(movie.name)', dir. \(movie.director)")  
+      }
+      ```
+      
       * Shorter version
-        * for movie in someObjects as [Movie] {  
-println("Movie: '\(movie.name)', dir. \(movie.director)")  
-}  
+      ```swift
+        for movie in someObjects as [Movie] {  
+          println("Movie: '\(movie.name)', dir. \(movie.director)")  
+        }  
+      ```
   * Any
     * To work with a mix of different types including non-class types
-    * Example:
 
       ```swift
       var things = [Any]()  
-      ```
-
   
-things.append(0)  
-things.append(0.0)  
-things.append(42)  
-things.append(3.14159)  
-things.append("hello")  
-things.append((3.0, 5.0))  
-things.append(Movie(name: "Ghostbusters", director: "Ivan Reitman"))  
+      things.append(0)  
+      things.append(0.0)  
+      things.append(42)  
+      things.append(3.14159)  
+      things.append("hello")  
+      things.append((3.0, 5.0))  
+      things.append(Movie(name: "Ghostbusters", director: "Ivan Reitman"))  
+      ```
     * Contains Int, Double, String, (Double, Double), Movie
-      * for thing in things {  
-switch thing {  
-case 0 as Int:  
-println("zero as an Int")  
-case 0 as Double:  
-println("zero as a Double")  
-case let someInt as Int:  
-println("an integer value of \(someInt)")  
-case let someDouble as Double where someDouble > 0:  
-println("a positive double value of \(someDouble)")  
-case is Double:  
-println("some other double value that I don't want to print")  
-case let someString as String:  
-println("a string value of \"\(someString)\"")  
-case let (x, y) as (Double, Double):  
-println("an (x, y) point at \(x), \(y)")  
-case let movie as Movie:  
-println("a movie called '\(movie.name)', dir. \(movie.director)")  
-default:  
-println("something else")  
-}  
-}  
+      
+      ```swift
+      for thing in things {
+          switch thing {
+          case 0 as Int:
+              println("zero as an Int")
+          case 0 as Double:
+              println("zero as a Double")
+          case let someInt as Int:
+              println("an integer value of \(someInt)")
+          case let someDouble as Double where someDouble > 0:
+              println("a positive double value of \(someDouble)")
+          case is Double:
+              println("some other double value that I don't want to print")
+          case let someString as String:
+              println("a string value of \"\(someString)\"")
+          case let (x, y) as (Double, Double):
+              println("an (x, y) point at \(x), \(y)")
+          case let movie as Movie:
+              println("a movie called '\(movie.name)', dir. \(movie.director)")
+          default:
+              println("something else")
+          }  
+      }
+      ```
+  
     * Note
       * The case of a switch statement, use the forced version of type cast operator, as.
 
@@ -3227,86 +3240,93 @@ println("something else")
   * Define nested types:
     * Nest supporting enumerations, classes, structures within the definition of the type they support
 
-### Nested Types in Action
+      ```swift
+      ### Nested Types in Action
 
-  * Example:
-    * struct BlackjackCard {
+      struct BlackjackCard {
+    
+          // nested Suit enumeration
+    
+          enum Suit: Character {
+        
+              case Spades = "♠", Hearts = "♡", Diamonds = "♢", Clubs = "♣"
+        
+          }
+    
+          // nested Rank enumeration
+    
+          enum Rank: Int {
+        
+              case Two = 2, Three, Four, Five, Six, Seven, Eight, Nine, Ten
+        
+              case Jack, Queen, King, Ace
+        
+              struct Values {
+            
+                  let first: Int, second: Int?
+            
+              }
+        
+              var values: Values {
+            
+                  switch self {
+                
+                  case .Ace:
+                
+                      return Values(first: 1, second: 11)
+                
+                  case .Jack, .Queen, .King:
+                
+                      return Values(first: 10, second: nil)
+                
+                  default:
+                
+                      return Values(first: self.toRaw(), second: nil)
+                
+                  }
+            
+              }
+        
+          }
+    
+          // BlackjackCard properties and methods
+    
+          let rank: Rank, suit: Suit
+    
+          var description: String {
+        
+              var output = "suit is \(suit.toRaw()),"
+        
+              output += " value is \(rank.values.first)"
+        
+              if let second = rank.values.second {
+            
+                  output += " or \(second)"
+            
+              }
+        
+              return output
+        
+          }
+    
+      }
 
-// nested Suit enumeration
+      let theAceOfSpades = BlackjackCard(rank: .Ace, suit: .Spades)
 
-enum Suit: Character {
+      println("theAceOfSpades: \(theAceOfSpades.description)")
 
-case Spades = "♠", Hearts = "♡", Diamonds = "♢", Clubs = "♣"
+      // prints "theAceOfSpades: suit is ♠, value is 1 or 11
+      ```
 
-}
-
-// nested Rank enumeration
-
-enum Rank: Int {
-
-case Two = 2, Three, Four, Five, Six, Seven, Eight, Nine, Ten
-
-case Jack, Queen, King, Ace
-
-struct Values {
-
-let first: Int, second: Int?
-
-}
-
-var values: Values {
-
-switch self {
-
-case .Ace:
-
-return Values(first: 1, second: 11)
-
-case .Jack, .Queen, .King:
-
-return Values(first: 10, second: nil)
-
-default:
-
-return Values(first: self.toRaw(), second: nil)
-
-}
-
-}
-
-}
-
-// BlackjackCard properties and methods
-
-let rank: Rank, suit: Suit
-
-var description: String {
-
-var output = "suit is \(suit.toRaw()),"
-
-output += " value is \(rank.values.first)"
-
-if let second = rank.values.second {
-
-output += " or \(second)"
-
-}
-
-return output
-
-}
-
-}
-    * let theAceOfSpades = BlackjackCard(rank: .Ace, suit: .Spades)
-
-println("theAceOfSpades: \(theAceOfSpades.description)")
-
-// prints "theAceOfSpades: suit is ♠, value is 1 or 11
 
 ### Referring to Nested Types
 
-  * let heartsSymbol = BlackjackCard.Suit.Hearts.toRaw()  
-  * // heartsSymbol is "♡"
+
+  ```swift
+    * let heartsSymbol = BlackjackCard.Suit.Hearts.toRaw()  
+    * // heartsSymbol is "♡"
+  ```
+
 
 ## Extensions  
 
