@@ -226,6 +226,7 @@ let cat="hello"; println(cat)
       ```
 
     * Rules for combining numeric constants/variables are different than numeric literals
+
       ```swift
       let c = 3 + 0.14 // is fine
       ```
@@ -235,9 +236,8 @@ let cat="hello"; println(cat)
 ### Type Aliases
 
   * Define alternative name for an existing type
-    * typealias keyword
-  * When you wan to refer to an existing type by a name, that is contextually more appropriate
-    * When working with data of a specific size from an external source
+  * When you want to refer to an existing type by a name, that is contextually more appropriate
+  * When working with data of a specific size from an external source
 
     ```swift
     typealias AudioSample = UInt16
@@ -354,22 +354,18 @@ let cat="hello"; println(cat)
 
 ### Assertions
   
-  * Overview 
-    * Some cases, not possible for code to continue, use assertions end code execution, to provide an opportunity to debug
-  * Debugging with Assertions
-    * If your code triggers an assertion while running in a debug environment, such as when build and run an app inXCode, you can see invalid state and query the state of your app at the time the assertion was triggered
+  * Some cases, not possible for code to continue, use assertions end code execution, to provide an opportunity to debug
 
-      ```swift
-      let age = -3
-      assert(age >=0, "A person's age cannot be less than 0)
-      ```
+    ```swift
+    let age = -3
+    assert(age >=0, "A person's age cannot be less than 0)
+    ```
 
   * When to use Assertions
     * An integer subscript index is passed to a custom subscript implementation, but the subscript index value could be too low or too high
     * Value passed to a function, check for invalid value
     * An optional value is currently nil, but a non-nil value is essential for subsequent code to execute
-  * Note
-    * Assertion cause app to terminate, an effective way to check conditions before app is published
+  * Assertion cause app to terminate, an effective way to check conditions before app is published
 
 ## Basic Operators
 
