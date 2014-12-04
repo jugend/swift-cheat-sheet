@@ -71,18 +71,18 @@ Notes taken from [The Swift Programming Language](https://developer.apple.com/li
 
 ### Comments
   
-    ```swift
-    // this is a comment
-    /* multiple lines comment */
-    /* /* nested multilines supported */ */
-    ```
+```swift
+// this is a comment
+/* multiple lines comment */
+/* /* nested multilines supported */ */
+```
 
 ### Semicolons
   
-    ```swift
-    // No semicolon, unless for multiple statements on a single line
-    let cat="hello"; println(cat)
-    ```
+```swift
+// No semicolon, unless for multiple statements on a single line
+let cat="hello"; println(cat)
+```
 
 ### Integers
   
