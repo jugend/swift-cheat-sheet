@@ -1,7 +1,7 @@
 
 ## Introduction
 
-Notes taken reading [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) by Apple Inc.
+Notes taken from [The Swift Programming Language] (https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-XID_467) by Apple Inc.
 
 Still a work in progress, there are still some formatting and typo errors, will fix them soon.
 
@@ -43,7 +43,7 @@ Still a work in progress, there are still some formatting and typo errors, will 
       ```swift
       let π = 3.14159
       let 你好 = "你好世界"
-      let 🐶🐮 = "dogcow"
+      let  = "dogcow"
       ```
 
     * If const/var is reserved Swift keyword, surround with back ticks (\`), avoid if you can
@@ -1693,9 +1693,9 @@ Still a work in progress, there are still some formatting and typo errors, will 
 
       ```swift
       let someStruct = SomeStruct(x: 0, y: 0)
+      someStruct.x = 12 // compile-error
       ```
 
-      * someStruct.x = 12 // compile-error
   * Lazy Stored Properties
     * Property whose initial value is not calculated until the first time it is used
     * Use 'lazy' modifier before its declaration
@@ -1811,7 +1811,7 @@ Still a work in progress, there are still some formatting and typo errors, will 
           didSet { if totalSteps > oldValue { ... } }  
         }  
       }
-      ```****
+      ```
 
 ### Global and Local Variables
 
@@ -1833,58 +1833,40 @@ Still a work in progress, there are still some formatting and typo errors, will 
   * Type Property Syntax
     * In C and Obj-C, you define static constants and variables associated with a type as global static variables
     * In Swift type properties are written as part of type's definition, with "**static**" keyword for value types, and and "**class**" for class types.
-    * Example:
 
       ```swift
-      struct SomeStructure {  
+      struct SomeStructure {
+        
+        static var storedTypeProperty = "Some value."
+        static var computedTypeProperty: Int {
+            // return an Int value here
+        }
+      }
+
+      enum SomeEnumeration {
+        static var storedTypeProperty = "Some value."
+        static var computedTypeProperty: Int {
+            // return an Int value here
+        }
+      }
+      
+      class SomeClass {  
+        class var computedTypeProperty: Int {  
+            // return an Int value here  
+        }  
+      }
       ```
 
-static var storedTypeProperty = "Some value."  
-static var computedTypeProperty: Int {  
-// return an Int value here  
-}  
-}  
-enum SomeEnumeration {  
-static var storedTypeProperty = "Some value."  
-static var computedTypeProperty: Int {  
-// return an Int value here  
-}  
-}  
-class SomeClass {  
-class var computedTypeProperty: Int {  
-// return an Int value here  
-}  
-}
     * The computed type property are for read-only, but you can define read-write computed type properties with the same syntax for computed instance properties
   * Querying and Setting Type Properties
-    * Example:
-      * println(SomeClass.computedTypeProperty)  
-// prints "42"  
   
-println(SomeStructure.storedTypeProperty)  
-// prints "Some value."  
-SomeStructure.storedTypeProperty = "Another value.  
+    ```swift
+    println(SomeClass.computedTypeProperty)    // prints "42"  
+    println(SomeStructure.storedTypeProperty)  // prints "Some value."  
+    SomeStructure.storedTypeProperty = "Another value.  
+    ```
+
     * Setting type property
-
-      ```swift
-      struct AudioChannel {  
-      ```
-
-static let thresholdLevel = 10  
-static var maxInputLevelForAllChannels = 0  
-var currentLevel: Int = 0 {  
-didSet {  
-if currentLevel > AudioChannel.thresholdLevel {  
-// cap the new audio level to the threshold level  
-currentLevel = AudioChannel.thresholdLevel  
-}  
-if currentLevel > AudioChannel.maxInputLevelForAllChannels {  
-// store this as the new overall maximum input level  
-AudioChannel.maxInputLevelForAllChannels = currentLevel  
-}  
-}  
-}  
-}  
 
 ## Methods  
 
@@ -1896,18 +1878,20 @@ AudioChannel.maxInputLevelForAllChannels = currentLevel
 
 ### Instance Methods
 
-  * class Counter {  
-var count = 0  
-func increment() {  
-count++  
+```swift
+class Counter {
+    var count = 0
+    func increment() {
+        count++
+    }
+    func incrementBy(amount: Int) {
+        count += amount
+    }
+    func reset() {
+        count = 0  
+    }  
 }  
-func incrementBy(amount: Int) {  
-count += amount  
-}  
-func reset() {  
-count = 0  
-}  
-}  
+```
   * Local and External Parameter Names for Methods
     * Function params can have both local and external name, same wit method parameters
       * Methods are just functions associated with a type
@@ -1947,90 +1931,103 @@ count = 0
     * Structures and enumeration are value types, which properties of a value type cannot be modified from within its instance methods.
     * You can opt-in to mutating behaviour for that method, the method can also assign a completely new instance to its implicit self property 
     * Use "mutating" keyword before the "func" for the method:
-      * struct Point {  
-var x = 0.0, y = 0.0  
-mutating func moveByX(deltaX: Double, y deltaY: Double) {  
-x += deltaX  
-y += deltaY  
-}  
-}  
-var somePoint = Point(x: 1.0, y: 1.0)  
-somePoint.moveByX(2.0, y: 3.0)
+
+      ```swift
+      struct Point {  
+        var x = 0.0, y = 0.0  
+        mutating func moveByX(deltaX: Double, y deltaY: Double) {  
+          x += deltaX  
+          y += deltaY  
+        }  
+      }
+        
+      var somePoint = Point(x: 1.0, y: 1.0)  
+      somePoint.moveByX(2.0, y: 3.0)
+      ```
+
     * Note that you cannot call a mutating method on a constant structure
 
       ```swift
       let fixedPoint = Point(x: 3.0, y: 3.0)  
+      fixedPoint.moveByX(2.0, y: 3.0) // this will report an error  
       ```
 
-fixedPoint.moveByX(2.0, y: 3.0)
-      * // this will report an error  
   * Assigning to self Within a Mutating Method
-    * Example:
 
       ```swift
       struct Point {  
+        var x = 0.0, y = 0.0  
+        mutating func moveByX(deltaX: Double, y deltaY: Double) {  
+          self = Point(x: x + deltaX, y: y + deltaY)  
+        }  
+      }
       ```
-
-var x = 0.0, y = 0.0  
-mutating func moveByX(deltaX: Double, y deltaY: Double) {  
-self = Point(x: x + deltaX, y: y + deltaY)  
-}  
-}  
+      
     * Mutating methods for enumerations can set the self to a different member of the same enumeration
 
       ```swift
-      enum TriStateSwitch {  
+      enum TriStateSwitch {
+        
+        case Off, Low, High
+        mutating func next() {
+            switch self {
+            case Off:
+                self = Low
+            case Low:
+                self = High
+            case High:
+                self = Off
+            }
+        }
+      }
+      var ovenLight = TriStateSwitch.Low  
+      ovenLight.next()  
+      // ovenLight is now equal to .High  
+      ovenLight.next()  
+      // ovenLight is now equal to .Off"
       ```
-
-case Off, Low, High  
-mutating func next() {  
-switch self {  
-case Off:  
-self = Low  
-case Low:  
-self = High  
-case High:  
-self = Off  
-}  
-}  
-}  
-var ovenLight = TriStateSwitch.Low  
-ovenLight.next()  
-// ovenLight is now equal to .High  
-ovenLight.next()  
-// ovenLight is now equal to .Off"
 
 ### Type Methods
 
   * You indicate type methods for classes by writing the keyword "class" before the method's fund keyword, and type methods for structures and enumerations by writing the keyword "static" before the method's fund keyword
   * In Obj-C type methods only for classes, in Swift for all classes, structures, and enumerations.
-  * Example:
-    * class SomeClass {  
-class func someTypeMethod() {  
-// type method implementation goes here  
-}  
-}  
-SomeClass.someTypeMethod()  
+
+    ```swift
+    class SomeClass {  
+      class func someTypeMethod() {  
+        // type method implementation goes here  
+      }  
+    }
+  
+    SomeClass.someTypeMethod()  
+    ```
+
   * self refers to type itself
   * Accessing type methods from the same scope, doesn't require a self:
-    * struct LevelTracker {  
-static var highestUnlockedLevel = 1  
-static func unlockLevel(level: Int) {  
-if level > highestUnlockedLevel { highestUnlockedLevel = level }  
-}  
-static func levelIsUnlocked(level: Int) -> Bool {  
-return level <= highestUnlockedLevel  
-}  
-var currentLevel = 1  
-mutating func advanceToLevel(level: Int) -> Bool {  
-if LevelTracker.levelIsUnlocked(level) {  
-currentLevel = level  
-return true  
-} else {  
-return false  
-}  
-}  
-}
+
+    ```swift
+    struct LevelTracker {
+        static var highestUnlockedLevel = 1
+        
+        static func unlockLevel(level: Int) {
+            if level > highestUnlockedLevel { highestUnlockedLevel = level }
+        }
+        
+        static func levelIsUnlocked(level: Int) -> Bool {
+            return level <= highestUnlockedLevel
+        }
+        
+        var currentLevel = 1
+        mutating func advanceToLevel(level: Int) -> Bool {
+            if LevelTracker.levelIsUnlocked(level) {
+                currentLevel = level
+                return true  
+            } else {  
+                return false  
+            }  
+        }  
+    }
+    ```
 
 ## Subscripts
 
@@ -2048,45 +2045,50 @@ return false
 ### Subscript Syntax
 
   * Similar to instance methods, but can be read-write or read-only
-    * subscript(index: Int) -> Int {  
-get {  
-// return an appropriate subscript value here  
-}  
-set(newValue) {  
-// perform a suitable setting action here  
-}  
-}  
+
+    ```swift
+    subscript(index: Int) -> Int {
+        get {
+            // return an appropriate subscript value here
+        }
+        set(newValue) {
+            // perform a suitable setting action here
+        }  
+    }
+    ```
+
     * As with read-only computed properties, you can drop the get keyword:
 
       ```swift
-      subscript(index: Int) -> Int {  
+      subscript(index: Int) -> Int {
+          // return an appropriate subscript value here
+      }
+      
+      struct TimesTable {
+          let multiplier: Int
+          subscript(index: Int) -> Int {
+              return multiplier * index
+          }
+      }
+      
+      let threeTimesTable = TimesTable(multiplier: 3)
+      println("six times three is \(threeTimesTable[6])") // prints "six times three is 18
       ```
-
-// return an appropriate subscript value here  
-}  
-  * Example:  
-    * struct TimesTable {  
-let multiplier: Int  
-subscript(index: Int) -> Int {  
-return multiplier * index  
-}  
-}  
-let threeTimesTable = TimesTable(multiplier: 3)  
-    * println("six times three is \(threeTimesTable[6])")  
-// prints "six times three is 18  
 
 ### Subscript Usage
 
   * Exact meaning of "subscript" depends on the context which it is used
-  * Example:  
-    * var numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]  
-numberOfLegs["bird"] = 2  
+
+    ```swift
+    var numberOfLegs = ["spider": 8, "ant": 6, "cat": 4]  
+    numberOfLegs["bird"] = 2  
+    ```
+
     * Dictionary type implements its key-value subscripting, takes and receives an optional type
 
       ```swift
       numberofLegs["bird"] returns a value of type Int?
       ```
-
 
 ### Subscript Options
 
@@ -2096,29 +2098,31 @@ numberOfLegs["bird"] = 2
     * No in-out params or default parameter values
   * There could be more than one subscript implementations, which subscript to used will be inferred based on the type s of the value or values that are contained in subscript braces, i.e. subscript overloading
   * Support multiple parameters
-  * Example:
-    * struct Matrix {  
-let rows: Int, columns: Int  
-var grid: [Double]  
-init(rows: Int, columns: Int) {  
-self.rows = rows  
-self.columns = columns  
-grid = Array(count: rows * columns, repeatedValue: 0.0)  
-}  
-func indexIsValidForRow(row: Int, column: Int) -> Bool {  
-return row >= 0 && row < rows && column >= 0 && column < columns  
-}  
-subscript(row: Int, column: Int) -> Double {  
-get {  
-assert(indexIsValidForRow(row, column: column), "Index out of range")  
-return grid[(row * columns) + column]  
-}  
-set {  
-assert(indexIsValidForRow(row, column: column), "Index out of range")  
-grid[(row * columns) + column] = newValue  
-}  
-}  
-}
+
+    ```swift
+    struct Matrix {
+        let rows: Int, columns: Int
+        var grid: [Double]
+        init(rows: Int, columns: Int) {
+            self.rows = rows
+            self.columns = columns
+            grid = Array(count: rows * columns, repeatedValue: 0.0)
+        }
+        func indexIsValidForRow(row: Int, column: Int) -> Bool {
+            return row >= 0 && row < rows && column >= 0 && column < columns
+        }
+        subscript(row: Int, column: Int) -> Double {
+            get {
+                assert(indexIsValidForRow(row, column: column), "Index out of range")
+                return grid[(row * columns) + column]
+            }
+            set {
+                assert(indexIsValidForRow(row, column: column), "Index out of range")
+                grid[(row * columns) + column] = newValue  
+            }  
+        }  
+    }
+    ```
 
 ## Inheritance
 
@@ -2132,24 +2136,29 @@ grid[(row * columns) + column] = newValue
   * Any class that does not inherit from another class is known s base class
   * Swift classes do not inherit from a universal base class
   * Classes you define without a superclass, are base classes.
-  * Example:
-    * class Vehicle {  
-var currentSpeed = 0.0  
-var description: String {  
-return "traveling at \(currentSpeed) miles per hour"  
-}  
-func makeNoise() {  
-// do nothing - an arbitrary vehicle doesn't necessarily make a noise  
-}  
-}  
-    * let someVehicle = Vehicle()
-    * someVehicle.description
+
+    ```swift
+    class Vehicle {
+        var currentSpeed = 0.0
+        var description: String {
+            return "traveling at \(currentSpeed) miles per hour"
+        }
+        func makeNoise() {
+            // do nothing - an arbitrary vehicle doesn't necessarily make a noise
+        }
+    }
+  
+    let someVehicle = Vehicle()
+    someVehicle.description
+    ```
 
 ### Subclassing
 
   * Extending a new class based on an existing class
-  * Example:
-    * class SomeSubclass: SomeSuperClass { ...}
+
+    ```swift
+    class SomeSubclass: SomeSuperClass { ...}
+    ```
 
 ### Overriding
 
@@ -2158,11 +2167,15 @@ func makeNoise() {
   * Accessing superclass Methods, Properties, and Subscripts
     * super.someMethod, super.someProperty, super[someIndex]
   * Overriding methods
-    * class Train: Vehicle {  
-override func makeNoise() {  
-println("Choo Choo")  
-}  
-}  
+
+    ```swift
+    class Train: Vehicle {
+        override func makeNoise() {
+            println("Choo Choo")
+        }  
+    }
+    ```
+  
   * Overring properties
     * To provide your own implementation or to add property observer
   * Overriding property Getters and Setters
@@ -2171,17 +2184,16 @@ println("Choo Choo")
     * Note
       * If you provide a setter, you need to provide the getter as well
       * If you don't want to modify the inherited property's value within the overriding getter, just return the super class value, i.e. super.someProperty
-    * Example:
 
       ```swift
       class Car: Vehicle {  
+        var gear = 1  
+        override var description: String {  
+          return super.description + " in gear \(gear)"  
+        }  
+      }
       ```
 
-var gear = 1  
-override var description: String {  
-return super.description + " in gear \(gear)"  
-}  
-}  
   * Overriding property Observers
     * Override the property to add the observers
     * Note
@@ -2192,14 +2204,13 @@ return super.description + " in gear \(gear)"
 
       ```swift
       class AutomaticCar: Car {  
+        override var currentSpeed: Double {  
+          didSet {  
+            gear = Int(currentSpeed / 10.0) + 1  
+          }  
+        }  
+      }  
       ```
-
-override var currentSpeed: Double {  
-didSet {  
-gear = Int(currentSpeed / 10.0) + 1  
-}  
-}  
-}  
 
 ### Preventing Overrides
 
@@ -2219,93 +2230,97 @@ gear = Int(currentSpeed / 10.0) + 1
   * Note
     * When you assign the default value to a stored property, or sets the initial value within the initializers, the property is set directly without calling property observers.
   * Initializers
-    * init() {  
-// perform some initialization here  
-}  
-    * Example:
+    
+    ```swift
+    init() {  
+      // perform some initialization here  
+    }
+    
+    struct Fahrenheit {  
+      var temperature: Double  
 
-      ```swift
-      struct Fahrenheit {  
-      ```
-
-var temperature: Double  
-init() {  
-temperature = 32.0  
-}  
-}
+      init() {  
+        temperature = 32.0  
+      }  
+    }
+    ```
 
 ### Customizing Initialization
 
-  * **Initialization Parameters**
-    * Example:
-      * struct Celsius {  
-var temperatureInCelsius: Double  
-init(fromFahrenheit fahrenheit: Double) {  
-temperatureInCelsius = (fahrenheit - 32.0) / 1.8  
-}  
-init(fromKelvin kelvin: Double) {  
-temperatureInCelsius = kelvin - 273.15  
-}  
-}  
-let boilingPointOfWater = Celsius(fromFahrenheit: 212.0)  
-// boilingPointOfWater.temperatureInCelsius is 100.0  
-let freezingPointOfWater = Celsius(fromKelvin: 273.15)  
-// freezingPointOfWater.temperatureInCelsius is 0.0"  
-  * **Local & External Parameter Names**
+  * Initialization Parameters
+  
+    ```swift
+    struct Celsius {
+        var temperatureInCelsius: Double
+        init(fromFahrenheit fahrenheit: Double) {
+            temperatureInCelsius = (fahrenheit - 32.0) / 1.8
+        }
+        init(fromKelvin kelvin: Double) {
+            temperatureInCelsius = kelvin - 273.15
+        }
+    }
+    let boilingPointOfWater = Celsius(fromFahrenheit: 212.0)
+    // boilingPointOfWater.temperatureInCelsius is 100.0
+    let freezingPointOfWater = Celsius(fromKelvin: 273.15)
+    // freezingPointOfWater.temperatureInCelsius is 0.0"
+    ```
+
+  * Local & External Parameter Names
     * Initializers do not have an identifying function name, thus the names and types of an init parameters play an important role identifying which init to call.
     * Swift provide an automatic external name to be the same with the local name
-    * Example:
 
       ```swift
       struct Color {  
+
+        let red, green, blue: Double  
+        init(red: Double, green: Double, blue: Double) {  
+          self.red   = red  
+          self.green = green  
+          self.blue  = blue  
+        }  
+
+        init(white: Double) {  
+          red   = white  
+          green = white  
+          blue  = white  
+        }  
+      } 
+      
+      let magenta = Color(red: 1.0, green: 0.0, blue: 1.0)   
+      let halfGray = Color(white: 0.5)  // without external name will trigger an error
+  * **Initializer Parameters Without External Names
       ```
 
-let red, green, blue: Double  
-init(red: Double, green: Double, blue: Double) {  
-self.red   = red  
-self.green = green  
-self.blue  = blue  
-}  
-init(white: Double) {  
-red   = white  
-green = white  
-blue  = white  
-}  
-}  
-      * let magenta = Color(red: 1.0, green: 0.0, blue: 1.0)  
-let halfGray = Color(white: 0.5)  
-      * // without external name will trigger an error
-  * **Initializer Parameters Without External Names**
     * Use "_" as the external name
-    * Example:
 
       ```swift
-      init(_ celsius: Double) {  
+      init(_ celsius: Double) {
+        temperatureInCelsius = celsius  
+      }  
+      Celcius(37.0)
       ```
 
-temperatureInCelsius = celsius  
-}  
-      * Celcius(37.0)
-  * **Optional Property Types**
+  * Optional Property Types
     * Optional property types are automatically initialised with a value of nil
-    * Example:
 
       ```swift
-      "class SurveyQuestion {  
+      class SurveyQuestion {
+
+          var text: String
+          var response: String?
+          init(text: String) {
+              self.text = text
+          }
+          func ask() {
+              println(text)
+          }
+      }
+      
+      let cheeseQuestion = SurveyQuestion(text: "Do you like cheese?")
+      cheeseQuestion.ask()
+      cheeseQuestion.response = "Yes, I do like cheese."
       ```
 
-var text: String  
-var response: String?  
-init(text: String) {  
-self.text = text  
-}  
-func ask() {  
-println(text)  
-}  
-}  
-let cheeseQuestion = SurveyQuestion(text: "Do you like cheese?")  
-cheeseQuestion.ask()  
-      * cheeseQuestion.response = "Yes, I do like cheese.  
   * **Modifying Constant Properties during Initialization**
     * You can modify the value of a constant property during initialisation
     * Can only be modified in class init, not sub-class init.
@@ -2313,26 +2328,24 @@ cheeseQuestion.ask()
 ### Default Initializers
 
   * If no init is provided, Swift provide default init, optional parameters will be set to nil, example:
-    * class ShoppingListItem {
 
-var name: String?
+    ```swift
+    class ShoppingListItem {
+      var name: String?
+      var quantity = 1
+      var purchased = false
+    }
 
-var quantity = 1
+    var item = ShoppingListItem()
+    ```
 
-var purchased = false
-
-}
-
-var item = ShoppingListItem()
   * Memberwise Initialisers for Structure Types
     * Structure types automatically receive a member wise initialiser if there is no custom initialisers
     * Memberwise initializer is a shorthand way to initialise the member properties of new structure instances
     * Initial values can be passed to the init by name
-    * Example:
 
       ```swift
       struct Size {  
-      ```
 
 var width = 0.0, height = 0.0  
 }  
@@ -2344,32 +2357,34 @@ let twoByTwo = Size(width: 2.0, height: 2.0)
     * Value types (structures and enumerations) do not support inheritance, so their initialiser delegation process is relatively simple, they can only delegate to another initialiser, class has superclass.
   * self.init can only be called within an initialiser
   * If custom initialiser is defined, you won't have access to the default initialiser
-  * Example:
-    * struct Size {  
-var width = 0.0, height = 0.0  
-}  
-struct Point {  
-var x = 0.0, y = 0.0  
-}  
-    * struct Rect {  
-var origin = Point()  
-var size = Size()  
-init() {}  
-init(origin: Point, size: Size) {  
-self.origin = origin  
-self.size = size  
-}  
-init(center: Point, size: Size) {  
-let originX = center.x - (size.width / 2)  
-let originY = center.y - (size.height / 2)  
-self.init(origin: Point(x: originX, y: originY), size: size)  
-}  
-}  
-    * let basicRect = Rect()  
-// basicRect's origin is (0.0, 0.0) and its size is (0.0, 0.0)  
-    * let originRect = Rect(origin: Point(x: 2.0, y: 2.0),  
-size: Size(width: 5.0, height: 5.0))  
-// originRect's origin is (2.0, 2.0) and its size is (5.0, 5.0)
+  
+    ```**swift**
+    struct Size {
+        var width = 0.0, height = 0.0
+    }
+    struct Point {
+        var x = 0.0, y = 0.0
+    }
+    struct Rect {
+        var origin = Point()
+        var size = Size()
+        init() {}
+        init(origin: Point, size: Size) {
+            self.origin = origin
+            self.size = size
+        }
+        init(center: Point, size: Size) {
+            let originX = center.x - (size.width / 2)
+            let originY = center.y - (size.height / 2)
+            self.init(origin: Point(x: originX, y: originY), size: size)
+        }  
+    }
+    
+    let basicRect = Rect()              // basicRect's origin is (0.0, 0.0) and its size is (0.0, 0.0)  
+    let originRect = Rect(origin: Point(x: 2.0, y: 2.0),  
+size: Size(width: 5.0, height: 5.0))   // originRect's origin is (2.0, 2.0) and its size is (5.0, 5.0)
+    ```
+
   * Note 
     * For an alternative way to write this example without defining the init() and init(origin:size:) initializers yourself, see Extensions.  
 
@@ -2439,20 +2454,22 @@ size: Size(width: 5.0, height: 5.0))
     * Example:
 
       ```swift
-      class Vehicle {  
-      ```
+      class Vehicle {
+        
+        var numberOfWheels = 0
+        var description: String {
+            return "\(numberOfWheels) wheel(s)"
+        }
+      }
+      
+      class Bicycle: Vehicle {
+        override init() {
+            super.init()  
+            numberOfWheels = 2  
+        }  
+      }
+      ```  
 
-var numberOfWheels = 0  
-var description: String {  
-return "\(numberOfWheels) wheel(s)"  
-}  
-}  
-      * class Bicycle: Vehicle {  
-override init() {  
-super.init()  
-numberOfWheels = 2  
-}  
-}  
     * Note
       * Subclasses are only allowed to modify variable superclass properties during initialisation. Subclasses cannot modify inherited constant properties.
   * Automatic Init Inheritance  
@@ -4415,268 +4432,7 @@ public init() {}
   * Note
     * This rule also applies to type aliases for associated types used to satisfy protocol conformances
 
-## Advanced Operators
-
-### Overview
-
-  * Bitwise & bit shifting operators
-  * Unlike arithmetic operators in C, operators in Swift do not overflow by default
-  * Overflow behaviour is trapped and reported as an error
-  * To optin to overflow behaviour, use Swift's second set of arithmetic operators by default, such as: the overflow addition operator (&+). All those overflow operators begin with &.
-  * When you define your own structures, provide you down implementation of the standard Swift operators for these custom types
-    * You can also define your own custom infix, prefix, postfix and assignment operators, with custom precedence and associativity values
-
-### Bitwise Operators
-
-  * Enable you to manipulate the individual raw data bits within a data structure
-  * Often use din low-level programming, such as graphics and device driver creation
-  * Useful when you work with raw data from external sources, such as encoding and decoding data for communication over custom protocol
-  * Swift supports all the bitwise operators found in C
-
-### Bitwise NOT Operator
-
-  * ~ - Inverts all bits in a number
-  * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/BA53726D-D6CB-405E-BA0C-864E575D99F5.png)  
-  * Example:
-    * let initialBits: UInt8 = 0b00001111  
-let invertedBits = ~initialBits  // equals 11110000  
-
-### Bitwise AND Operator
-
-  * & - Combines the bits of two numbers, set to 1 only if the bits were equal to 1 in both input numbers
-  * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/DBF8AF63-3F74-45BC-B017-B0F74E433D94.png)  
-  * Example:
-    * let firstSixBits: UInt8 = 0b11111100  
-let lastSixBits: UInt8  = 0b00111111  
-let middleFourBits = firstSixBits & lastSixBits  // equals 00111100  
-
-### Bitwise OR Operator
-
-  * | - Compares bits of two numbers, return a new number whose bits are set to 1 if the bits are either equal to 1 in either input number:
-    * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/A16C631B-2827-443F-8BD5-B6B233597039.png)  
-  * Example:
-    * let someBits: UInt8 = 0b10110010  
-let moreBits: UInt8 = 0b01011110  
-let combinedbits = someBits | moreBits  // equals 11111110  
-
-### Bitwise XOR Operator
-
-  * ^ - bits are set to 1 where input bits are different and are set to 0 if the same:
-  * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/24D79AE3-0B24-47EA-8787-63C1F901D953.png)  
-  * Example:
-    * let firstBits: UInt8 = 0b00010100  
-let otherBits: UInt8 = 0b00000101  
-let outputBits = firstBits ^ otherBits  // equals 00010001  
-
-### Bitwise Left and Right Shift Operators
-
-  * Move the bits in a number to the left (<<) or right (>>) by certain number according to the rules defined
-  * Have the effect of multiplying or dividing an integer number by a factor of two
-    * Shifting to the left by one position doubles its value, and vice versa
-  * **Shifting Behavior for Unsigned Integer**
-    * Existing bits are moved to the left or right by the requested number of places
-    * Any bits that are moved beyond the bounds are discard
-    * Zeros are inserted in the space left behind after the original bits are  over
-    * Example:
-      * 1111111 << 1 and 11111111 >> 1
-      * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/EE31C084-F829-4AF9-830A-C60247DCE291.png)  
-      * let shiftBits: UInt8 = 4   // 00000100 in binary  
-shiftBits << 1             // 00001000  
-shiftBits << 2             // 00010000  
-shiftBits << 5             // 10000000  
-shiftBits << 6             // 00000000  
-shiftBits >> 2             // 00000001  
-      * let pink: UInt32 = 0xCC6699  
-let redComponent = (pink & 0xFF0000) >> 16    // redComponent is 0xCC, or 204  
-let greenComponent = (pink & 0x00FF00) >> 8   // greenComponent is 0x66, or 102  
-let blueComponent = pink & 0x0000FF           // blueComponent is 0x99, or 153"  
-  * **Shifting Behavior for Signed Integers**
-    * More complex for signed integers, because the way signed integers are represented in binary
-    * Examples below are based o 8-bit signed integers for simplicity, same principles apply
-    * Signed int use their first bit to indicate the sign, 0 = positive, 1 = negative
-    * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/8FD3DB0A-C42F-4244-BDD4-F891177281E0.png)  
-    * Negative values are store differently, they are stored by subtracting their absolute value from 2 to the power or n, where n is the value of bits. An 8-bit number has 7 value bits, 2 to the power of 7 = 128
-    * Example of Int8 for -4:
-      * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/0DE11A04-EBF1-4240-87BC-BE84EC82325D.png)  
-    * The encoding for negative numbers is known as two's complement representation, may seem unusual but has advantages:
-      * First, you can add -1 to -4, simply by performing a standard binary addition of all eight bits (including the sign bit), and discarding anything that doesn't fit into the eight bits once you are done
-      * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/2491C8E9-3A04-4979-A9E4-8F1DA33EB3E0.png)
-      * Second, the two's complement representation lets you shift the bits of negative numbers to the left an fright like positive numbers, and still end up doubling them for every shift you make to the left or halving them the other way
-        * Same rule, but fill empty bits on the left with sign bit rather than with 0
-        * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/751CD2CE-C830-4E51-A0E5-F55BF87F3F85.png)  
-        * Ensures signed ingeters have the same sign after they are shiften to the right, known as arithmetic shift
-      * Shifting to the right moves closer to 0 for signed and unsigned
-
-### Overflow Operators
-
-  * If you try to insert a number into an integer constant or variable that cannot hold that value, by default Swift reports an error rather than allowing the value to be created.
-  * Example:
-    * var potentialOverflow = Int16.max  
-// potentialOverflow equals 32767, which is the largest value an Int16 can hold  
-potentialOverflow += 1  
-// this causes an error  
-  * When you want an overflow condition to truncate the number of available bits, you can opt in to this behaviour with:
-    * Overflow addition (&+)  
-Overflow subtraction (&-)  
-Overflow multiplication (&*)  
-Overflow division (&/)  
-Overflow remainder (&%)  
-  * **Value Overflow**
-    * var willOverflow = UInt8.max  
-// willOverflow equals 255, which is the largest value a UInt8 can hold  
-willOverflow = willOverflow &+ 1  
-// willOverflow is now equal to 0  
-    * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/F1B6C3BF-6098-407E-BFA6-BE79A0ACD61D.png)  
-  * **Value Underflow**
-    * Numbers can also be too small to fit in their type's maximum bounds.
-    * The smallest value that Uint hold is 0 (000000 in 8-bit). Substract 1 from 00000000 using the overflow subtraction operator, the number will overflow back round to 1111111 or 255 in decimal:
-    * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/E1C3083D-387D-49AB-88B6-7D7EC63CEE5F.png)  
-    * Example:
-      * var willUnderflow = UInt8.min  
-// willUnderflow equals 0, which is the smallest value a UInt8 can hold  
-willUnderflow = willUnderflow &- 1  
-// willUnderflow is now equal to 255  
-    * For signed integers
-      * ![](iOS%3A%20Swift%20Programming%20(iBook).resources/B9F8C191-9BD6-4339-AC3F-6C618C4E568C.png)  
-      * var signedUnderflow = Int8.min  
-// signedUnderflow equals -128, which is the smallest value an Int8 can hold  
-signedUnderflow = signedUnderflow &- 1  
-// signedUnderflow is now equal to 127  
-    * Division by Zero, causes error
-      * let x = 1  
-let y = x / 0  
-    * Overflow version:  
-      * let x = 1  
-let y = x &/ 0  
-// y is equal to 0  
-  * **Precedence and Associativity**
-    * Operator precedence gives some operators higher priority than others
-    * Operator associativity defines how operators of the same precedence grouped together (or associated) either grouped from the left or grouped from the right
-    * Example:
-      * 2 + 3 * 4 % 5 // 4
-    * In swift as in C, the precedence, *, %, have higher precedence than +
-      * Multiplication and remainder have the same precedence of each other
-      * But both associate the expression to their left
-      * 2 + ((3 * 4) % 5)
-      * More info the Language Reference > Expressions
-    * Note
-      * Swift's operator precedences and associativity rules are simpler and more predictable than in C and Obj-C
-
-### Operator Functions
-
-  * Classes & structures can overload existing operators
-  * Example +, binary operator (two targets) & infix (appears in between those two targets)
-  * Example:
-    * struct Vector2D {  
-var x = 0.0, y = 0.0  
-}  
-func + (left: Vector2D, right: Vector2D) -> Vector2D {  
-return Vector2D(x: left.x + right.x, y: left.y + right.y)  
-}  
-    * let vector = Vector2D(x: 3.0, y: 1.0)  
-let anotherVector = Vector2D(x: 2.0, y: 4.0)  
-let combinedVector = vector + anotherVector  
-// combinedVector is a Vector2D instance with values of (5.0, 5.0)
-  * **Prefix and Postfix Operators**
-    * Classes and structures also provide the unary operators, on a single target:
-      * prefix, -a
-      * postfix i++
-    * Example:
-      * prefix func - (vector: Vector2D) -> Vector2D {
-      * return Vector2D(x: -vector.x, y: -vector.y)
-      * }
-      * let positive = Vector2D(x: 3.0, y: 4.0)  
-let negative = -positive  
-// negative is a Vector2D instance with values of (-3.0, -4.0)  
-let alsoPositive = -negative  
-// alsoPositive is a Vector2D instance with values of (3.0, 4.0)
-  * **Compound Assignment Operators**
-    * Combine assignment (=) with another operation
-    * Example:
-      * +=
-    * Mark acompout operator as inout, because the parameter's value will be modified directly from within the operator function
-    * Example:
-      * func += (inout left: Vector2D, right: Vector2D) {  
-left = left + right  
-}  
-      * var original = Vector2D(x: 1.0, y: 2.0)  
-let vectorToAdd = Vector2D(x: 3.0, y: 4.0)  
-original += vectorToAdd  
-// original now has values of (4.0, 6.0)  
-    * Combine assignment with either prefix or postfix
-      * prefix func ++ (inout vector: Vector2D) -> Vector2D {  
-vector += Vector2D(x: 1.0, y: 1.0)  
-return vector  
-}  
-      * var toIncrement = Vector2D(x: 3.0, y: 4.0)  
-let afterIncrement = ++toIncrement  
-// toIncrement now has values of (4.0, 5.0)  
-// afterIncrement also has values of (4.0, 5.0)  
-    * Note
-      * Not possible to overload the default assignment (-) and ternary operators
-      * Only compound assignment operators can be overloaded
-  * **Equivalence Operators**
-    * Custom classes and structures do not receive a default implementation of the equivalence operators.
-      * ==
-      * !=
-    * Example:
-      * func == (left: Vector2D, right: Vector2D) -> Bool {  
-return (left.x == right.x) && (left.y == right.y)  
-}  
-func != (left: Vector2D, right: Vector2D) -> Bool {  
-return !(left == right)  
-}
-      * let twoThree = Vector2D(x: 2.0, y: 3.0)  
-let anotherTwoThree = Vector2D(x: 2.0, y: 3.0)  
-if twoThree == anotherTwoThree {  
-println("These two vectors are equivalent.")  
-}  
-// prints "These two vectors are equivalent.
-
-### Custom Operators
-  
-  * Declare your own operators
-  * New operators are declared at a global level using the operator keyword, and marked with prefix, infix or postfix modifiers:
-    * prefix operator +++ {}
-  * Example:
-    * prefix func +++ (inout vector: Vector2D) -> Vector2D {  
-vector += vector  
-return vector  
-}  
-    * var toBeDoubled = Vector2D(x: 1.0, y: 4.0)  
-let afterDoubling = +++toBeDoubled  
-// toBeDoubled now has values of (2.0, 8.0)  
-// afterDoubling also has values of (2.0, 8.0)  
-  * **Precedence and Associativity for Custom Infix Operators**
-    * Custom infix operators can also specify a precedence and associative
-    * Possible values of associativity:
-      * left, right, none
-    * The associativity value default to none
-    * The precedence value defaults to 100 if not specified
-    * Example:
-      * infix operator +- { associativity left precedence 140 }  
-func +- (left: Vector2D, right: Vector2D) -> Vector2D {  
-return Vector2D(x: left.x + right.x, y: left.y - right.y)  
-}  
-let firstVector = Vector2D(x: 1.0, y: 2.0)  
-let secondVector = Vector2D(x: 3.0, y: 4.0)  
-let plusMinusVector = firstVector +- secondVector  
-// plusMinusVector is a Vector2D instance with values of (4.0, -2.0)
-    * Note
-      * You should not specify a precedence when defining a prefix or postfix operator
-      * However if you apply both a prefix and a postfix operator to the same operand, the postfix operator is applied first
-
 ## References
 
-* Swift
-  * [https://developer.apple.com/swift/][0]  
-* Parallel scripting
-  * [http://swift-lang.org/main/][1]
-
-
-
-[0]: https://developer.apple.com/swift/
-[1]: http://swift-lang.org/main/
-[2]: http://self.name
-[3]: http://capitalCity.name
-[4]: http://25.4.mm
+* [The Swift Programming Language](https://developer.apple.com/library/ios/documentation/swift/conceptual/Swift_Programming_Language/index.html#//apple_ref/doc/uid/TP40014097-CH3-XID_0)
+* [Swift - Apple Developer](https://developer.apple.com/swift/)
