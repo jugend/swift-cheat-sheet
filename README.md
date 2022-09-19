@@ -4474,6 +4474,7 @@ func swapTwoValues<T>(inout a: T, inout b: T) {
     * Note
       * This rule apply for stored and computed properties
 
+        ```swift
         struct TrackedString {
             private(set) var numberOfEdits = 0
             var value: String = "" {
@@ -4488,7 +4489,7 @@ func swapTwoValues<T>(inout a: T, inout b: T) {
         stringToEdit.value += " This edit will increment numberOfEdits."
         stringToEdit.value += " So will this one."
         println("The number of edits is \(stringToEdit.numberOfEdits)")
-        // prints "The number of edits is 3"
+        // prints "The number of edits is 3"```
 
       * You can assign explicit access level for both getter and setter if required, e.g. numberOfEdits getter is public and set is private:
 
